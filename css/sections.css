@@ -8,6 +8,10 @@
 @import "./sections/value-block.css";
 @import "./sections/notice.css";
 @import "./sections/top-services.css";
+@import "./sections/flow.css";
+@import "./sections/column.css";
+@import "./sections/about-links.css";
+@import "./sections/case.css";
 @import "./sections/common.css";
 
 /* (optional) keep adding more section imports here */

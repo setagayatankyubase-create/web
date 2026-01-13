@@ -1,0 +1,96 @@
+/* ========================================
+   Case Section (制作実績)
+   ======================================== */
+
+.case {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 背景装飾の疑似要素 */
+.case::before {
+    content: "";
+    position: absolute;
+    top: -15%;
+    right: -8%;
+    width: 50%;
+    height: 75%;
+    background: rgba(240, 230, 255, 0.10);
+    transform: skewY(-6deg) rotate(-3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.case::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 48%;
+    height: 70%;
+    background: rgba(255, 248, 200, 0.08);
+    transform: skewY(5deg) rotate(3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.case-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: clamp(40px, 6vw, 64px);
+}
+
+.case-coming-soon {
+    text-align: center;
+    padding: clamp(60px, 8vw, 120px) 0;
+    margin-top: clamp(40px, 6vw, 64px);
+}
+
+.case-coming-soon__message {
+    font-size: clamp(16px, 1.8vw, 18px);
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 24px 0;
+}
+
+.case-coming-soon__badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: rgba(0, 0, 0, 0.65);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+    .case::before {
+        transform: none;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 50%;
+        opacity: 0.15;
+    }
+    
+    .case::after {
+        transform: none;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        opacity: 0.12;
+    }
+    
+    .case-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
