@@ -328,6 +328,23 @@
     display: none;
 }
 
+/* page-hero-common内のsection-bg-textの位置調整 */
+.page-hero-common--netyear .section-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(200px, 28vw, 480px);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.02);
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 /* ========================================
    Net Lines (ネットワーク線) - page-hero-common--netyear専用
    ======================================== */
