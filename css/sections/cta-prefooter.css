@@ -1,0 +1,134 @@
+/* ========================================
+   CTA Prefooter (資料ダウンロード・制作実績)
+   ======================================== */
+
+.cta-prefooter {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(64px, 7vw, 88px) 0;
+    background: var(--bg-white);
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* 背景装飾（疑似要素） - common.cssのパターンを使用 */
+.cta-prefooter::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    right: -8%;
+    width: 45%;
+    height: 60%;
+    background: rgba(255, 230, 240, 0.06);
+    transform: skewY(-6deg) rotate(-3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.cta-prefooter::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    left: -8%;
+    width: 45%;
+    height: 60%;
+    background: rgba(220, 240, 255, 0.08);
+    transform: skewY(6deg) rotate(3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.cta-prefooter__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 56px);
+}
+
+.cta-prefooter__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(24px, 3vw, 32px);
+    position: relative;
+    z-index: 2;
+}
+
+/* カードスタイル */
+.cta-card {
+    display: block;
+    background: var(--bg-white);
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: clamp(32px, 3.5vw, 40px);
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    position: relative;
+    min-height: 200px;
+}
+
+.cta-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* ラベル */
+.cta-card__label {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: rgba(0, 0, 0, 0.65);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    display: block;
+}
+
+/* タイトル */
+.cta-card__title {
+    font-size: clamp(22px, 2.6vw, 26px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--black);
+    margin: 0 0 clamp(14px, 1.8vw, 18px) 0;
+    letter-spacing: -0.01em;
+}
+
+/* 説明文 */
+.cta-card__desc {
+    font-size: clamp(14px, 1.5vw, 15px);
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 clamp(32px, 4vw, 40px) 0;
+}
+
+/* 矢印アイコン */
+.cta-card__arrow {
+    position: absolute;
+    right: 20px;
+    bottom: 18px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    line-height: 1;
+}
+
+.cta-card:hover .cta-card__arrow {
+    transform: translateX(4px);
+    opacity: 0.9;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+    .cta-prefooter__grid {
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 3vw, 20px);
+    }
+    
+    .cta-card {
+        min-height: auto;
+    }
+}
