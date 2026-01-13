@@ -12,6 +12,8 @@
 /* セクション共通レイアウト */
 .section {
     padding: 120px 0; /* 統一された余白 */
+    position: relative; /* 背景テキストがそのセクション内にのみ表示されるようにする */
+    overflow: hidden; /* 背景テキストがそのセクション内にのみ表示されるようにする */
 }
 
 @media (max-width: 900px) {
