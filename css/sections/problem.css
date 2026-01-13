@@ -1,0 +1,176 @@
+/* ========================================
+   Problem Section (問題提起セクション)
+   ======================================== */
+
+.problem {
+    background: var(--bg-white);
+    color: var(--black);
+    padding: 120px 0; /* デフォルトのパディング */
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .problem {
+        padding: 80px 0; /* SPでは60px */
+    }
+}
+
+/* 背景装飾の疑似要素 - 右側のグラデーション */
+.problem::before {
+    content: "";
+    position: absolute;
+    top: -15%;
+    right: -8%;
+    width: 50%;
+    height: 75%;
+    background: rgba(255, 243, 200, 0.10);
+    transform: skewY(-5deg) rotate(-3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+}
+
+.problem::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 48%;
+    height: 70%;
+    background: rgba(200, 235, 255, 0.08);
+    transform: skewY(5deg) rotate(3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+}
+
+.problem__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 56px);
+}
+
+/* 見出しエリアのコンテナ */
+.problem__header {
+    max-width: 600px;
+    margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.problem__kicker {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: #9AA0A6; /* グレー系 */
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.problem__title-main {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.25;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+    .problem__title-main {
+        font-size: 28px;
+    }
+}
+
+.problem__lead {
+    font-size: clamp(15px, 1.6vw, 16px);
+    line-height: 1.9;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 clamp(14px, 1.8vw, 18px) 0;
+}
+
+.problem__message {
+    font-size: clamp(13px, 1.4vw, 14px);
+    color: rgba(0, 0, 0, 0.65);
+    margin: 0;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+/* カードグリッド */
+.problem__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 3.5vw, 32px);
+    position: relative;
+    z-index: 2; /* ネット線より上に表示 */
+}
+
+/* カードコンポーネント・再利用UI */
+.problem-card {
+    border: var(--border-default);
+    border-radius: 20px; /* デフォルトは20px */
+    padding: 32px; /* デフォルトは32px */
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); /* デフォルトの影 */
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    position: relative;
+    z-index: 2; /* ネット線より上に表示 */
+}
+
+.problem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08); /* デフォルトのhover影 */
+    border-color: var(--border-strong);
+}
+
+/* 番号ラベル・上部に配置 */
+.problem-card__num {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #2f6bff;
+    margin: 0 0 18px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(47, 107, 255, 0.2);
+    width: fit-content;
+    display: block;
+}
+
+/* 見出し */
+.problem-card__title {
+    font-size: clamp(17px, 1.8vw, 20px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--black);
+    margin: 0 0 clamp(10px, 1.2vw, 14px) 0;
+    letter-spacing: -0.01em;
+}
+
+/* 説明文 */
+.problem-card__desc {
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.65);
+    margin: 0;
+}
+
+/* ========================================
+   Responsive (レスポンシブ)
+   ======================================== */
+
+@media (max-width: 900px) {
+    .problem__cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(20px, 3vw, 28px);
+    }
+}
+
+@media (max-width: 600px) {
+    .problem__cards {
+        grid-template-columns: 1fr;
+        gap: clamp(20px, 3vw, 24px);
+    }
+}
