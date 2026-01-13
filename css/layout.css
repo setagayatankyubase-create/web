@@ -139,6 +139,19 @@
     background: #000;
 }
 
+/* Serviceリンクのホバー時も下線を表示 */
+.gnav-link:hover::after {
+    width: 60%;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.gnav-link.is-active::after {
+    width: 60%;
+    opacity: 1;
+    background: #000;
+}
+
 /* ===== Global Nav Mega Menu (Service) ===== */
 .gnav-item {
     position: static;
@@ -148,125 +161,211 @@
 
 .gnav-item--has-mega {
     position: static;
-    padding-bottom: 10px;
 }
 
 .gnav-link {
     display: inline-flex;
     align-items: center;
+    position: relative;
+    min-width: 0;
+    white-space: nowrap;
 }
 
-/* メガメニュー本体 */
-.mega {
+/* Serviceリンクの下線（他のナビリンクと統一） */
+.gnav-link::after {
+    content: "";
     position: absolute;
     left: 50%;
-    transform: translateX(-50%) translateY(6px);
-    width: 100vw;
-    top: calc(100% - 1px);
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #000;
+    transition: opacity 0.2s ease, width 0s 0.2s;
+    opacity: 0;
+}
+
+/* メガメニュー本体（netyear風 - 位置固定、崩れ防止） */
+.mega {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 1px);
+    width: 100%;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     z-index: 50;
-    padding-top: 10px;
+    padding-top: 0;
+    transform: translateY(0);
+    will-change: opacity, visibility;
+    margin-top: 0;
 }
 
 .gnav-item--has-mega:hover .mega,
 .gnav-item--has-mega.is-open .mega {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
     pointer-events: auto;
 }
 
+/* メガメニューが開いている時もServiceリンクの位置を維持 */
+.gnav-item--has-mega:hover .gnav-link,
+.gnav-item--has-mega.is-open .gnav-link {
+    position: relative;
+    z-index: 51;
+}
+
 .mega__inner {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 32px 40px;
     background: #ffffff;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 40px;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    position: relative;
 }
 
-/* 左カラム（Service Top導線） */
+/* 左カラム（Service Top導線 - netyear風） */
 .mega__left {
     display: flex;
     flex-direction: column;
+    position: relative;
+    padding-right: 32px;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .mega__top-link {
+    display: flex;
+    align-items: center;
+    gap: 0;
     text-decoration: none;
     color: inherit;
     transition: opacity 0.2s ease;
+    padding: 12px 0;
+    position: relative;
 }
 
 .mega__top-link:hover {
-    opacity: 0.7;
+    opacity: 0.8;
+}
+
+/* 円形アイコンと横線（netyear風） */
+.mega__top-link::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2f6bff;
+    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mega__top-link::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    width: 32px;
+    height: 2px;
+    background: #2f6bff;
+    transform: translateY(-50%);
 }
 
 .mega__top-title {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
     color: #111;
-    margin: 0 0 8px 0;
-    line-height: 1.4;
+    margin: 0;
+    line-height: 1.5;
+    padding-left: 60px;
 }
 
 .mega__top-desc {
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.6);
-    line-height: 1.6;
-    margin: 0;
+    display: none;
 }
 
-/* 右カラム（列レイアウト） */
+/* 右カラム（列レイアウト - netyear風） */
 .mega__cols {
     display: grid;
-    grid-template-columns: repeat(3, minmax(180px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    gap: 32px;
 }
 
 .mega__col {
     list-style: none;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
-/* メガメニュー内のリンク */
+/* 各列の前にオレンジの縦線（netyear風） */
+.mega__col::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #ff8c00;
+    border-radius: 2px;
+}
+
+.mega__cols > .mega__col:first-child::before {
+    display: none;
+}
+
+/* メガメニュー内のリンク（netyear風） */
 .mega__link {
     position: relative;
     display: block;
-    padding: 10px 12px 10px 20px;
+    padding: 10px 0;
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.82);
+    color: rgba(0, 0, 0, 0.75);
     font-size: 14px;
     line-height: 1.6;
-    border-radius: 6px;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.mega__link::before {
-    content: "";
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 2px;
-    height: 14px;
-    background: rgba(255, 140, 0, 0.9);
-    border-radius: 2px;
-    opacity: 0.9;
+    transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
 .mega__link:hover,
 .mega__link:focus-visible {
-    background: rgba(0, 0, 0, 0.04);
     color: #000;
+    padding-left: 8px;
     outline: none;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 960px) {
+    .mega__inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px 20px;
+    }
+    
+    .mega__left {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        padding-right: 0;
+        padding-bottom: 24px;
+    }
+    
+    .mega__cols {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .mega__col::before {
+        display: none;
+    }
 }
 
 .header__right {
