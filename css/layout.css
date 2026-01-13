@@ -210,11 +210,14 @@
     pointer-events: auto;
 }
 
-/* メガメニューが開いている時もServiceリンクの位置を維持 */
+/* メガメニューが開いている時もServiceリンクの位置を維持（崩れ防止） */
 .gnav-item--has-mega:hover .gnav-link,
 .gnav-item--has-mega.is-open .gnav-link {
     position: relative;
     z-index: 51;
+    transform: none;
+    margin: 0;
+    padding: 0;
 }
 
 .mega__inner {
