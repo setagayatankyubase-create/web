@@ -5,5 +5,9 @@
 @import "./sections/hero.css";
 @import "./sections/news-top.css";
 @import "./sections/problem.css";
+@import "./sections/value-block.css";
+@import "./sections/notice.css";
+@import "./sections/top-services.css";
+@import "./sections/common.css";
 
 /* (optional) keep adding more section imports here */

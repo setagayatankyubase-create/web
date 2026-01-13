@@ -1,0 +1,116 @@
+/* ========================================
+   Common Section Styles (共通セクションスタイル)
+   ======================================== */
+
+.section--dark {
+    background: var(--black);
+    color: #fff;
+    padding: var(--section-dark) 0;
+}
+
+.section--dark p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 2.2;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: calc(var(--gap) * 0.75);
+}
+
+.section--dark p:last-child {
+    margin-bottom: 0;
+}
+
+.section--dark .h2,
+.section--dark-title {
+    color: #fff;
+    margin-bottom: calc(var(--gap) * 1.5);
+}
+
+.section--dark .h2::before,
+.section--dark-title::before {
+    background: var(--bg-white);
+}
+
+.section--dark-title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    position: relative;
+    padding-left: 40px;
+    letter-spacing: 0.04em;
+}
+
+.section--dark .eyebrow {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.section--muted {
+    background: #f6f7f8;
+    padding: var(--section) 0;
+}
+
+/* 斜めカット */
+.slant-top {
+    position: relative;
+}
+
+.slant-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: white;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.section--dark.slant-top::before {
+    background: var(--black);
+}
+
+.slant-bottom {
+    position: relative;
+}
+
+.slant-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: white;
+    clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.section--dark.slant-bottom::after {
+    background: var(--black);
+}
+
+.about-hero.slant-bottom::after {
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.media-slope {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+.media-slope img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scale(1.05);
+    transition: transform 0.3s var(--ease);
+}
+
+.media-slope:hover img {
+    transform: scale(1.08);
+}

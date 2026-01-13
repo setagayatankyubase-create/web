@@ -1,0 +1,225 @@
+/* ========================================
+   Top Services Section (サービス概要)
+   ======================================== */
+
+.top-services--netyear {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(56px, 8vw, 120px) 0;
+    background: var(--bg-white);
+}
+
+.top-services--netyear .top-services__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 56px);
+    position: relative;
+    z-index: 1;
+}
+
+.top-services--netyear .top-services__head {
+    margin-bottom: clamp(28px, 5vw, 64px);
+}
+
+.top-services--netyear .top-services__kicker {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: #9AA0A6;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.top-services--netyear .top-services__title {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: var(--black);
+}
+
+@media (max-width: 900px) {
+    .top-services--netyear .top-services__title {
+        font-size: 28px;
+    }
+}
+
+.top-services--netyear .top-services__lead {
+    font-size: clamp(15px, 1.6vw, 16px);
+    line-height: 1.9;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    max-width: 56ch;
+}
+
+/* row layout */
+.top-service-row {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(20px, 4vw, 56px);
+    align-items: center;
+    margin-top: clamp(28px, 5vw, 72px);
+}
+
+.top-service-row.row--reverse {
+    grid-template-columns: 0.95fr 1.05fr;
+}
+
+.top-service-row.row--reverse .top-service-row__media {
+    order: 2;
+}
+
+.top-service-row.row--reverse .top-service-row__card {
+    order: 1;
+}
+
+/* media */
+.top-service-row__media {
+    position: relative;
+    z-index: 2;
+}
+
+.top-service-row__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 22px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+}
+
+/* card */
+.top-service-row__card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 26px;
+    padding: clamp(20px, 3vw, 32px);
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    z-index: 2;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+/* number (01/02/03) */
+.top-service-row__num {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    opacity: 0.45;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+/* label / heading / text */
+.top-service-row__label {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    opacity: 0.7;
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+}
+
+.top-service-row__heading {
+    font-size: clamp(22px, 2.4vw, 32px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: var(--black);
+}
+
+.top-service-row__text {
+    margin-top: 12px;
+    line-height: 1.9;
+    opacity: 0.78;
+    max-width: 52ch;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: clamp(14px, 1.6vw, 16px);
+}
+
+/* CTA: bottom aligned */
+.top-service-row__cta {
+    margin-top: auto;
+    padding-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.9;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.22s ease;
+}
+
+.top-service-row__cta span {
+    transition: transform 0.22s ease;
+    font-size: 16px;
+}
+
+.top-service-row__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.08);
+}
+
+.top-service-row__card:hover .top-service-row__cta {
+    opacity: 1;
+}
+
+.top-service-row__card:hover .top-service-row__cta span {
+    transform: translateX(6px);
+}
+
+/* net background: section only, not on cards */
+.top-services--netyear .top-services__net-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.14;
+}
+
+.top-services--netyear .top-services__net-bg .net-lines__svg {
+    width: min(520px, 46vw);
+    height: auto;
+    position: absolute;
+    left: clamp(-40px, -2vw, 0px);
+    top: 20%;
+    animation: netFloat 24s ease-in-out infinite alternate;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+    .top-service-row,
+    .top-service-row.row--reverse {
+        grid-template-columns: 1fr;
+        gap: clamp(24px, 4vw, 40px);
+    }
+    
+    .top-service-row.row--reverse .top-service-row__media,
+    .top-service-row.row--reverse .top-service-row__card {
+        order: initial;
+    }
+    
+    .top-service-row__card {
+        min-height: auto;
+    }
+    
+    .top-services--netyear .top-services__net-bg {
+        opacity: 0.1;
+    }
+}

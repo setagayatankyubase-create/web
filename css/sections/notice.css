@@ -1,0 +1,236 @@
+/* ========================================
+   Notice Section (重要なお知らせ)
+   ======================================== */
+
+.notice .container {
+    position: relative;
+    z-index: 1;
+}
+
+.notice {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(56px, 8vw, 112px) 0;
+    background: var(--bg-white);
+    border-top: 1px solid var(--line);
+}
+
+/* 背景装飾の疑似要素 - Netyear風 */
+.notice::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -15%;
+    width: 65%;
+    height: 85%;
+    background: rgba(255, 250, 240, 0.28);
+    transform: skewY(-8deg) rotate(-5deg);
+    z-index: 0;
+}
+
+.notice::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    right: -10%;
+    width: 55%;
+    height: 75%;
+    background: rgba(230, 245, 255, 0.25);
+    transform: skewY(6deg) rotate(5deg);
+    z-index: 0;
+}
+
+/* ネットワーク線 */
+.notice__net-lines {
+    position: absolute;
+    left: clamp(-40px, -2vw, 0px);
+    top: 20%;
+    width: min(520px, 46vw);
+    height: auto;
+    opacity: 0.14;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.notice__net-lines .net-lines__svg {
+    width: 100%;
+    height: auto;
+    animation: netFloat 24s ease-in-out infinite alternate;
+}
+
+/* 2カラムレイアウト */
+.notice__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(24px, 5vw, 72px);
+    align-items: start;
+}
+
+/* 見出しエリア */
+.notice__copy {
+    position: relative;
+    z-index: 2;
+}
+
+.notice__kicker {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: #9AA0A6;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.notice__title {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--black);
+    margin-top: 0;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+    .notice__title {
+        font-size: 28px;
+    }
+}
+
+.notice__lead {
+    font-size: clamp(15px, 1.6vw, 16px);
+    line-height: 1.9;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    max-width: 42ch;
+}
+
+/* リストエリア */
+.notice__list-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.notice-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.notice-item {
+    display: grid;
+    grid-template-columns: 120px 120px 1fr;
+    gap: clamp(16px, 2.5vw, 24px);
+    align-items: start;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: background 0.2s ease;
+}
+
+.notice-item:last-child {
+    border-bottom: none;
+}
+
+.notice-item:hover {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.notice-item__date {
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+}
+
+.notice-item__tag {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #2f6bff;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.notice-item__title {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+}
+
+.notice-item:hover .notice-item__title {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.notice-item__title[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: 0.7;
+    cursor: default;
+}
+
+.notice-item:hover .notice-item__title[aria-disabled="true"] {
+    text-decoration: none;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+    .notice {
+        padding: clamp(40px, 7vw, 80px) 0;
+    }
+    
+    .notice__inner {
+        grid-template-columns: 1fr;
+        gap: clamp(32px, 5vw, 48px);
+    }
+    
+    .notice__copy {
+        order: 1;
+    }
+    
+    .notice__list-wrapper {
+        order: 2;
+    }
+    
+    .notice-item {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 0;
+        padding: 16px 0;
+    }
+    
+    .notice-item__date {
+        display: inline-block;
+        margin-right: 16px;
+    }
+    
+    .notice-item__tag {
+        display: inline-block;
+    }
+    
+    .notice-item__title {
+        margin-top: 12px;
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .notice__net-lines {
+        opacity: 0.1;
+    }
+    
+    .notice::before,
+    .notice::after {
+        opacity: 0.18;
+    }
+}
