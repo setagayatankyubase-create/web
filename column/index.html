@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コラム | SHIKUMI</title>
+    <meta name="description" content="ホームページ制作や運用についての考え方をまとめています。">
+    
+    <!-- OGP -->
+    <meta property="og:title" content="コラム | SHIKUMI">
+    <meta property="og:description" content="ホームページ制作や運用についての考え方をまとめています。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/column/">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main>
+
+    <!-- ページヒーロー -->
+    <section class="page-hero-common page-hero-common--netyear">
+        <div class="section-bg-text" aria-hidden="true">COLUMN</div>
+        <div class="page-hero-common__dark"></div>
+        <div class="page-hero-common__content">
+            <div class="page-hero-common__panel">
+                <p class="page-hero-common__eyebrow">COLUMN</p>
+                <h1 class="page-hero-common__title">コラム</h1>
+                <p class="page-hero-common__lead">制作や運用の考え方、現場での気づきを発信しています。<br>事業に役立つ視点を、分かりやすくまとめます。</p>
+            </div>
+            <nav class="page-hero-common__breadcrumbs" aria-label="パンくずリスト">
+                <a href="../index.html">HOME</a>
+                <span class="page-hero-common__breadcrumbs-separator">/</span>
+                <span>COLUMN</span>
+            </nav>
+        </div>
+        <div class="page-hero-common__image">
+            <img src="../assets/img/31990819_m.jpg" alt="コラム" loading="eager" width="800" height="600">
+        </div>
+    </section>
+
+    <!-- コラム一覧 -->
+    <section class="column-list-page section">
+        <div class="section-bg-text" aria-hidden="true">COLUMN</div>
+        <div class="container">
+            <!-- カテゴリフィルター -->
+            <div class="column-category-filter">
+                <button class="category-filter-btn is-active" data-category="all">すべて</button>
+                <button class="category-filter-btn" data-category="考え方">考え方</button>
+                <button class="category-filter-btn" data-category="制作">制作</button>
+                <button class="category-filter-btn" data-category="運用">運用</button>
+            </div>
+
+            <!-- コラムグリッド（3列） -->
+            <div class="column-list-page__grid">
+                <article class="column-list-page__card" data-category="考え方">
+                    <figure class="column-list-page__media">
+                        <img src="../assets/img/33643559_m.jpg" alt="なぜ「現地で話す」ことをやめなかったのか" loading="lazy" width="600" height="400" decoding="async">
+                    </figure>
+                    <div class="column-list-page__content">
+                        <div class="column-list-page__meta">
+                            <span class="column-list-page__category">考え方</span>
+                            <time class="column-list-page__date">2024.11.20</time>
+                        </div>
+                        <h3 class="column-list-page__title">
+                            <a href="2024-11-20-genchi.html">なぜ「現地で話す」ことをやめなかったのか</a>
+                        </h3>
+                        <p class="column-list-page__lead">
+                            テンプレートに当てはめるだけでは、事業の本質は伝わりません。現地で話すことで見えてくるものがあります。
+                        </p>
+                    </div>
+                </article>
+                <article class="column-list-page__card" data-category="制作">
+                    <figure class="column-list-page__media">
+                        <img src="../assets/img/33643563_m.jpg" alt="写真と文章、どちらが大事か問題" loading="lazy" width="600" height="400" decoding="async">
+                    </figure>
+                    <div class="column-list-page__content">
+                        <div class="column-list-page__meta">
+                            <span class="column-list-page__category">制作</span>
+                            <time class="column-list-page__date">2024.10.15</time>
+                        </div>
+                        <h3 class="column-list-page__title">
+                            <a href="2024-10-15-photo-text.html">写真と文章、どちらが大事か問題</a>
+                        </h3>
+                        <p class="column-list-page__lead">
+                            ホームページを構成する要素の中で、写真と文章はどちらが重要なのでしょうか。両方とも重要ですが、伝え方には順番があります。
+                        </p>
+                    </div>
+                </article>
+                <article class="column-list-page__card" data-category="運用">
+                    <figure class="column-list-page__media">
+                        <img src="../assets/img/31990819_m.jpg" alt="更新されないホームページが信頼を落とす理由" loading="lazy" width="600" height="400" decoding="async">
+                    </figure>
+                    <div class="column-list-page__content">
+                        <div class="column-list-page__meta">
+                            <span class="column-list-page__category">運用</span>
+                            <time class="column-list-page__date">2024.09.10</time>
+                        </div>
+                        <h3 class="column-list-page__title">
+                            <a href="2024-09-10-example.html">更新されないホームページが信頼を落とす理由</a>
+                        </h3>
+                        <p class="column-list-page__lead">
+                            作って終わりでは、ホームページは「死んだサイト」になってしまいます。更新されないサイトが与える印象について考えます。
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <!-- フローティングCTA -->
+    <div class="floating-cta">
+        <a href="../contact.html">
+            <span class="floating-cta-logo">SHIKUMI</span>
+            <span>お問い合わせ</span>
+        </a>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

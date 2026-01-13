@@ -1,0 +1,104 @@
+/* =========================
+   Service Card Hover BG Image (GIG寄せ)
+   ========================= */
+
+/* linkをレイヤーコンテナ化 */
+.service-overview .service-card__link {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate;
+}
+
+/* 1) 背景画像レイヤー */
+.service-overview .service-card__link::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+
+    /* ★HTML側から渡す（--hover-bg） */
+    background-image: var(--hover-bg);
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    opacity: 0;
+    transform: scale(1.00);
+    filter: blur(0px) saturate(1) contrast(1);
+
+    transition:
+        opacity 320ms ease,
+        transform 520ms ease,
+        filter 520ms ease;
+}
+
+/* 2) 白い可読性レイヤー（常時ON） */
+.service-overview .service-card__link::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+
+    /* ベースはしっかり白、ただし完全白にしない */
+    background: rgba(255, 255, 255, 0.90) !important;
+    opacity: 0.88 !important;
+
+    transition: opacity 320ms ease !important;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* 3) 本文・画像は前面へ */
+.service-overview .service-card__media,
+.service-overview .service-card__body {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* 4) hover時：背景画像が"気配として"出る */
+.service-overview .service-card__link:hover::before,
+.service-overview .service-card__link:focus-visible::before {
+    opacity: 0.22;
+    transform: scale(1.06);
+    filter: blur(2px) saturate(0.92) contrast(1.04);
+}
+
+/* 5) hover時：白レイヤーを少し薄くして背景の存在を出す */
+.service-overview .service-card__link:hover::after,
+.service-overview .service-card__link:focus-visible::after {
+    opacity: 0.74 !important;
+}
+
+/* 6) "浮き感"を追加（GIGの肝） */
+.service-overview .service-card__body {
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    transition: transform 320ms ease, box-shadow 320ms ease !important;
+}
+
+.service-overview .service-card__link:hover .service-card__body,
+.service-overview .service-card__link:focus-visible .service-card__body {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10) !important;
+}
+
+/* 7) 画像もほんの少しだけズーム */
+.service-overview .service-card__media img {
+    transition: transform 520ms ease !important;
+    transform: scale(1.02);
+}
+.service-overview .service-card__link:hover .service-card__media img,
+.service-overview .service-card__link:focus-visible .service-card__media img {
+    transform: scale(1.07);
+}
+
+/* 8) 動きが苦手な人向け */
+@media (prefers-reduced-motion: reduce) {
+    .service-overview .service-card__link::before,
+    .service-overview .service-card__link::after,
+    .service-overview .service-card__body,
+    .service-overview .service-card__media img {
+        transition: none !important;
+    }
+}
+

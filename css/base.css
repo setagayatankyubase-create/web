@@ -1,0 +1,155 @@
+/* リセット */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* カスタムプロパティ - GIGスタイル */
+:root {
+    --max-width: 1040px;
+    --text: #333;
+    --muted: #666;
+    --black: #0b0b0b;
+    --line: rgba(0, 0, 0, 0.08);
+    --line-strong: rgba(0, 0, 0, 0.14);
+    --text-sub: rgba(0, 0, 0, 0.65);
+    --accent: #2f6bff;
+    --section: 120px;
+    --section-dark: 160px;
+    --gap: 36px;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+    --header-h: 72px;
+    --header-main-h: 72px;
+    --header-news-h: 34px;
+    --header-total-h: calc(var(--header-main-h) + var(--header-news-h));
+    --header-pad-x: clamp(20px, 3vw, 56px);
+    --header-bg: rgba(255, 255, 255, 0.86);
+    --header-line: rgba(0, 0, 0, 0.06);
+    --nav-text: rgba(0, 0, 0, 0.72);
+    --nav-text-weak: rgba(0, 0, 0, 0.62);
+    --container: 1200px;
+    --gutter: clamp(24px, 4vw, 64px);
+    --ui-line: rgba(0, 0, 0, 0.08);
+    --ui-line-dark: rgba(255, 255, 255, 0.12);
+    /* アクセントカラー */
+    --accent-light: #E6F3F1;
+    --accent-main: #6FBDB3;
+    --accent-dark: #2E8B84;
+    /* ヒーロー高さ（420-520pxを目安） */
+    --hero-min-height: 480px;
+    --hero-min-height-tablet: 440px;
+    --hero-min-height-mobile: auto;
+    /* ブランドブルー関連（ヒーロー専用） */
+    --brand-blue: var(--accent);
+    --hero-blue-tint: rgba(47, 107, 255, 0.06);
+    --hero-blue-tint-2: rgba(47, 107, 255, 0.03);
+    --hero-blue-border: rgba(47, 107, 255, 0.18);
+    /* サイト用アクセントカラー（青） */
+    --site-accent: #2f6bff;
+    --site-accent-deep: #1E4FE6;
+    --site-accent-weak: rgba(47, 107, 255, 0.06);
+    --site-accent-border: rgba(47, 107, 255, 0.18);
+    /* CTAボタン用アクセント青 */
+    --accent-soft: rgba(47, 107, 255, 0.12);
+    --accent-ring: rgba(47, 107, 255, 0.28);
+    
+    /* 統一されたブランドカラー（ヘッダーCTA等で使用） */
+    --brand-primary: #1f4aa8;
+    --brand-primary-hover: #1a3d8a;
+    --brand-primary-light: rgba(31, 74, 168, 0.1);
+    
+    /* 統一されたボーダーラディウス */
+    --radius-xs: 8px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-pill: 999px;
+    
+    /* 統一されたスペーシング */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    
+    /* 統一されたシャドウ */
+    --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.08);
+    
+    /* 統一されたボーダー */
+    --border-default: 1px solid rgba(0, 0, 0, 0.08);
+    --border-strong: 1px solid rgba(0, 0, 0, 0.12);
+    --border-light: 1px solid rgba(0, 0, 0, 0.06);
+    
+    /* 統一されたテキストカラー */
+    --text-primary: rgba(0, 0, 0, 0.75);
+    --text-secondary: rgba(0, 0, 0, 0.65);
+    --text-tertiary: rgba(0, 0, 0, 0.50);
+    --text-muted: rgba(0, 0, 0, 0.40);
+    
+    /* 統一された背景カラー */
+    --bg-white: #ffffff;
+    --bg-light: #f7f8fa;
+    --bg-muted: rgba(0, 0, 0, 0.02);
+    
+    /* 統一されたトランジション */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.4s ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+    color: var(--text);
+    line-height: 2.0;
+    font-size: 14px;
+    background: var(--bg-white);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: var(--header-total-h);
+    opacity: 1;
+    transition: opacity var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* フェードアウト（ページ遷移時） */
+body.page-transition-out {
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+/* フェードイン（ページロード時） */
+body.page-transition-in {
+    opacity: 0;
+    animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes page-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* リンクの基礎リセット */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+p {
+    line-height: 2.0;
+}
