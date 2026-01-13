@@ -1,3 +1,148 @@
+/* ========================================
+   UIパーツ統一システム（全ページ共通）
+   ======================================== */
+
+/* ========================================
+   1. ボタン（主/副の統一）
+   ======================================== */
+
+/* 主ボタン（Primary） */
+.btn--primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+    height: 44px;
+    border: none;
+    background: var(--brand-primary);
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.btn--primary:hover {
+    background: var(--brand-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* 副ボタン（Secondary / Ghost） */
+.btn--secondary,
+.btn--ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+    height: 44px;
+    border: var(--border-default);
+    background: transparent;
+    color: var(--black);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.btn--secondary:hover,
+.btn--ghost:hover {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================
+   2. カード（影・角丸・hoverの統一）
+   ======================================== */
+
+/* 統一カードベース（全ページ共通） */
+.card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-white);
+    border: var(--border-default);
+    border-radius: var(--radius-md);
+    padding: clamp(24px, 3vw, 32px);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+/* カードのホバーエフェクト（統一） */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* リンクとして機能するカード */
+a.card,
+.card[href] {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========================================
+   3. タグ（オレンジラベルの統一）
+   ======================================== */
+
+/* UI Tag（統一スタイル） - 既存の.ui-tagを基に拡張 */
+
+/* ========================================
+   4. リンク矢印（→ の使い方の統一）
+   ======================================== */
+
+/* リンク矢印アイコン（統一スタイル） */
+.link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: gap var(--transition-fast), transform var(--transition-fast);
+}
+
+.link-arrow__text {
+    transition: transform var(--transition-fast);
+}
+
+.link-arrow__icon {
+    display: inline-block;
+    transition: transform var(--transition-fast);
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+/* リンク矢印のホバーエフェクト（統一） */
+.link-arrow:hover {
+    gap: 12px;
+}
+
+.link-arrow:hover .link-arrow__icon {
+    transform: translateX(4px);
+}
+
+/* インライン矢印（テキスト内に直接含める場合） */
+.link-arrow-inline::after {
+    content: "→";
+    display: inline-block;
+    margin-left: 8px;
+    transition: transform var(--transition-fast);
+}
+
+a:hover .link-arrow-inline::after {
+    transform: translateX(4px);
+}
+
+/* ========================================
+   既存スタイル（後方互換性のため維持）
+   ======================================== */
+
 /* =========================
    Service Card Hover BG Image (GIG寄せ)
    ========================= */
@@ -135,6 +280,15 @@
     height: 20px;
     padding: 0 8px;
     font-size: 11px;
+}
+
+/* STEPタグ用（カード内で使用） */
+.ui-tag--step {
+    background: rgba(47, 107, 255, 0.1);
+    color: var(--site-accent);
+    border-color: rgba(47, 107, 255, 0.2);
+    margin-bottom: 16px;
+    display: inline-block;
 }
 
 /* ボタン */
@@ -577,21 +731,22 @@
    ======================================== */
 
 /* 基本カードスタイル - 複数のセクションで使用 */
+/* .card-base は .card の別名として使用可能（後方互換性） */
 .card-base {
     display: flex;
     flex-direction: column;
     background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
+    border: var(--border-default);
+    border-radius: var(--radius-md);
     padding: clamp(24px, 3vw, 32px);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-sm);
     position: relative;
 }
 
 .card-base:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-xl);
     border-color: rgba(0, 0, 0, 0.15);
 }
 

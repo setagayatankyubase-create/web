@@ -27,11 +27,20 @@ section:not(.page-hero-common--netyear) .section-bg-text,
 
 
 
+/* ========================================
+   セクション背景色切り替え（意味があるときだけ使用）
+   ======================================== */
 
+/* 背景色を変えるのは、流れを切る時（セクション間の区切りを明確にしたい時）のみ */
+.section--muted {
+    background: var(--bg-section-muted);
+    /* paddingは親の.sectionで定義されているため、ここでは上書きしない */
+}
+
+/* ダーク背景（必要に応じて） */
 .section--dark {
     background: var(--black);
     color: #fff;
-    padding: var(--section-dark) 0;
 }
 
 .section--dark p {
@@ -68,11 +77,6 @@ section:not(.page-hero-common--netyear) .section-bg-text,
 
 .section--dark .eyebrow {
     color: rgba(255, 255, 255, 0.5);
-}
-
-.section--muted {
-    background: #f6f7f8;
-    padding: var(--section) 0;
 }
 
 /* 斜めカット */

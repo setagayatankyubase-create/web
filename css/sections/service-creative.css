@@ -2,234 +2,178 @@
    Service Creative (HP制作ページ)
    ======================================== */
 
-.service-creative-section {
-    position: relative;
-}
+/* このファイルでは、このページ固有のレイアウト・余白・配置のみを定義
+   色・ボタン・カード基礎スタイルは components.css で統一管理 */
 
-/* ===== 約束（Value）セクション ===== */
-.service-creative-value__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, 2.5vw, 28px);
-}
-
-.service-creative-value__card {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(24px, 3vw, 32px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.service-creative-value__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-.service-creative-value__title {
-    font-size: clamp(18px, 2vw, 22px);
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--black);
-    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
-    letter-spacing: -0.01em;
-}
-
-.service-creative-value__desc {
-    font-size: clamp(14px, 1.5vw, 15px);
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-}
-
-/* ===== 悩みセクション ===== */
-.service-creative-pain__content {
-    max-width: 800px;
+/* ========================================
+   B) 対応範囲（2カラム表）
+   ======================================== */
+.service-scope-table {
+    max-width: 880px;
     margin: 0 auto;
+    border-top: var(--border-default);
 }
 
-.service-creative-pain__subtitle {
-    font-size: clamp(20px, 2.5vw, 24px);
-    font-weight: 600;
-    line-height: 1.4;
-    color: var(--black);
-    margin: 0 0 clamp(24px, 3vw, 32px) 0;
-    letter-spacing: -0.01em;
-}
-
-.service-creative-pain__list {
+.service-scope-table__row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(16px, 2vw, 20px);
+    grid-template-columns: 180px 1fr;
+    gap: 32px;
+    padding: clamp(20px, 2.5vw, 28px) 0;
+    border-bottom: var(--border-default);
+    align-items: start;
+}
+
+.service-scope-table__category {
+    font-size: clamp(16px, 1.8vw, 18px);
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+}
+
+.service-scope-table__items {
+    flex: 1;
+}
+
+.service-scope-list {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-/* 悩み項目カード（共通パターン、軽量版） */
-.service-creative-pain__item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(20px, 2.5vw, 24px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.service-creative-pain__item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.12);
-}
-
-.service-creative-pain__dot {
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #2f6bff;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 6px;
-}
-
-.service-creative-pain__text {
-    font-size: clamp(14px, 1.6vw, 16px);
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.7);
-    flex: 1;
-}
-
-.service-creative-pain__text strong {
-    font-weight: 600;
-    color: var(--black);
-}
-
-/* ===== 提供内容セクション ===== */
-.service-creative-link-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, 2.5vw, 28px);
-}
-
-/* 提供内容カード（共通パターン） */
-.service-creative-link-card {
     display: flex;
     flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(24px, 3vw, 32px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    gap: 12px;
 }
 
-.service-creative-link-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-.service-creative-link-card__title {
-    font-size: clamp(18px, 2vw, 22px);
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--black);
-    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
-    letter-spacing: -0.01em;
-}
-
-.service-creative-link-card__desc {
-    font-size: clamp(14px, 1.5vw, 15px);
-    line-height: 1.7;
+.service-scope-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.8;
     color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    flex: 1;
 }
 
-/* ===== FLOWセクション ===== */
-.service-creative-flow__list {
+.service-scope-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--site-accent);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* ========================================
+   Before/After（成果の型）
+   ======================================== */
+.service-result-comparison {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: clamp(20px, 2.5vw, 28px);
+    gap: clamp(24px, 3vw, 32px);
+    max-width: 960px;
+    margin: 0 auto;
 }
 
-/* FLOWカード（共通パターン） */
-.service-creative-flow__item {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(24px, 3vw, 32px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.service-creative-flow__item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-.service-creative-flow__step {
-    display: inline-block;
-    font-size: 12px;
+.service-result-comparison__label {
+    font-size: clamp(14px, 1.6vw, 16px);
     font-weight: 600;
     letter-spacing: 0.12em;
-    color: #2f6bff;
-    background: rgba(47, 107, 255, 0.1);
-    padding: 4px 12px;
-    border-radius: 4px;
-    margin-bottom: clamp(12px, 1.5vw, 16px);
     text-transform: uppercase;
-    width: fit-content;
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.15);
 }
 
-.service-creative-flow__title {
-    font-size: clamp(18px, 2vw, 22px);
+.service-result-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-result-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.service-result-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--site-accent);
     font-weight: 700;
-    line-height: 1.4;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+/* ========================================
+   料金セクション
+   ======================================== */
+.service-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(24px, 3vw, 32px);
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.service-pricing-note {
+    font-size: clamp(13px, 1.5vw, 14px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.service-pricing-amount {
+    font-size: clamp(28px, 3.5vw, 36px);
+    font-weight: 700;
     color: var(--black);
-    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    margin: 16px 0 24px 0;
+    letter-spacing: -0.02em;
+}
+
+.service-pricing-tax {
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 8px;
+}
+
+.service-pricing-detail {
+    margin-top: 24px;
+}
+
+.service-pricing-detail__title {
+    font-size: clamp(15px, 1.8vw, 16px);
+    font-weight: 600;
+    color: var(--black);
+    margin: 0 0 12px 0;
     letter-spacing: -0.01em;
 }
 
-.service-creative-flow__desc {
-    font-size: clamp(14px, 1.5vw, 15px);
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    flex: 1;
+.service-pricing-detail__title:not(:first-child) {
+    margin-top: 24px;
 }
 
 /* レスポンシブ */
-@media (max-width: 1024px) {
-    .service-creative-value__grid,
-    .service-creative-link-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(18px, 2vw, 24px);
-    }
-    
-    .service-creative-pain__list {
-        grid-template-columns: 1fr;
-    }
-    
-    .service-creative-flow__list {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 768px) {
-    .service-creative-value__grid,
-    .service-creative-link-grid {
+    .service-scope-table__row {
         grid-template-columns: 1fr;
-        gap: clamp(16px, 2vw, 20px);
+        gap: 16px;
+    }
+    
+    .service-result-comparison {
+        grid-template-columns: 1fr;
+        gap: clamp(20px, 2.5vw, 24px);
+    }
+    
+    .service-pricing-grid {
+        grid-template-columns: 1fr;
+        gap: clamp(20px, 2.5vw, 24px);
     }
 }

@@ -18,6 +18,16 @@
     --section: 120px;
     --section-dark: 160px;
     --gap: 36px;
+    
+    /* ========================================
+       統一されたセクション余白（小/中/大の3段階のみ）
+       ======================================== */
+    /* 小：コンパクトなセクション用 */
+    --section-padding-sm: clamp(56px, 7vw, 80px);
+    /* 中：標準的なセクション用（デフォルト） */
+    --section-padding-md: clamp(80px, 8vw, 120px);
+    /* 大：強調したいセクション用 */
+    --section-padding-lg: clamp(96px, 10vw, 160px);
     --ease: cubic-bezier(.2, .8, .2, 1);
     --header-h: 72px;
     --header-main-h: 72px;
@@ -97,6 +107,7 @@
     --bg-white: #ffffff;
     --bg-light: #f7f8fa;
     --bg-muted: rgba(0, 0, 0, 0.02);
+    --bg-section-muted: #f6f7f8; /* セクション背景切り替え用 */
     
     /* 統一されたトランジション */
     --transition-fast: 0.2s ease;
