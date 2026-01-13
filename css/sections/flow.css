@@ -176,7 +176,7 @@
     gap: clamp(20px, 2.5vw, 28px);
 }
 
-/* 品質チェック項目カード */
+/* 品質チェック項目カード（共通パターン） */
 .quality-item {
     display: flex;
     flex-direction: column;
@@ -293,7 +293,7 @@
     gap: clamp(16px, 2vw, 20px);
 }
 
-/* FAQ項目カード */
+/* FAQ項目カード（共通パターン、アコーディオン対応） */
 .faq-item {
     display: block;
     background: var(--bg-white);

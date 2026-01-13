@@ -1,19 +1,35 @@
 @charset "UTF-8";
 
+/* ========================================
+   Sections Index (セクションインデックス)
+   ======================================== */
+
+/* 共通スタイル（最優先） */
 @import "./sections/common.css";
+
+/* ページ共通 */
 @import "./sections/page-hero-common.css";
+
+/* トップページセクション */
 @import "./sections/hero.css";
 @import "./sections/top-services.css";
-@import "./sections/news-top.css";
-@import "./sections/news-list-page.css";
-@import "./sections/column-list-page.css";
 @import "./sections/value-block.css";
 @import "./sections/notice.css";
-@import "./sections/about-links.css";
-@import "./sections/case.css";
-@import "./sections/flow.css";
+@import "./sections/news-top.css";
 @import "./sections/problem.css";
 @import "./sections/column.css";
 @import "./sections/cta-prefooter.css";
+
+/* サービス関連 */
 @import "./sections/service-area.css";
 @import "./sections/service-creative.css";
+
+/* フロー・その他 */
+@import "./sections/flow.css";
+@import "./sections/about-links.css";
+@import "./sections/about.css";
+@import "./sections/case.css";
+
+/* リストページ */
+@import "./sections/news-list-page.css";
+@import "./sections/column-list-page.css";

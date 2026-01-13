@@ -571,3 +571,73 @@
     margin: 0;
     max-width: 56ch;
 }
+
+/* ========================================
+   Card Component (共通カードスタイル)
+   ======================================== */
+
+/* 基本カードスタイル - 複数のセクションで使用 */
+.card-base {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-white);
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: clamp(24px, 3vw, 32px);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.card-base:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* カードタイトル（共通） */
+.card-title {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--black);
+    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    letter-spacing: -0.01em;
+}
+
+/* カード説明文（共通） */
+.card-desc {
+    font-size: clamp(14px, 1.5vw, 15px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+}
+
+/* グリッドレイアウト（共通） */
+.grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 2.5vw, 28px);
+}
+
+.grid-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 2.5vw, 28px);
+}
+
+/* レスポンシブグリッド */
+@media (max-width: 1024px) {
+    .grid-3col {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(18px, 2vw, 24px);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-3col,
+    .grid-2col {
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 2vw, 20px);
+    }
+}

@@ -55,7 +55,7 @@
     z-index: 2;
 }
 
-/* カードスタイル */
+/* カードスタイル（共通パターン） */
 .cta-card {
     display: block;
     background: var(--bg-white);
