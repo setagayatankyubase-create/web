@@ -9,33 +9,13 @@
     background: var(--bg-white);
 }
 
-/* 背景装飾の疑似要素 - 右側のグラデーション */
+/* 背景装飾の疑似要素 - 共通パターンを使用、色のみ個別指定 */
 .flow::before {
-    content: "";
-    position: absolute;
-    top: -15%;
-    right: -8%;
-    width: 50%;
-    height: 75%;
     background: rgba(255, 243, 200, 0.10);
-    transform: skewY(-6deg) rotate(-3deg);
-    z-index: 0;
-    filter: blur(0.5px);
-    pointer-events: none;
 }
 
 .flow::after {
-    content: "";
-    position: absolute;
-    bottom: -10%;
-    right: -5%;
-    width: 48%;
-    height: 70%;
     background: rgba(200, 235, 255, 0.08);
-    transform: skewY(5deg) rotate(3deg);
-    z-index: 0;
-    filter: blur(0.5px);
-    pointer-events: none;
 }
 
 .flow .container {

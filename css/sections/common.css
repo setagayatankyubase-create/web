@@ -133,3 +133,71 @@
 .media-slope:hover img {
     transform: scale(1.08);
 }
+
+/* ========================================
+   共通背景装飾パターン（疑似要素）
+   ======================================== */
+
+/* ========================================
+   共通背景装飾パターン（疑似要素）
+   ======================================== */
+
+/* 背景装飾の基本パターン - column, flow, case, column-list-page で使用 */
+.column::before,
+.flow::before,
+.case::before,
+.column-list-page::before {
+    content: "";
+    position: absolute;
+    top: -15%;
+    right: -8%;
+    width: 50%;
+    height: 75%;
+    transform: skewY(-6deg) rotate(-3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.column::after,
+.flow::after,
+.case::after,
+.column-list-page::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 48%;
+    height: 70%;
+    transform: skewY(5deg) rotate(3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+/* news-top 用の基本パターン（サイズが少し異なる） */
+.news-top::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    right: -8%;
+    width: 50%;
+    height: 70%;
+    transform: skewY(-6deg) rotate(-3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.news-top::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 48%;
+    height: 65%;
+    transform: skewY(7deg) rotate(3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+    pointer-events: none;
+}
