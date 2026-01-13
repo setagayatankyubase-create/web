@@ -9547,43 +9547,7 @@ h3,
     font-size: 11px;
 }
 
-/* 繝懊ち繝ｳ */
-.btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: transparent;
-    color: var(--text);
-    text-decoration: none;
-    border: 1px solid var(--text);
-    font-weight: 400;
-    transition: opacity 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
-    cursor: pointer;
-    font-size: 15px;
-    border-radius: 4px;
-}
-
-.btn:hover {
-    opacity: 0.6;
-}
-
-.btn--accent {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 10px 36px;
-    font-size: 13px;
-    border-radius: 0;
-    box-shadow: none;
-    transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.btn--accent:hover {
-    background: #005bb5;
-    opacity: 0.85;
-    transform: none;
-}
+/* ボタンは components.css に集約済み */
 
 /* ========================================
    TOP繝壹・繧ｸ繝偵・繝ｭ繝ｼ - 繝ｬ繧ｹ繝昴Φ繧ｷ繝厄ｼ医ち繝悶Ξ繝・ヨ繝ｻ繝｢繝舌う繝ｫ・・   ======================================== */
