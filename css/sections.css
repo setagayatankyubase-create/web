@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 /* Sections split imports */
+@import "./sections/common.css";
 @import "./sections/page-hero-common.css";
 @import "./sections/hero.css";
 @import "./sections/news-top.css";
@@ -11,8 +12,8 @@
 @import "./sections/top-services.css";
 @import "./sections/flow.css";
 @import "./sections/column.css";
+@import "./sections/column-list-page.css";
 @import "./sections/about-links.css";
 @import "./sections/case.css";
-@import "./sections/common.css";
 
 /* (optional) keep adding more section imports here */
