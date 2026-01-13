@@ -21,6 +21,12 @@
     padding: 0;
 }
 
+/* page-hero-common--netyear内のsection-bg-textは無効化（page-hero-common.cssで個別に定義） */
+.page-hero-common--netyear .section-bg-text {
+    /* すべてのプロパティをリセットして、page-hero-common.cssのスタイルのみが適用されるようにする */
+    all: unset;
+}
+
 .section--dark {
     background: var(--black);
     color: #fff;
