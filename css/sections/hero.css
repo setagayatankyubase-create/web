@@ -1,0 +1,383 @@
+/* ========================================
+   Hero Section (トップページヒーロー)
+   ======================================== */
+
+.hero--netyear {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    min-height: calc(100svh - var(--header-total-h));
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+}
+
+.hero--netyear .hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* グリッド背景パターン */
+.hero--netyear .hero__bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.01) 2px,
+            rgba(0, 0, 0, 0.01) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.01) 2px,
+            rgba(0, 0, 0, 0.01) 4px
+        );
+    background-size: 40px 40px, 40px 40px;
+    opacity: 0.06;
+    pointer-events: none;
+}
+
+/* 右側のグラデーション背景・アニメーション */
+.hero--netyear::before {
+    content: "";
+    position: absolute;
+    top: -12%;
+    right: -18%;
+    width: 72vmin;
+    height: 72vmin;
+    background: radial-gradient(circle, rgba(255, 64, 129, 0.38) 0%, rgba(255, 87, 34, 0.30) 50%, rgba(255, 152, 0, 0.22) 100%);
+    filter: blur(120px);
+    opacity: 0.85;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+    animation: blobBreath 28s ease-in-out infinite alternate;
+}
+
+.hero--netyear::after {
+    content: "";
+    position: absolute;
+    bottom: -26%;
+    right: -10%;
+    width: 86vmin;
+    height: 86vmin;
+    background: radial-gradient(circle, rgba(255, 152, 0, 0.42) 0%, rgba(255, 193, 7, 0.32) 50%, rgba(255, 87, 34, 0.22) 100%);
+    filter: blur(140px);
+    opacity: 0.85;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+    animation: blobBreath 32s ease-in-out infinite alternate reverse;
+}
+
+.hero--netyear .hero__bg::before {
+    content: "";
+    position: absolute;
+    top: 18%;
+    right: 18%;
+    width: 56vmin;
+    height: 56vmin;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.28) 0%, rgba(255, 152, 0, 0.18) 60%);
+    filter: blur(100px);
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+    animation: blobBreath 24s ease-in-out infinite alternate;
+}
+
+@keyframes blobBreath {
+    0%, 100% {
+        transform: scale(1) translate(0, 0);
+    }
+    50% {
+        transform: scale(1.02) translate(1%, -1%);
+    }
+}
+
+/* ネットワーク線とアニメーション */
+/* TOPページのヒーロー専用・ネット線とアニメーション */
+.hero--netyear .net-lines__svg {
+    width: min(480px, 40vw);
+    height: auto;
+}
+
+.hero--netyear .net-lines__path {
+    stroke: rgba(0, 0, 0, 0.4);
+    stroke-width: 1;
+    fill: none;
+    stroke-dasharray: 6 10;
+    animation: netDash 12s linear infinite;
+}
+
+.hero--netyear .net-lines__node {
+    fill: rgba(0, 0, 0, 0.5);
+    animation: nodePulse 4.8s ease-in-out infinite;
+}
+
+.hero--netyear .net-lines__node:nth-child(4) { animation-delay: 0s; }
+.hero--netyear .net-lines__node:nth-child(5) { animation-delay: 0.2s; }
+.hero--netyear .net-lines__node:nth-child(6) { animation-delay: 0.4s; }
+.hero--netyear .net-lines__node:nth-child(7) { animation-delay: 0.6s; }
+.hero--netyear .net-lines__node:nth-child(8) { animation-delay: 0.8s; }
+.hero--netyear .net-lines__node:nth-child(9) { animation-delay: 1s; }
+.hero--netyear .net-lines__node:nth-child(10) { animation-delay: 1.2s; }
+.hero--netyear .net-lines__node:nth-child(11) { animation-delay: 1.4s; }
+.hero--netyear .net-lines__node:nth-child(12) { animation-delay: 1.6s; }
+.hero--netyear .net-lines__node:nth-child(13) { animation-delay: 1.8s; }
+.hero--netyear .net-lines__node:nth-child(14) { animation-delay: 2s; }
+.hero--netyear .net-lines__node:nth-child(15) { animation-delay: 2.2s; }
+
+@keyframes netDash {
+    to {
+        stroke-dashoffset: -160;
+    }
+}
+
+@keyframes nodePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    50% {
+        transform: scale(1.25);
+        opacity: 0.9;
+    }
+}
+
+@keyframes netFloat {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(14px, -10px, 0);
+    }
+}
+
+/* コンテンツエリアの調整 */
+.hero--netyear .hero__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 56px);
+    padding-top: clamp(16px, 2vw, 24px);
+    padding-bottom: 0;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(16px, 4vw, 64px);
+    align-items: start;
+    width: 100%;
+    background-image: none !important;
+}
+
+/* TOPページ専用のパディング調整 */
+body.home .hero--netyear .hero__inner {
+    padding-top: 0;
+}
+
+body.home .hero--netyear .hero__copy {
+    margin-top: 0;
+}
+
+body.home {
+    padding-top: var(--header-total-h);
+}
+
+.hero--netyear .hero__copy {
+    align-self: center;
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+}
+
+.hero--netyear .hero__eyebrow {
+    font-size: clamp(11px, 1vw, 14px);
+    letter-spacing: 0.28em;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin: 0 0 clamp(6px, 1vw, 12px) 0;
+    font-weight: 500;
+    padding-left: 0;
+}
+
+.hero--netyear .hero__eyebrow::before {
+    display: none;
+}
+
+/* 英語見出し */
+.hero--netyear .hero__headline-en {
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    font-size: clamp(72px, 8.8vw, 176px);
+    color: #ff9800;
+    margin: 0;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 日本語見出し */
+.hero--netyear .hero__headline-jp {
+    font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 42px);
+    line-height: 1.55;
+    margin-top: clamp(12px, 1.5vw, 16px);
+    max-width: 19em;
+    color: var(--black);
+    margin-bottom: 0;
+}
+
+.hero--netyear .hero__sub {
+    font-size: clamp(15px, 1.6vw, 17px);
+    line-height: 1.9;
+    color: rgba(0, 0, 0, 0.75);
+    opacity: 0.72;
+    max-width: 52ch;
+    margin-top: clamp(12px, 1.5vw, 16px);
+    margin-bottom: 0;
+}
+
+/* ヒーロー右側AIポップアップ・カード */
+.hero--netyear .hero-ai-pop {
+    justify-self: end;
+    align-self: start;
+    margin-top: clamp(8px, 1vw, 16px);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: min(340px, 34vw);
+    max-width: 340px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.hero--netyear .hero-ai-pop:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.hero-ai-pop__illust {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    overflow: visible;
+}
+
+.hero-ai-pop__illust img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.hero-ai-pop__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: clamp(6px, 0.8vw, 10px);
+    border-top: 1px solid rgba(47, 107, 255, 0.1);
+}
+
+.hero-ai-pop__label {
+    font-size: clamp(13px, 1.4vw, 15px);
+    font-weight: 600;
+    color: var(--black);
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.hero-ai-pop__arrow {
+    font-size: 18px;
+    color: #2f6bff;
+    transition: transform 0.22s ease;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.hero--netyear .hero-ai-pop:hover .hero-ai-pop__arrow {
+    transform: translateX(4px);
+}
+
+/* scrollインジケーター */
+.hero--netyear .hero__scroll {
+    position: absolute;
+    left: 12px;
+    bottom: 18px;
+    writing-mode: vertical-rl;
+    letter-spacing: 0.22em;
+    opacity: 0.35;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    pointer-events: none;
+    text-transform: lowercase;
+}
+
+/* ========================================
+   Responsive (レスポンシブ)
+   ======================================== */
+
+@media (max-width: 900px) {
+    .hero--netyear .hero__inner {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: clamp(32px, 6vw, 48px);
+    }
+    
+    .hero--netyear .hero__copy {
+        align-self: start;
+    }
+    
+    .hero--netyear .hero-ai-pop {
+        justify-self: center;
+        align-self: start;
+        width: min(400px, 90vw);
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero--netyear .hero__scroll {
+        display: none;
+    }
+    
+    .hero--netyear::before,
+    .hero--netyear::after,
+    .hero--netyear .hero__bg::before {
+        filter: blur(60px);
+    }
+    
+    .hero--netyear .net-lines {
+        opacity: 0.08;
+    }
+    
+    .hero--netyear .net-lines__svg {
+        width: min(300px, 50vw);
+    }
+}
