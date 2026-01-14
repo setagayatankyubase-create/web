@@ -6,27 +6,22 @@
 .cta-prefooter {
     position: relative;
     overflow: hidden;
-    /* セクション全体の上下余白を詰める */
     padding-block: clamp(40px, 5vw, 72px);
-    background: var(--black);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    min-height: auto;
 }
 
 /* 背景画像（ぼかし付き） */
 .cta-prefooter::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("../assets/img/24837530_m.jpg");
+    inset: 0;
+    background-image: url("../../assets/img/24837530_m.jpg");
+    background-color: rgba(255, 255, 255, 0.08); /* フォールバック */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(8px);
-    opacity: 0.4;
+    filter: blur(6px);
+    opacity: 0.5;
     z-index: 0;
 }
 
@@ -34,11 +29,8 @@
 .cta-prefooter::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
     z-index: 1;
 }
 
@@ -82,9 +74,9 @@
 .cta-prefooter__tag {
     padding: 4px 10px;
     border-radius: 999px;
-    background: rgba(255, 140, 0, 0.16);
-    border: 1px solid rgba(255, 140, 0, 0.35);
-    color: rgba(255, 255, 255, 0.88);
+    background: rgba(234, 179, 8, 0.15); /* 黄色に変更 */
+    border: 1px solid rgba(234, 179, 8, 0.30); /* 黄色に変更 */
+    color: #EAB308; /* 黄色に変更 */
     font-size: 11px;
     font-weight: 500;
 }

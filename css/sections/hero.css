@@ -93,7 +93,7 @@
 }
 
 .hero--netyear .net-lines__path {
-    stroke: rgba(0, 0, 0, 0.25);
+    stroke: rgba(0, 0, 0, 0.15); /* 見えるように濃く */
     stroke-width: 1;
     fill: none;
     stroke-dasharray: 6 10;
@@ -101,7 +101,7 @@
 }
 
 .hero--netyear .net-lines__node {
-    fill: rgba(0, 0, 0, 0.3);
+    fill: rgba(0, 0, 0, 0.18); /* 見えるように濃く */
     animation: nodePulse 4.8s ease-in-out infinite;
 }
 
@@ -203,10 +203,11 @@ body.home {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
     font-weight: 700;
     font-size: clamp(64px, 9vw, 120px);
+    font-style: italic; /* イタリック体に */
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin: 0 0 clamp(12px, 1.5vw, 20px) 0;
-    color: #1E3A5F;
+    color: #1f4aa8; /* ヘッダーCTAと同じ青色に統一 */
 }
 
 /* サブコピー（メインコピーとの視覚的な差を明確に） */

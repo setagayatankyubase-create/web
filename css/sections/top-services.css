@@ -78,11 +78,11 @@
 .top-service-row__big-num {
     position: absolute;
     top: clamp(8px, 2vw, 22px);
-    font-size: clamp(64px, 7vw, 112px);
+    font-size: clamp(56px, 6.5vw, 100px); /* 少し小さく */
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
-    color: rgba(30, 58, 95, 0.85);
+    color: #1f4aa8; /* ヘッダーCTAと同じ青色に統一 */
     margin: 0;
     pointer-events: none;
     z-index: 0;
@@ -249,7 +249,7 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.12;
+    opacity: 0.15; /* 見えるように濃く */
 }
 
 .top-services--netyear .top-services__net-bg .net-lines__svg {
@@ -285,7 +285,7 @@
     }
     
     .top-service-row__big-num {
-        font-size: clamp(48px, 10vw, 80px);
+        font-size: clamp(44px, 9vw, 72px); /* 少し小さく */
         position: relative;
         top: 0;
         text-align: left;
@@ -312,6 +312,6 @@
     }
     
     .top-services--netyear .top-services__net-bg {
-        opacity: 0.1;
+        opacity: 0.12; /* 見えるように濃く */
     }
 }

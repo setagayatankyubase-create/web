@@ -47,7 +47,7 @@
     top: 20%;
     width: min(520px, 46vw);
     height: auto;
-    opacity: 0.14;
+    opacity: 0.20; /* 見えるように濃く */
     z-index: 1;
     pointer-events: none;
 }

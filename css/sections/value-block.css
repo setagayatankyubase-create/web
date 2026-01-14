@@ -26,7 +26,7 @@
     top: 15%;
     width: min(520px, 46vw);
     height: auto;
-    opacity: 0.14;
+    opacity: 0.20; /* 見えるように濃く */
     z-index: 1;
     pointer-events: none;
 }
@@ -84,7 +84,7 @@
     content: "・";
     position: absolute;
     left: 0;
-    color: #1E3A5F;
+    color: #5BA3FF; /* 明るめの水色に変更 */
     font-weight: 700;
     font-size: 1.1em;
 }

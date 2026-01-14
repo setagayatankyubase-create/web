@@ -74,6 +74,11 @@
     --brand-primary-hover: #1a3d8a;
     --brand-primary-light: rgba(31, 74, 168, 0.1);
     
+    /* CTA用の濃いブルー（ヒーロー／ヘッダー／共通） */
+    --cta-primary-bg: #1E40AF;
+    --cta-primary-bg-hover: #1E3A8A;
+    --cta-primary-text: #ffffff;
+    
     /* 統一されたボーダーラディウス */
     --radius-xs: 8px;
     --radius-sm: 10px;

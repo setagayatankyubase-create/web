@@ -197,7 +197,7 @@
 
 .header__logo-img {
     width: auto;
-    height: 24px;
+    height: 56px; /* 解像度維持のためheightで拡大 */
     display: block;
     object-fit: contain;
 }
@@ -538,9 +538,9 @@
     height: 46px;
     border-radius: var(--radius-pill);
     border: none;
-    background: var(--brand-primary);
-    color: #fff;
-    transition: background 0.2s ease;
+    background-color: var(--cta-primary-bg);
+    color: var(--cta-primary-text);
+    transition: background-color 0.2s ease;
     white-space: nowrap;
     text-decoration: none;
     flex-shrink: 0;
@@ -553,17 +553,17 @@
 }
 
 .header__cta:hover {
-    background: var(--brand-primary-hover);
+    background-color: var(--cta-primary-bg-hover);
 }
 
 .header__cta.is-active {
-    background: var(--brand-primary);
+    background-color: var(--cta-primary-bg);
     border: none;
-    color: #fff;
+    color: var(--cta-primary-text);
 }
 
 .header__cta.is-active:hover {
-    background: #1a3d8a;
+    background-color: var(--cta-primary-bg-hover);
     box-shadow: none;
 }
 
