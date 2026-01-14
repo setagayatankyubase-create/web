@@ -25,45 +25,19 @@
     pointer-events: none;
 }
 
-/* グリッド背景パターン（控えめに） */
-.hero--netyear .hero__bg::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 0, 0, 0.01) 2px,
-            rgba(0, 0, 0, 0.01) 4px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 0, 0, 0.01) 2px,
-            rgba(0, 0, 0, 0.01) 4px
-        );
-    background-size: 40px 40px, 40px 40px;
-    opacity: 0.03;
-    pointer-events: none;
-}
+/* グリッド背景パターンは削除（他のページと同じ背景に統一） */
 
-/* 右側のグラデーション背景・アニメーション（控えめに） */
+/* 右側のグラデーション背景・アニメーション（他のページと同じスタイル） */
 .hero--netyear::before {
     content: "";
     position: absolute;
-    top: -12%;
-    right: -18%;
-    width: 72vmin;
-    height: 72vmin;
-    background: radial-gradient(circle, rgba(255, 64, 129, 0.25) 0%, rgba(255, 87, 34, 0.20) 50%, rgba(255, 152, 0, 0.15) 100%);
-    filter: blur(120px);
-    opacity: 0.5;
+    top: -10%;
+    right: -15%;
+    width: 70vmin;
+    height: 70vmin;
+    background: radial-gradient(circle, rgba(255, 64, 129, 0.32) 0%, rgba(255, 87, 34, 0.24) 50%, rgba(255, 152, 0, 0.18) 100%);
+    filter: blur(100px);
+    opacity: 0.75;
     z-index: 0;
     pointer-events: none;
     border-radius: var(--radius-pill);
@@ -73,33 +47,33 @@
 .hero--netyear::after {
     content: "";
     position: absolute;
-    bottom: -26%;
+    bottom: -20%;
     right: -10%;
-    width: 86vmin;
-    height: 86vmin;
-    background: radial-gradient(circle, rgba(255, 152, 0, 0.28) 0%, rgba(255, 193, 7, 0.20) 50%, rgba(255, 87, 34, 0.15) 100%);
-    filter: blur(140px);
-    opacity: 0.5;
+    width: 80vmin;
+    height: 80vmin;
+    background: radial-gradient(circle, rgba(255, 152, 0, 0.38) 0%, rgba(255, 193, 7, 0.28) 50%, rgba(255, 87, 34, 0.20) 100%);
+    filter: blur(120px);
+    opacity: 0.65;
     z-index: 0;
     pointer-events: none;
     border-radius: var(--radius-pill);
     animation: blobBreath 32s ease-in-out infinite alternate reverse;
 }
 
+/* 追加のグラデーション（他のページと同じスタイル） */
 .hero--netyear .hero__bg::before {
     content: "";
     position: absolute;
-    top: 18%;
-    right: 18%;
-    width: 56vmin;
-    height: 56vmin;
-    background: radial-gradient(circle, rgba(255, 193, 7, 0.18) 0%, rgba(255, 152, 0, 0.12) 60%);
-    filter: blur(100px);
-    opacity: 0.35;
+    top: 20%;
+    right: 20%;
+    width: 55vmin;
+    height: 55vmin;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.22) 0%, rgba(255, 152, 0, 0.15) 60%);
+    filter: blur(90px);
+    opacity: 0.5;
     z-index: 0;
     pointer-events: none;
     border-radius: var(--radius-pill);
-    animation: blobBreath 24s ease-in-out infinite alternate;
 }
 
 @keyframes blobBreath {
@@ -185,6 +159,22 @@
     align-items: center;
     width: 100%;
     background-image: none !important;
+}
+
+/* 追加のグラデーション（他のページと同じスタイル） */
+.hero--netyear .hero__inner::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 55vmin;
+    height: 55vmin;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.22) 0%, rgba(255, 152, 0, 0.15) 60%);
+    filter: blur(90px);
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
 }
 
 /* TOPページ専用のパディング調整 */

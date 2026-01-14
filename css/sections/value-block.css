@@ -6,13 +6,7 @@
     position: relative;
     overflow: hidden;
     background: #f7f8fa;
-    padding: 120px 0;
-}
-
-@media (max-width: 900px) {
-    .value-block {
-        padding: 80px 0;
-    }
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
 /* VALUEセクション専用の背景テキスト */
@@ -60,46 +54,8 @@
     z-index: 1;
 }
 
-.value-block__kicker {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    font-weight: 500;
-    color: #9AA0A6;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    line-height: 1.2;
-}
-
-.value-block__title {
-    position: relative;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--black);
-    margin-top: 0;
-    margin-bottom: 24px;
-    padding-left: 0;
-    max-width: 620px;
-    word-break: keep-all;
-    overflow-wrap: normal;
-}
-
-@media (max-width: 900px) {
-    .value-block__title {
-        font-size: 28px;
-    }
-}
-
-.value-block__lead {
-    font-size: clamp(16px, 1.8vw, 18px);
-    line-height: 1.8;
-    color: rgba(0, 0, 0, 0.68);
-    margin-top: clamp(20px, 2.5vw, 28px);
-    margin-bottom: 0;
-    max-width: 600px;
-    word-break: keep-all;
-    overflow-wrap: normal;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.value-block__kicker, .value-block__title, .value-block__lead */
 
 .value-block__text {
     font-size: clamp(14px, 1.6vw, 16px);

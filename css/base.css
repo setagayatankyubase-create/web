@@ -113,6 +113,38 @@
     --transition-fast: 0.2s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.4s ease;
+    
+    /* ========================================
+       セクション見出し統一変数（Section Head）
+       ======================================== */
+    /* セクション上下余白 */
+    --sec-pad-y: var(--section-padding-md);
+    
+    /* eyebrow（英字ラベル） */
+    --sec-eyebrow-size: 12px;
+    --sec-eyebrow-letter-spacing: 0.18em;
+    --sec-eyebrow-color: rgba(0, 0, 0, 0.65);
+    --sec-eyebrow-weight: 400;
+    
+    /* title（h2） */
+    --sec-title-size: clamp(32px, 4vw, 48px);
+    --sec-title-line-height: 1.25;
+    --sec-title-letter-spacing: -0.02em;
+    --sec-title-weight: 700;
+    
+    /* ギャップ（eyebrow→title間） */
+    --sec-gap-1: clamp(10px, 1.2vw, 14px);
+    /* ギャップ（title→lead間） */
+    --sec-gap-2: clamp(16px, 2vw, 20px);
+    
+    /* lead（説明文） */
+    --sec-lead-size: clamp(15px, 1.6vw, 16px);
+    --sec-lead-line-height: 1.9;
+    --sec-lead-color: rgba(0, 0, 0, 0.7);
+    --sec-lead-max-width: 56ch;
+    
+    /* section-headの下余白（次のコンテンツまでの間隔） */
+    --sec-head-margin-bottom: clamp(40px, 5vw, 56px);
 }
 
 html {

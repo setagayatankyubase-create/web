@@ -5,7 +5,7 @@
 .news-top {
     position: relative;
     overflow: hidden;
-    padding: clamp(56px, 7vw, 96px) 0;
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
     background: var(--bg-white);
 }
 
@@ -30,42 +30,8 @@
     padding-inline: clamp(16px, 4vw, 56px);
 }
 
-/* 見出しエリアのコンテナ */
-.news-top__header {
-    margin-bottom: clamp(32px, 4vw, 48px);
-}
-
-.news-top__kicker {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    font-weight: 500;
-    color: #9AA0A6; /* グレー系 */
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    line-height: 1.2;
-}
-
-.news-top__title {
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--black);
-    line-height: 1.25;
-    margin-top: 0;
-    margin-bottom: 24px;
-}
-
-@media (max-width: 900px) {
-    .news-top__title {
-        font-size: 28px;
-    }
-}
-
-.news-top__lead {
-    font-size: clamp(14px, 1.5vw, 15px);
-    line-height: 1.8;
-    color: rgba(0, 0, 0, 0.65);
-    margin: 0;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.news-top__header, .news-top__kicker, .news-top__title, .news-top__lead */
 
 /* ニュース一覧・最新3件のリスト */
 .news-top__list {

@@ -7,8 +7,7 @@
 .top-services--netyear {
     position: relative;
     overflow: hidden;
-    padding-top: clamp(48px, 7vw, 96px);
-    padding-bottom: clamp(56px, 8vw, 120px);
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
     background: var(--bg-white);
 }
 
@@ -26,51 +25,11 @@
 }
 
 /* ========================================
-   見出しブロック（top-services__head）
+   見出しブロック（section-head に統一）
    役割: 「どういう価値観でサービスを提供しているか」を宣言
    ======================================== */
-
-.top-services--netyear .top-services__head {
-    margin-bottom: clamp(28px, 5vw, 64px);
-}
-
-/* kicker: 英字・小さめ・グレー、装飾しない */
-.top-services--netyear .top-services__kicker {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.5);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    line-height: 1.2;
-}
-
-/* title: 行間は詰めすぎない、改行位置は意味単位 */
-.top-services--netyear .top-services__title {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
-    line-height: 1.4;
-    margin-top: 0;
-    margin-bottom: 24px;
-    color: var(--black);
-}
-
-@media (max-width: 900px) {
-    .top-services--netyear .top-services__title {
-        font-size: 28px;
-        line-height: 1.35;
-    }
-}
-
-/* lead: 横幅を制限（56ch前後）、センター寄せ禁止、必ず左揃え */
-.top-services--netyear .top-services__lead {
-    font-size: clamp(15px, 1.6vw, 16px);
-    line-height: 1.9;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    max-width: 56ch;
-    text-align: left;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.top-services__head, .top-services__kicker, .top-services__title, .top-services__lead */
 
 /* ========================================
    各サービス行（top-service-row）

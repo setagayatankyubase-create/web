@@ -705,35 +705,83 @@ a:hover .link-arrow-inline::after {
 
 /* ========================================
    Section Head (共通セクション見出し)
+   統一ルール：eyebrow / title / lead の位置・サイズ・余白を固定
    ======================================== */
 .section-head {
     position: relative;
     z-index: 1;
-    margin-bottom: 40px;
+    margin-bottom: var(--sec-head-margin-bottom);
     max-width: 880px;
 }
 
+/* level（英字ラベル＋ピルの横並びコンテナ） */
+.section-head__level {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 var(--sec-gap-1) 0;
+}
+
+/* eyebrow（英字ラベル） */
 .section-head__eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: rgba(0, 0, 0, 0.65);
-    font-weight: 400;
+    font-size: var(--sec-eyebrow-size);
+    letter-spacing: var(--sec-eyebrow-letter-spacing);
+    color: var(--sec-eyebrow-color);
+    font-weight: var(--sec-eyebrow-weight);
     line-height: 1.2;
     text-transform: uppercase;
-    margin: 0 0 clamp(10px, 1.2vw, 14px) 0;
-    display: block;
+    margin: 0;
+    /* p要素で統一（spanにすると既存CSSとズレやすい） */
 }
 
+/* badge（ピル） */
+.section-head__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    background: rgba(255, 153, 0, 0.14);
+    color: #ff8a00;
+    border: 1px solid rgba(255, 153, 0, 0.28);
+    white-space: nowrap;
+    text-transform: uppercase;
+    /* ui-tag--orangeと同じ見た目 */
+}
+
+/* 後方互換性：eyebrow内に直接ui-tagがある場合 */
+.section-head__eyebrow .ui-tag {
+    margin-left: 0;
+}
+
+/* title（h2） */
 .section-head__title {
     position: relative;
-    font-size: clamp(32px, 4vw, 48px);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin: 0 0 clamp(16px, 2vw, 20px) 0;
-    font-weight: 700;
+    font-size: var(--sec-title-size);
+    line-height: var(--sec-title-line-height);
+    letter-spacing: var(--sec-title-letter-spacing);
+    margin: 0 0 var(--sec-gap-2) 0;
+    font-weight: var(--sec-title-weight);
     color: var(--black);
+    /* margin-top を禁止（ギャップは .section-head 側で管理） */
 }
 
+/* lead（説明文） */
+.section-head__lead {
+    font-size: var(--sec-lead-size);
+    line-height: var(--sec-lead-line-height);
+    color: var(--sec-lead-color);
+    margin: 0;
+    max-width: var(--sec-lead-max-width);
+    /* margin-top ではなく gap 的な設計 */
+}
+
+/* sub（補足テキスト） */
 .section-head__sub {
     font-size: clamp(14px, 1.5vw, 15px);
     line-height: 1.8;
@@ -753,12 +801,17 @@ a:hover .link-arrow-inline::after {
     color: rgba(0, 0, 0, 1);
 }
 
-.section-head__lead {
-    font-size: clamp(15px, 1.6vw, 16px);
-    line-height: 1.9;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    max-width: 56ch;
+/* ダーク背景セクション用の上書き */
+.section--dark .section-head__eyebrow {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.section--dark .section-head__title {
+    color: #fff;
+}
+
+.section--dark .section-head__lead {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* ========================================

@@ -182,18 +182,36 @@
 }
 
 .header__logo {
-    font-size: 16px;
-    letter-spacing: 0.06em;
-    color: #111;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
     white-space: nowrap;
-    font-weight: 500;
-    line-height: 1;
     flex-shrink: 0;
-    transition: color var(--transition-fast);
+    transition: opacity var(--transition-fast);
 }
 
 .header__logo:hover {
+    opacity: 0.8;
+}
+
+.header__logo-img {
+    width: auto;
+    height: 24px;
+    display: block;
+    object-fit: contain;
+}
+
+.header__logo-text {
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    color: #111;
+    font-weight: 500;
+    line-height: 1;
+    transition: color var(--transition-fast);
+}
+
+.header__logo:hover .header__logo-text {
     color: #222;
 }
 
@@ -449,13 +467,13 @@
     font-weight: 400;
     line-height: 1.6;
     color: rgba(0, 0, 0, 0.75);
-    transition: color 0.2s ease, font-size 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .mega__link:hover .mega__link-title,
 .mega__link:focus-visible .mega__link-title {
     color: var(--site-accent);
-    font-size: 17px;
+    /* font-size の変更を削除（ホバー時に文字を大きくしない） */
 }
 
 /* レスポンシブ対応 */

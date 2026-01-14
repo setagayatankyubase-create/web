@@ -22,40 +22,10 @@
 }
 
 /* ========================================
-   見出しブロック（top-column__head）
+   見出しブロック（section-head に統一）
    ======================================== */
-
-.top-column__head {
-    margin-bottom: 0;
-}
-
-.top-column__kicker {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.5);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    line-height: 1.2;
-}
-
-.top-column__title {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
-    line-height: 1.4;
-    margin-top: 0;
-    margin-bottom: 24px;
-    color: var(--black);
-}
-
-.top-column__lead {
-    font-size: clamp(15px, 1.6vw, 16px);
-    line-height: 1.9;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    max-width: 56ch;
-    text-align: left;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.top-column__head, .top-column__kicker, .top-column__title, .top-column__lead */
 
 /* ========================================
    グリッド（top-column__grid）

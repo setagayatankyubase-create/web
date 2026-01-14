@@ -10,7 +10,7 @@
 .notice {
     position: relative;
     overflow: hidden;
-    padding: clamp(56px, 8vw, 112px) 0;
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
     background: var(--bg-white);
     border-top: 1px solid var(--line);
 }
@@ -77,42 +77,8 @@
     z-index: 2;
 }
 
-.notice__kicker {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    font-weight: 500;
-    color: #9AA0A6;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    line-height: 1.2;
-}
-
-.notice__title {
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--black);
-    margin-top: 0;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-@media (max-width: 900px) {
-    .notice__title {
-        font-size: 28px;
-    }
-}
-
-.notice__lead {
-    font-size: clamp(15px, 1.6vw, 16px);
-    line-height: 1.9;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    max-width: 42ch;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.notice__kicker, .notice__title, .notice__lead */
 
 /* リストエリア */
 .notice__list-wrapper {
