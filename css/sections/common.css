@@ -33,8 +33,9 @@ section:not(.page-hero-common--netyear) .section-bg-text,
 
 /* 背景色を変えるのは、流れを切る時（セクション間の区切りを明確にしたい時）のみ */
 .section--muted {
-    background: var(--bg-section-muted);
+    background-color: var(--bg-section-muted);
     /* paddingは親の.sectionで定義されているため、ここでは上書きしない */
+    /* background-imageはセクション間のグラデーション用に上書き可能にする */
 }
 
 /* ダーク背景（必要に応じて） */

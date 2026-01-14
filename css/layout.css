@@ -22,6 +22,12 @@
     isolation: isolate; /* 擬似要素の重なり事故防止 */
 }
 
+/* セクション内のコンテンツはグラデーションの上に表示 */
+.section > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* ===== section edge blur ===== */
 /* 背景だけに適用（CTAの黒色には適用しない） */
 .section:not(.section--dark)::after {
@@ -32,13 +38,94 @@
     bottom: -1px;
     height: clamp(48px, 6vw, 96px);
     pointer-events: none;
-    z-index: 2;
+    z-index: 0;
     background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0) 0%,
         rgba(255, 255, 255, 0.65) 55%,
         rgba(255, 255, 255, 1) 100%
     );
+}
+
+/* セクション間の色味をゆっくり変える（B方式） */
+/* CTA（黒背景）には適用しない */
+.section:not(.section--dark) + .section:not(.section--dark) {
+    margin-top: 0;
+    padding-top: clamp(36px, 4vw, 64px);
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 100% clamp(36px, 4vw, 64px);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+/* section--mutedの場合もグラデーションを適用（背景色の上に重ねる） */
+.section:not(.section--dark) + .section--muted {
+    margin-top: 0;
+    padding-top: clamp(36px, 4vw, 64px);
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 100% clamp(36px, 4vw, 64px);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+/* section--mutedの後もグラデーションを適用 */
+.section--muted + .section:not(.section--dark) {
+    margin-top: 0;
+    padding-top: clamp(36px, 4vw, 64px);
+    background-image: linear-gradient(
+        to bottom,
+        rgba(247, 247, 247, 0.85) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 100% clamp(36px, 4vw, 64px);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+/* section--muted同士の間もグラデーションを適用 */
+.section--muted + .section--muted {
+    margin-top: 0;
+    padding-top: clamp(36px, 4vw, 64px);
+    background-image: linear-gradient(
+        to bottom,
+        rgba(247, 247, 247, 0.85) 0%,
+        rgba(247, 247, 247, 0) 100%
+    );
+    background-size: 100% clamp(36px, 4vw, 64px);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+/* 黒背景セクションの前は黒のグラデーション */
+.section--dark + .section:not(.section--dark) {
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    background-size: 100% clamp(36px, 4vw, 64px);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+/* 黒背景セクションの後は白のグラデーション */
+.section:not(.section--dark) + .section--dark {
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 100% clamp(36px, 4vw, 64px);
+    background-repeat: no-repeat;
+    background-position: top;
 }
 
 /* セクション余白のバリエーション（小/中/大の3段階のみ） */
