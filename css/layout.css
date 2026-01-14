@@ -38,7 +38,7 @@
     bottom: -1px;
     height: clamp(48px, 6vw, 96px);
     pointer-events: none;
-    z-index: 0;
+    z-index: -1; /* 最背面に配置 */
     background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0) 0%,
@@ -226,7 +226,8 @@
 
 /* Serviceリンクの文字色を濃く */
 .gnav-link {
-    color: #000;
+    color: rgba(0, 0, 0, 0.85); /* 通常時も少し濃く */
+    font-weight: 500; /* 通常時も少し太く */
 }
 
 .header__nav a::after {
@@ -245,6 +246,45 @@
 /* Serviceリンクのアンダーライン削除 */
 .gnav-link::after {
     display: none;
+}
+
+/* Serviceリンクの強調（hover/focus/active/メガメニュー展開時） */
+.gnav-item--has-mega:hover > .gnav-link,
+.gnav-item--has-mega:focus-within > .gnav-link,
+.gnav-item--has-mega.is-open > .gnav-link {
+    color: #000;
+    font-weight: 600;
+    position: relative;
+}
+
+.gnav-item--has-mega:hover > .gnav-link::after,
+.gnav-item--has-mega:focus-within > .gnav-link::after,
+.gnav-item--has-mega.is-open > .gnav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--brand-primary);
+    border-radius: 1px;
+}
+
+/* Serviceリンクが active の場合 */
+.gnav-item--has-mega > .gnav-link.is-active {
+    color: #000;
+    font-weight: 600;
+}
+
+.gnav-item--has-mega > .gnav-link.is-active::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--brand-primary);
+    border-radius: 1px;
 }
 
 /* ===== Global Nav Mega Menu (Service) ===== */
@@ -320,9 +360,9 @@
 
 .mega__inner {
     padding: 24px;
-    background: #ffffff;
+    background: #ffffff; /* 完全に白に */
     border-radius: 8px;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.06); /* 微細なボーダーを追加して品質感UP */
     box-shadow: 0 8px 64px rgba(0, 0, 0, 0.05), 0 2px 24px rgba(0, 0, 0, 0.02);
     display: grid;
     grid-template-columns: 200px 1fr;
@@ -353,13 +393,13 @@
 
 .mega__top-title {
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400; /* 300 → 400 に変更してコントラストUP */
     letter-spacing: 0.24em;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.7); /* 0.5 → 0.7 に変更してコントラストUP */
     margin: 0;
     line-height: 1.4;
     text-transform: uppercase;
-    opacity: 0.75;
+    opacity: 1; /* 0.75 → 1 に変更 */
 }
 
 .mega__top-desc {
@@ -383,31 +423,25 @@
 /* 各列の前にオレンジの縦線（不要なため削除） */
 
 /* メガメニュー内のリンク（Netyear風） */
+.mega__col li {
+    position: relative;
+}
+
 .mega__link {
     position: relative;
     display: block;
-    padding: 8px 0 8px 28px;
+    padding: 8px 24px; /* 縦線削除に伴い、左右の padding を統一 */
+    margin: 0 -24px; /* ネガティブマージンで横いっぱいに */
     text-decoration: none;
     color: inherit;
-    transition: color 0.2s ease; /* padding-leftのtransition削除（文字を動かさない） */
-}
-
-.mega__link::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: #ff8c00;
-    border-radius: 2px;
+    transition: color 0.2s ease;
 }
 
 .mega__link:hover,
 .mega__link:focus-visible {
     color: var(--site-accent);
     outline: none;
-    /* padding-leftは変更しない（文字を動かさない） */
+    /* padding は変更しない（文字が動かないように） */
 }
 
 .mega__link-title {

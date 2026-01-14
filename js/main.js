@@ -222,9 +222,26 @@ function resolveRelativeLinks(container) {
 // ===== ナビゲーションのis-activeクラス設定 =====
 function setActiveNav() {
     const currentPath = window.location.pathname;
+    const currentFile = currentPath.split('/').pop() || 'index.html';
+    
     document.querySelectorAll(".header__nav a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href) return;
+        
+        // Service リンクの特別処理：service.html と service-creative.html の両方で active にする
+        if (link.classList.contains('gnav-link')) {
+            // href に service.html が含まれるか、service-creative.html が含まれる場合
+            const hrefLower = href.toLowerCase();
+            if (hrefLower.includes('service.html') || hrefLower.includes('service-creative.html')) {
+                if (currentFile === 'service.html' || currentFile === 'service-creative.html') {
+                    link.classList.add("is-active");
+                    return;
+                } else {
+                    link.classList.remove("is-active");
+                    return;
+                }
+            }
+        }
         
         // 絶対パスと現在のパスを正規化して比較
         const linkPath = href.startsWith('/') ? href : new URL(href, window.location.origin).pathname;
