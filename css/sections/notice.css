@@ -64,7 +64,7 @@
     z-index: 1;
     max-width: 1200px;
     margin: 0 auto;
-    padding-inline: clamp(16px, 4vw, 56px);
+    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
     display: grid;
     grid-template-columns: 0.95fr 1.05fr;
     gap: clamp(24px, 5vw, 72px);

@@ -216,7 +216,7 @@
     z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
-    padding-inline: clamp(16px, 4vw, 56px);
+    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
     padding-top: clamp(16px, 2vw, 32px);
     display: grid;
     grid-template-columns: 1fr;
@@ -246,7 +246,7 @@
 .page-hero-common--netyear .page-hero-common__eyebrow {
     font-size: clamp(12px, 1.2vw, 13px);
     letter-spacing: 0.18em;
-    color: #f08a00;
+    color: #1E3A5F;
     text-transform: uppercase;
     margin-bottom: clamp(20px, 2.5vw, 32px);
     font-weight: 500;

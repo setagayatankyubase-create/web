@@ -46,7 +46,7 @@
     padding: 0 22px;
     height: 52px;
     border: none;
-    background: var(--brand-primary);
+    background: #000; /* 初期は黒色 */
     color: #fff;
     font-size: 15px;
     letter-spacing: 0.05em;
@@ -59,7 +59,7 @@
 }
 
 .btn--primary:hover {
-    background: rgba(31, 74, 168, 0.92);
+    background: #1E3A5F; /* ホバーでネイビー */
     transform: translateY(-1px);
 }
 
@@ -72,7 +72,7 @@
     padding: 0 22px;
     height: 52px;
     border: 1px solid rgba(0, 0, 0, 0.18);
-    background: transparent;
+    background: #fff; /* 初期は白色 */
     color: rgba(0, 0, 0, 0.82);
     font-size: 15px;
     letter-spacing: 0.05em;
@@ -87,8 +87,9 @@
 .btn--secondary:hover,
 .btn--ghost:hover {
     transform: translateY(-1px);
-    border-color: rgba(0, 0, 0, 0.28);
-    background: rgba(255, 255, 255, 0.45);
+    border-color: #1E3A5F; /* ホバーでネイビー */
+    background: #1E3A5F; /* ホバーでネイビー */
+    color: #fff; /* テキストも白に */
 }
 
 /* ========================================
@@ -299,9 +300,9 @@ a:hover .link-arrow-inline::after {
 }
 
 .ui-tag--orange {
-    background: rgba(255, 153, 0, 0.14);
-    color: #ff8a00;
-    border-color: rgba(255, 153, 0, 0.28);
+    background: rgba(30, 58, 95, 0.12);
+    color: #1E3A5F;
+    border-color: rgba(30, 58, 95, 0.25);
 }
 
 /* 見出し横に置く時の余白 */
@@ -746,12 +747,12 @@ a:hover .link-arrow-inline::after {
     font-weight: 600;
     letter-spacing: 0.08em;
     line-height: 1;
-    background: rgba(255, 153, 0, 0.14);
-    color: #ff8a00;
-    border: 1px solid rgba(255, 153, 0, 0.28);
+    background: rgba(30, 58, 95, 0.12);
+    color: #1E3A5F;
+    border: 1px solid rgba(30, 58, 95, 0.25);
     white-space: nowrap;
     text-transform: uppercase;
-    /* ui-tag--orangeと同じ見た目 */
+    /* ネイビー（#1E3A5F）に変更 */
 }
 
 /* 後方互換性：eyebrow内に直接ui-tagがある場合 */

@@ -19,7 +19,7 @@
 .top-services--netyear .top-services__inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding-inline: clamp(16px, 4vw, 56px);
+    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
     position: relative;
     z-index: 1;
 }
@@ -82,7 +82,7 @@
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
-    color: rgba(255, 140, 0, 0.85);
+    color: rgba(30, 58, 95, 0.85);
     margin: 0;
     pointer-events: none;
     z-index: 0;

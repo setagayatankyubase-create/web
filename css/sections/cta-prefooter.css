@@ -13,6 +13,35 @@
     min-height: auto;
 }
 
+/* 背景画像（ぼかし付き） */
+.cta-prefooter::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/img/24837530_m.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    opacity: 0.4;
+    z-index: 0;
+}
+
+/* 背景画像の上に暗いオーバーレイ */
+.cta-prefooter::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
 /* 背景装飾（ネット柄など）は維持 */
 
 /* ========================================
@@ -30,7 +59,7 @@
     text-align: center;
     gap: 10px;
     position: relative;
-    z-index: 2;
+    z-index: 2; /* 背景画像とオーバーレイの上に表示 */
 }
 
 /* ========================================

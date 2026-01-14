@@ -150,7 +150,7 @@
     z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
-    padding-inline: clamp(16px, 4vw, 56px);
+    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
     padding-top: 0;
     padding-bottom: 0;
     display: grid;
@@ -206,7 +206,7 @@ body.home {
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin: 0 0 clamp(12px, 1.5vw, 20px) 0;
-    color: #FF6B35;
+    color: #1E3A5F;
 }
 
 /* サブコピー（メインコピーとの視覚的な差を明確に） */
