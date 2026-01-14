@@ -19,6 +19,26 @@
     padding: var(--section-padding-md) 0;
     position: relative;
     overflow: hidden;
+    isolation: isolate; /* 擬似要素の重なり事故防止 */
+}
+
+/* ===== section edge blur ===== */
+/* 背景だけに適用（CTAの黒色には適用しない） */
+.section:not(.section--dark)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: clamp(48px, 6vw, 96px);
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.65) 55%,
+        rgba(255, 255, 255, 1) 100%
+    );
 }
 
 /* セクション余白のバリエーション（小/中/大の3段階のみ） */
