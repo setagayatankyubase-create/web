@@ -12,6 +12,11 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://example.com">
     
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
     <script>
         // FOUC防止：JS初期化までの間、デフォルトでis-readyを設定（main.jsで確実に制御）
@@ -29,9 +34,13 @@
         <div class="hero__inner">
             <div class="hero__copy">
                 <p class="hero__eyebrow">HP PRODUCTION</p>
-                <h1 class="hero__headline-en">設計から、きちんと。</h1>
-                <p class="hero__headline-jp">現地で話し、事業に合った設計でホームページを制作します。</p>
-                <p class="hero__sub">現地訪問から制作・公開・運用まで一貫対応。写真・文章・構成までまとめて対応します。</p>
+                <h1 class="hero__headline">現場から、<br>設計する。</h1>
+                <p class="hero__sub">現地で話し、事業に合った設計で<br>ホームページを制作します。</p>
+                <div class="hero__actions">
+                    <a href="contact.html" class="hero__btn--primary">無料相談する</a>
+                    <a href="flow.html" class="hero__btn--secondary">制作の流れを見る</a>
+                </div>
+                <p class="hero__note">最短即日返信。月額11,000円～</p>
             </div>
             <a class="hero-ai-pop" href="service.html#ai">
                 <div class="hero-ai-pop__illust">
@@ -163,46 +172,46 @@
         <div class="section-bg-text" aria-hidden="true">SERVICE</div>
         <div class="top-services__inner">
             <header class="top-services__head">
-                <p class="top-services__kicker">SERVICE<span class="ui-tag ui-tag--orange ui-tag--inline">PRODUCTION</span></p>
+                <p class="top-services__kicker">SERVICE</p>
                 <h2 class="top-services__title">サービス</h2>
-                <p class="top-services__lead">現地訪問から制作・公開・運用まで、一貫して整えます。</p>
+                <p class="top-services__lead">現地訪問から制作・公開・運用まで。必要な工程をまとめて整え、事業の魅力が伝わるホームページを作ります。</p>
             </header>
 
             <article class="top-service-row">
-                <div class="top-service-row__media">
+                <p class="top-service-row__big-num">01</p>
+                <figure class="top-service-row__media">
                     <img src="assets/img/25380110_m.jpg" alt="現地訪問・ヒアリング" loading="lazy" width="600" height="400" decoding="async">
-                </div>
-                <div class="top-service-row__card">
-                    <p class="top-service-row__num">01</p>
-                    <p class="top-service-row__label">現地訪問</p>
+                </figure>
+                <div class="top-service-row__body">
+                    <p class="top-service-row__label">FIELD RESEARCH</p>
                     <h3 class="top-service-row__heading">現地訪問・ヒアリング</h3>
-                    <p class="top-service-row__text">事業を理解するため、現地で直接お話を伺います。魅力が伝わる言葉と構成を一緒に整理します。</p>
+                    <p class="top-service-row__text">事業を理解するため、現地で直接お話を伺います。強み・こだわり・顧客の反応など、言葉になりにくい情報まで拾い上げます。整理した内容をもとに、伝わる言葉と構成を一緒に固め、サイトの軸をつくります。</p>
                     <a class="top-service-row__cta" href="service.html#visit">詳しく見る<span aria-hidden="true">→</span></a>
                 </div>
             </article>
 
-            <article class="top-service-row row--reverse">
-                <div class="top-service-row__media">
+            <article class="top-service-row is-even">
+                <p class="top-service-row__big-num">02</p>
+                <figure class="top-service-row__media">
                     <img src="assets/img/33590457_m.jpg" alt="写真撮影・文章作成" loading="lazy" width="600" height="400" decoding="async">
-                </div>
-                <div class="top-service-row__card">
-                    <p class="top-service-row__num">02</p>
-                    <p class="top-service-row__label">制作</p>
+                </figure>
+                <div class="top-service-row__body">
+                    <p class="top-service-row__label">CONTENT CREATION</p>
                     <h3 class="top-service-row__heading">写真撮影・文章作成</h3>
-                    <p class="top-service-row__text">必要な写真と文章をこちらで用意します。何を載せるべきか分からない状態でも進められます。</p>
+                    <p class="top-service-row__text">必要な写真と文章はこちらで用意します。「何を載せるべきか分からない」状態でも、目的から逆算して情報を整えられます。見せたい印象に合わせて、写真のトーンと文章の温度感を揃え、ページ全体の統一感をつくります。</p>
                     <a class="top-service-row__cta" href="service.html#content">詳しく見る<span aria-hidden="true">→</span></a>
                 </div>
             </article>
 
             <article class="top-service-row">
-                <div class="top-service-row__media">
+                <p class="top-service-row__big-num">03</p>
+                <figure class="top-service-row__media">
                     <img src="assets/img/33736916_m.jpg" alt="公開・運用サポート" loading="lazy" width="600" height="400" decoding="async">
-                </div>
-                <div class="top-service-row__card">
-                    <p class="top-service-row__num">03</p>
-                    <p class="top-service-row__label">運用</p>
+                </figure>
+                <div class="top-service-row__body">
+                    <p class="top-service-row__label">SUPPORT & GROWTH</p>
                     <h3 class="top-service-row__heading">公開・運用サポート</h3>
-                    <p class="top-service-row__text">公開後の更新や改善まで見据えて設計します。育てられるホームページに整えます。</p>
+                    <p class="top-service-row__text">公開して終わりではなく、更新や改善まで見据えて設計します。運用しやすい導線とページ構成に整え、育てられるホームページにします。必要に応じて更新の相談や小さな改善も並走し、成果につながる形へ調整します。</p>
                     <a class="top-service-row__cta" href="service.html#support">詳しく見る<span aria-hidden="true">→</span></a>
                 </div>
             </article>
@@ -284,47 +293,64 @@
     </section>
 
     <!-- コラム -->
-    <section class="column section section--muted" aria-label="コラム" data-anim="reveal">
+    <section class="top-column section section--muted" aria-label="コラム" data-anim="reveal">
         <div class="section-bg-text" aria-hidden="true">COLUMN</div>
         <div class="container">
-            <header class="section-head">
-                <span class="section-head__eyebrow">COLUMN<span class="ui-tag ui-tag--orange ui-tag--inline">ARTICLE</span></span>
-                <h2 class="section-head__title">コラム</h2>
-                <p class="section-head__lead">ホームページ制作に関する考え方やノウハウをお届けします。</p>
-            </header>
-            <div class="column-grid">
-                <article class="column-card">
-                    <figure class="column-media">
-                        <img src="assets/img/33643559_m.jpg" alt="ホームページの文章" loading="lazy" width="600" height="400" decoding="async">
-                    </figure>
-                    <div class="column-body">
-                        <span class="column-category">文章</span>
-                        <h3 class="column-title">ホームページの文章で気をつけるべき3つのポイント</h3>
-                        <p class="column-excerpt">お客様に伝わる文章を書くためのポイントをご紹介します。</p>
-                        <time class="column-date" datetime="2024-11-20">2024.11.20</time>
-                    </div>
+            <div class="top-column__head">
+                <h2 class="top-column__title">コラム</h2>
+                <p class="top-column__lead">ホームページ制作に関する考え方やノウハウをお届けします。</p>
+            </div>
+            <div class="top-column__grid">
+                <article class="top-post">
+                    <a class="top-post__link" href="column/2024-11-20-genchi.html">
+                        <figure class="top-post__media">
+                            <img src="assets/img/33643559_m.jpg" alt="ホームページの文章" loading="lazy" width="600" height="400" decoding="async">
+                        </figure>
+                        <div class="top-post__body">
+                            <p class="top-post__meta">
+                                <span class="top-post__cat">文章</span>
+                                <span class="top-post__sep" aria-hidden="true">/</span>
+                                <time class="top-post__date" datetime="2024-11-20">2024.11.20</time>
+                            </p>
+                            <h3 class="top-post__heading">ホームページの文章で気をつけるべき3つのポイント</h3>
+                            <p class="top-post__excerpt">お客様に伝わる文章を書くためのポイントをご紹介します。</p>
+                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
+                        </div>
+                    </a>
                 </article>
-                <article class="column-card">
-                    <figure class="column-media">
-                        <img src="assets/img/33643563_m.jpg" alt="ホームページの写真" loading="lazy" width="600" height="400" decoding="async">
-                    </figure>
-                    <div class="column-body">
-                        <span class="column-category">写真</span>
-                        <h3 class="column-title">ホームページに使う写真選びのコツ</h3>
-                        <p class="column-excerpt">効果的な写真の選び方と撮影時のポイントを解説します。</p>
-                        <time class="column-date" datetime="2024-10-15">2024.10.15</time>
-                    </div>
+                <article class="top-post">
+                    <a class="top-post__link" href="column/2024-10-15-photo-text.html">
+                        <figure class="top-post__media">
+                            <img src="assets/img/33643563_m.jpg" alt="ホームページの写真" loading="lazy" width="600" height="400" decoding="async">
+                        </figure>
+                        <div class="top-post__body">
+                            <p class="top-post__meta">
+                                <span class="top-post__cat">写真</span>
+                                <span class="top-post__sep" aria-hidden="true">/</span>
+                                <time class="top-post__date" datetime="2024-10-15">2024.10.15</time>
+                            </p>
+                            <h3 class="top-post__heading">ホームページに使う写真選びのコツ</h3>
+                            <p class="top-post__excerpt">効果的な写真の選び方と撮影時のポイントを解説します。</p>
+                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
+                        </div>
+                    </a>
                 </article>
-                <article class="column-card">
-                    <figure class="column-media">
-                        <img src="assets/img/31990819_m.jpg" alt="ホームページの更新" loading="lazy" width="600" height="400" decoding="async">
-                    </figure>
-                    <div class="column-body">
-                        <span class="column-category">更新</span>
-                        <h3 class="column-title">ホームページを定期的に更新する重要性</h3>
-                        <p class="column-excerpt">更新頻度がSEOと信頼感に与える影響について解説します。</p>
-                        <time class="column-date" datetime="2024-09-30">2024.09.30</time>
-                    </div>
+                <article class="top-post">
+                    <a class="top-post__link" href="column/2024-09-10-example.html">
+                        <figure class="top-post__media">
+                            <img src="assets/img/31990819_m.jpg" alt="ホームページの更新" loading="lazy" width="600" height="400" decoding="async">
+                        </figure>
+                        <div class="top-post__body">
+                            <p class="top-post__meta">
+                                <span class="top-post__cat">更新</span>
+                                <span class="top-post__sep" aria-hidden="true">/</span>
+                                <time class="top-post__date" datetime="2024-09-30">2024.09.30</time>
+                            </p>
+                            <h3 class="top-post__heading">ホームページを定期的に更新する重要性</h3>
+                            <p class="top-post__excerpt">更新頻度がSEOと信頼感に与える影響について解説します。</p>
+                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
+                        </div>
+                    </a>
                 </article>
             </div>
         </div>
@@ -411,28 +437,18 @@
     <!-- CTA -->
     <div id="site-cta"></div>
 
-    <!-- 資料ダウンロード・制作実績 -->
-    <div id="download" aria-hidden="true"></div>
-    <section class="cta-prefooter section" data-anim="reveal">
-        <div class="section-bg-text" aria-hidden="true">DOWNLOAD</div>
+    <!-- CTA Prefooter -->
+    <section class="cta-prefooter section section--dark" data-anim="reveal">
+        <div class="section-bg-text" aria-hidden="true">CONTACT</div>
         <div class="cta-prefooter__inner">
-            <div class="cta-prefooter__grid">
-                <!-- 資料ダウンロードカード -->
-                <a href="index.html#download" class="cta-card">
-                    <span class="cta-card__label">会社概要・サービス資料</span>
-                    <h3 class="cta-card__title">資料ダウンロード</h3>
-                    <p class="cta-card__desc">会社概要とサービス内容を、1つにまとめた資料をご用意しています。</p>
-                    <span class="cta-card__arrow" aria-hidden="true">→</span>
-                </a>
-
-                <!-- 制作実績カード -->
-                <a href="service.html" class="cta-card">
-                    <span class="cta-card__label">制作実績</span>
-                    <h3 class="cta-card__title">制作実績を見る</h3>
-                    <p class="cta-card__desc">Web制作から運用支援まで。取り組みの実例をご覧ください。</p>
-                    <span class="cta-card__arrow" aria-hidden="true">→</span>
-                </a>
-            </div>
+            <p class="cta-prefooter__kicker">
+                <span>CONTACT</span>
+                <span class="cta-prefooter__tag">INQUIRY</span>
+            </p>
+            <h2 class="cta-prefooter__title">まずは、お話を聞かせてください。</h2>
+            <p class="cta-prefooter__lead">現地で話し、事業の状況を理解した上でホームページ制作についてご提案します。</p>
+            <a href="contact.html" class="cta-prefooter__button">無料で相談する <span aria-hidden="true">→</span></a>
+            <p class="cta-prefooter__note">最短即日返信。月額11,000円～</p>
         </div>
     </section>
 
@@ -466,6 +482,9 @@
             </svg>
         </button>
     </div>
+
+    <!-- メガメニュー用overlay -->
+    <div class="mega-overlay" aria-hidden="true"></div>
 
     <script src="js/modules/includePartials.js"></script>
     <script src="js/modules/megaMenu.js"></script>

@@ -1,73 +1,86 @@
-// ===== メガメニュー（Service）ホバー安定化処理 =====
+// ===== メガメニュー（Service）ホバー安定化処理（Netyear風） =====
 window.initMegaMenu = function initMegaMenu() {
     // ヘッダーが読み込まれるまで待つ
     const init = () => {
         const megaItems = document.querySelectorAll('.gnav-item--has-mega');
+        const overlay = document.querySelector('.mega-overlay');
+        
         if (megaItems.length === 0) {
             // ヘッダーがまだ読み込まれていない場合、少し待って再試行
             setTimeout(init, 100);
             return;
         }
 
+        let closeTimer = null;
+
+        // 全メニューを閉じる関数
+        const closeAll = (delay = 180) => {
+            clearTimeout(closeTimer);
+            closeTimer = setTimeout(() => {
+                megaItems.forEach((item) => {
+                    item.classList.remove('is-open');
+                });
+                overlay?.classList.remove('is-open');
+            }, delay);
+        };
+
+        // メニューを開く関数
+        const openItem = (item) => {
+            clearTimeout(closeTimer);
+            // 他のメニューを閉じる
+            megaItems.forEach((i) => {
+                if (i !== item) {
+                    i.classList.remove('is-open');
+                }
+            });
+            item.classList.add('is-open');
+            overlay?.classList.add('is-open');
+        };
+
         megaItems.forEach((item) => {
             const mega = item.querySelector('.mega');
-            if (!mega) return;
+            const trigger = item.querySelector('.gnav-link');
+            if (!mega || !trigger) return;
 
-            let openTimer = null;
-            let closeTimer = null;
             const isMobile = window.matchMedia('(max-width: 960px)').matches;
-
-            const open = () => {
-                clearTimeout(closeTimer);
-                clearTimeout(openTimer);
-                openTimer = setTimeout(() => {
-                    item.classList.add('is-open');
-                }, 80); // 誤爆防止のための遅延
-            };
-
-            const close = () => {
-                clearTimeout(openTimer);
-                clearTimeout(closeTimer);
-                closeTimer = setTimeout(() => {
-                    item.classList.remove('is-open');
-                }, 200); // パネルへ移動する間の猶予
-            };
 
             // PC: ホバー処理
             if (!isMobile) {
-                item.addEventListener('mouseenter', open);
-                item.addEventListener('mouseleave', close);
+                item.addEventListener('mouseenter', () => openItem(item));
+                item.addEventListener('mouseleave', () => closeAll(180));
                 mega.addEventListener('mouseenter', () => clearTimeout(closeTimer));
-                mega.addEventListener('mouseleave', close);
+                mega.addEventListener('mouseleave', () => closeAll(180));
             }
 
             // キーボード対応
-            item.addEventListener('focusin', open);
+            trigger.addEventListener('focus', () => openItem(item));
             item.addEventListener('focusout', (e) => {
                 // フォーカスがメガメニュー内に移動する場合は閉じない
                 if (!item.contains(e.relatedTarget)) {
-                    close();
+                    closeAll(180);
                 }
             });
 
             // モバイル: クリックで開閉
             if (isMobile) {
-                const link = item.querySelector('.gnav-link');
-                if (link) {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        item.classList.toggle('is-open');
-                    });
-                }
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (item.classList.contains('is-open')) {
+                        closeAll(0);
+                    } else {
+                        openItem(item);
+                    }
+                });
             }
         });
+
+        // overlayクリックで閉じる
+        overlay?.addEventListener('click', () => closeAll(0));
 
         // Escキーで閉じる
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                megaItems.forEach((item) => {
-                    item.classList.remove('is-open');
-                });
+                closeAll(0);
             }
         });
 
@@ -76,9 +89,7 @@ window.initMegaMenu = function initMegaMenu() {
             if (window.matchMedia('(max-width: 960px)').matches) {
                 const wrap = e.target.closest('.gnav-item--has-mega');
                 if (!wrap) {
-                    megaItems.forEach((item) => {
-                        item.classList.remove('is-open');
-                    });
+                    closeAll(0);
                 }
             }
         });

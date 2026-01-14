@@ -29,8 +29,8 @@
     /* 大：強調したいセクション用 */
     --section-padding-lg: clamp(96px, 10vw, 160px);
     --ease: cubic-bezier(.2, .8, .2, 1);
-    --header-h: 72px;
-    --header-main-h: 72px;
+    --header-h: 68px;
+    --header-main-h: 68px;
     --header-news-h: 34px;
     --header-total-h: calc(var(--header-main-h) + var(--header-news-h));
     --header-pad-x: clamp(20px, 3vw, 56px);

@@ -1,12 +1,20 @@
 /* ========================================
    Top Services Section (サービス概要)
+   設計思想: netyear about風、カードUI撤去、透明テキストブロック
+   番号はabsoluteで外側に配置、gridは写真＋文章の2カラムのみ
    ======================================== */
 
 .top-services--netyear {
     position: relative;
     overflow: hidden;
-    padding: clamp(56px, 8vw, 120px) 0;
+    padding-top: clamp(48px, 7vw, 96px);
+    padding-bottom: clamp(56px, 8vw, 120px);
     background: var(--bg-white);
+}
+
+/* 背景文字（SERVICE）の主張をコントロール */
+.top-services--netyear .section-bg-text {
+    opacity: 0.06;
 }
 
 .top-services--netyear .top-services__inner {
@@ -17,24 +25,31 @@
     z-index: 1;
 }
 
+/* ========================================
+   見出しブロック（top-services__head）
+   役割: 「どういう価値観でサービスを提供しているか」を宣言
+   ======================================== */
+
 .top-services--netyear .top-services__head {
     margin-bottom: clamp(28px, 5vw, 64px);
 }
 
+/* kicker: 英字・小さめ・グレー、装飾しない */
 .top-services--netyear .top-services__kicker {
     font-size: 12px;
     letter-spacing: 0.12em;
-    font-weight: 500;
-    color: #9AA0A6;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
     margin-bottom: 12px;
     text-transform: uppercase;
     line-height: 1.2;
 }
 
+/* title: 行間は詰めすぎない、改行位置は意味単位 */
 .top-services--netyear .top-services__title {
-    font-size: 40px;
+    font-size: clamp(32px, 4vw, 48px);
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.4;
     margin-top: 0;
     margin-bottom: 24px;
     color: var(--black);
@@ -43,154 +58,239 @@
 @media (max-width: 900px) {
     .top-services--netyear .top-services__title {
         font-size: 28px;
+        line-height: 1.35;
     }
 }
 
+/* lead: 横幅を制限（56ch前後）、センター寄せ禁止、必ず左揃え */
 .top-services--netyear .top-services__lead {
     font-size: clamp(15px, 1.6vw, 16px);
     line-height: 1.9;
     color: rgba(0, 0, 0, 0.7);
     margin: 0;
     max-width: 56ch;
+    text-align: left;
 }
 
-/* row layout */
+/* ========================================
+   各サービス行（top-service-row）
+   行：写真＋文章の2カラムだけで管理（番号は別レイヤー）
+   デフォルト（奇数）：左=文章 / 右=写真
+   偶数：左=写真 / 右=文章
+   ======================================== */
+
 .top-service-row {
+    position: relative;
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: clamp(20px, 4vw, 56px);
-    align-items: center;
-    margin-top: clamp(28px, 5vw, 72px);
+    grid-template-columns: 0.95fr 1.05fr; /* 左:文章 右:写真 */
+    gap: clamp(28px, 5vw, 72px);
+    align-items: start;
+    padding: clamp(44px, 7vw, 92px) 0;
 }
 
-.top-service-row.row--reverse {
-    grid-template-columns: 0.95fr 1.05fr;
-}
-
-.top-service-row.row--reverse .top-service-row__media {
-    order: 2;
-}
-
-.top-service-row.row--reverse .top-service-row__card {
+.top-service-row__body {
     order: 1;
 }
 
-/* media */
+.top-service-row__media {
+    order: 2;
+}
+
+/* 偶数行は反転：左=写真 / 右=文章 */
+.top-service-row.is-even {
+    grid-template-columns: 1.05fr 0.95fr; /* 左:写真 右:文章 */
+}
+
+.top-service-row.is-even .top-service-row__media {
+    order: 1;
+}
+
+.top-service-row.is-even .top-service-row__body {
+    order: 2;
+    text-align: left;
+}
+
+/* ========================================
+   巨大番号（top-service-row__big-num）
+   番号：absoluteで"外側"に逃がす（奇数は左、偶数は右）
+   gridの計算に混ぜない（01/03の破綻を防ぐ）
+   ======================================== */
+
+.top-service-row__big-num {
+    position: absolute;
+    top: clamp(8px, 2vw, 22px);
+    font-size: clamp(64px, 7vw, 112px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: rgba(255, 140, 0, 0.85);
+    margin: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 奇数（デフォ）：左に出す（もっと外へ） */
+.top-service-row:not(.is-even) .top-service-row__big-num {
+    left: clamp(-6px, -1vw, 0px);
+}
+
+/* 偶数：右に出す */
+.top-service-row.is-even .top-service-row__big-num {
+    right: clamp(-6px, -1vw, 0px);
+}
+
+/* ========================================
+   写真（media）
+   角丸なし、影なし、余白は潔く
+   ======================================== */
+
 .top-service-row__media {
     position: relative;
     z-index: 2;
+    margin: 0;
 }
 
 .top-service-row__media img {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 22px;
+    border-radius: 0;
     object-fit: cover;
     aspect-ratio: 4 / 3;
 }
 
-/* card */
-.top-service-row__card {
+/* ========================================
+   テキストブロック（top-service-row__body）
+   カードUI完全撤去：背景・枠・影・blur無し
+   透明で直置き、読みやすさ補助の極薄グラデのみ
+   max-width: 56ch で中央寄りすぎを防ぐ
+   ======================================== */
+
+.top-service-row__body {
     position: relative;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 26px;
-    padding: clamp(20px, 3vw, 32px);
-    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.06);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: flex;
-    flex-direction: column;
-    min-height: 260px;
-    z-index: 2;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    display: block;
+    min-height: auto;
+    z-index: 1;
+    max-width: 56ch;
+    /* 数字と文章が重ならないよう、文章ブロックを下げる */
+    margin-top: clamp(32px, 4vw, 56px);
 }
 
-/* number (01/02/03) */
-.top-service-row__num {
+/* テキスト読みやすさ補助（カードにならない極薄グラデ） */
+.top-service-row__body::before {
+    content: "";
     position: absolute;
-    top: 18px;
-    right: 18px;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    opacity: 0.45;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
+    inset: -12px -16px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    z-index: -1;
 }
 
-/* label / heading / text */
+/* 偶数行のグラデーション方向を反転 */
+.top-service-row.is-even .top-service-row__body::before {
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+}
+
+/* ========================================
+   LABEL（英字）
+   意味カテゴリ、デザインは控えめ、装飾しない
+   ======================================== */
+
 .top-service-row__label {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.18em;
-    opacity: 0.7;
-    color: rgba(0, 0, 0, 0.6);
+    opacity: 0.6;
+    color: rgba(0, 0, 0, 0.5);
     text-transform: uppercase;
     margin: 0 0 10px 0;
-    font-weight: 500;
+    font-weight: 400;
 }
 
+/* ========================================
+   HEADING（日本語タイトル）
+   一文で言い切る、抽象すぎないが、手段（How）は書かない
+   タイポの差を広げる：見出しを大きく、letter-spacing調整
+   ======================================== */
+
 .top-service-row__heading {
-    font-size: clamp(22px, 2.4vw, 32px);
+    font-size: clamp(26px, 2.8vw, 36px);
     font-weight: 700;
-    line-height: 1.25;
-    margin-top: 10px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-top: 0;
     margin-bottom: 0;
     color: var(--black);
+    /* body全体を下げているので、見出し側に余計なtop marginがあると二重で下がるのを防ぐ */
 }
+
+/* ========================================
+   TEXT（説明）
+   2〜3文まで、「何をするか」＋「なぜそれをやるか」
+   タイポの差を広げる：opacityを下げる、line-height維持
+   ======================================== */
 
 .top-service-row__text {
     margin-top: 12px;
     line-height: 1.9;
-    opacity: 0.78;
-    max-width: 52ch;
-    color: rgba(0, 0, 0, 0.75);
+    opacity: 0.72;
+    color: rgba(0, 0, 0, 0.72);
     font-size: clamp(14px, 1.6vw, 16px);
 }
 
-/* CTA: bottom aligned */
+/* ========================================
+   CTA
+   ボタンにしない、テキストリンク＋矢印のみ
+   下に"置かれている感"を出す（margin-top: auto）
+   ======================================== */
+
 .top-service-row__cta {
-    margin-top: auto;
-    padding-top: 18px;
+    margin-top: 18px;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     text-decoration: none;
     color: inherit;
-    opacity: 0.9;
+    opacity: 0.85;
     width: fit-content;
     font-size: 14px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.8);
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.75);
     transition: opacity 0.22s ease;
 }
 
 .top-service-row__cta span {
     transition: transform 0.22s ease;
     font-size: 16px;
+    display: inline-block;
 }
 
-.top-service-row__card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.08);
-}
-
-.top-service-row__card:hover .top-service-row__cta {
+.top-service-row__cta:hover {
     opacity: 1;
 }
 
-.top-service-row__card:hover .top-service-row__cta span {
-    transform: translateX(6px);
+.top-service-row__cta:hover span {
+    transform: translateX(4px);
 }
 
-/* net background: section only, not on cards */
+/* ========================================
+   背景ネット表現（top-services__net-bg）
+   あくまで空気、カードの上には絶対にかからない
+   opacityは 0.1〜0.15 まで、アニメーションは超低速
+   ======================================== */
+
 .top-services--netyear .top-services__net-bg {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.14;
+    opacity: 0.12;
 }
 
 .top-services--netyear .top-services__net-bg .net-lines__svg {
@@ -199,24 +299,57 @@
     position: absolute;
     left: clamp(-40px, -2vw, 0px);
     top: 20%;
-    animation: netFloat 24s ease-in-out infinite alternate;
+    animation: netFloat 32s ease-in-out infinite alternate;
 }
 
-/* responsive */
+@keyframes netFloat {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(14px, -10px, 0);
+    }
+}
+
+/* ========================================
+   レスポンシブ時の思想
+   SPでは縦積み、並び順は自然順（番号→写真→文字）
+   角丸・余白はそのまま、「小さくする」のではなく「重ねない」
+   ======================================== */
+
 @media (max-width: 900px) {
     .top-service-row,
-    .top-service-row.row--reverse {
+    .top-service-row.is-even {
         grid-template-columns: 1fr;
         gap: clamp(24px, 4vw, 40px);
+        padding: clamp(24px, 4vw, 48px) 0;
     }
     
-    .top-service-row.row--reverse .top-service-row__media,
-    .top-service-row.row--reverse .top-service-row__card {
+    .top-service-row__big-num {
+        font-size: clamp(48px, 10vw, 80px);
+        position: relative;
+        top: 0;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+    
+    .top-service-row:not(.is-even) .top-service-row__big-num {
+        left: 0;
+    }
+    
+    .top-service-row.is-even .top-service-row__big-num {
+        right: 0;
+        text-align: left;
+    }
+    
+    .top-service-row.is-even .top-service-row__media,
+    .top-service-row.is-even .top-service-row__body {
         order: initial;
     }
     
-    .top-service-row__card {
+    .top-service-row__body {
         min-height: auto;
+        max-width: 100%;
     }
     
     .top-services--netyear .top-services__net-bg {

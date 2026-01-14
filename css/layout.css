@@ -69,13 +69,13 @@
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 clamp(24px, 4vw, 48px);
+    padding: 2px clamp(24px, 4vw, 48px);
     position: relative;
     overflow: visible;
 }
 
 .header__logo {
-    font-size: 18px;
+    font-size: 16px;
     letter-spacing: 0.06em;
     color: #111;
     text-decoration: none;
@@ -93,7 +93,7 @@
 .header__nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 36px;
     flex: 1;
     justify-content: center;
     position: relative;
@@ -101,7 +101,7 @@
 }
 
 .header__nav a {
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.01em;
     color: rgba(0, 0, 0, 0.75);
     text-decoration: none;
@@ -117,27 +117,17 @@
     line-height: 1;
 }
 
+/* Serviceリンクの文字色を濃く */
+.gnav-link {
+    color: #000;
+}
+
 .header__nav a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: #000;
-    transition: opacity 0.2s ease, width 0s 0.2s;
-    opacity: 0;
+    display: none;
 }
 
 .header__nav a:hover {
     color: #000;
-}
-
-.header__nav a:hover::after {
-    width: 60%;
-    opacity: 1;
-    transition: opacity 0.2s ease;
 }
 
 .header__nav a.is-active {
@@ -145,23 +135,9 @@
     position: relative;
 }
 
-.header__nav a.is-active::after {
-    width: 60%;
-    opacity: 1;
-    background: #000;
-}
-
-/* Serviceリンクのホバー時も下線を表示 */
-.gnav-link:hover::after {
-    width: 60%;
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
-
-.gnav-link.is-active::after {
-    width: 60%;
-    opacity: 1;
-    background: #000;
+/* Serviceリンクのアンダーライン削除 */
+.gnav-link::after {
+    display: none;
 }
 
 /* ===== Global Nav Mega Menu (Service) ===== */
@@ -183,18 +159,9 @@
     white-space: nowrap;
 }
 
-/* Serviceリンクの下線（他のナビリンクと統一） */
+/* Serviceリンクの下線削除 */
 .gnav-link::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: #000;
-    transition: opacity 0.2s ease, width 0s 0.2s;
-    opacity: 0;
+    display: none;
 }
 
 /* メガメニュー本体（netyear風 - 位置固定、崩れ防止） */
@@ -202,16 +169,21 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(100% + 1px);
-    width: 100%;
+    top: calc(100% + 14px);
+    width: min(980px, 92vw);
+    max-width: 1200px;
+    margin: 0 auto;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-    z-index: 50;
+    transition: 
+        opacity 0.22s cubic-bezier(.2, .8, .2, 1),
+        visibility 0.22s cubic-bezier(.2, .8, .2, 1),
+        transform 0.22s cubic-bezier(.2, .8, .2, 1);
+    z-index: 1100;
     padding-top: 0;
-    transform: translateY(0);
-    will-change: opacity, visibility;
+    transform: translateY(-6px);
+    will-change: opacity, visibility, transform;
     margin-top: 0;
 }
 
@@ -220,6 +192,7 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    transform: translateY(0);
 }
 
 /* メガメニューが開いている時もServiceリンクの位置を維持（崩れ防止） */
@@ -232,38 +205,38 @@
     padding: 0;
 }
 
+/* メガメニュー開時、トリガーリンクの下線削除 */
+.gnav-item--has-mega.is-open .gnav-link::after,
+.gnav-item--has-mega:hover .gnav-link::after {
+    display: none;
+}
+
 .mega__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 40px;
+    padding: 24px;
     background: #ffffff;
-    border-radius: 0;
+    border-radius: 8px;
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 64px rgba(0, 0, 0, 0.05), 0 2px 24px rgba(0, 0, 0, 0.02);
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 48px;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
     position: relative;
 }
 
-/* 左カラム（Service Top導線 - netyear風） */
+/* 左カラム（Service Top導線 - 案内用ラベル） */
 .mega__left {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-right: 32px;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    padding-right: 20px;
 }
 
 .mega__top-link {
-    display: flex;
-    align-items: center;
-    gap: 0;
+    display: block;
     text-decoration: none;
     color: inherit;
     transition: opacity 0.2s ease;
-    padding: 12px 0;
+    padding: 4px 0;
     position: relative;
 }
 
@@ -271,49 +244,26 @@
     opacity: 0.8;
 }
 
-/* 円形アイコンと横線（netyear風） */
-.mega__top-link::before {
-    content: "";
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #2f6bff;
-    flex-shrink: 0;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.mega__top-link::after {
-    content: "";
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    width: 32px;
-    height: 2px;
-    background: #2f6bff;
-    transform: translateY(-50%);
-}
-
 .mega__top-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #111;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    color: rgba(0, 0, 0, 0.5);
     margin: 0;
-    line-height: 1.5;
-    padding-left: 60px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    opacity: 0.75;
 }
 
 .mega__top-desc {
     display: none;
 }
 
-/* 右カラム（列レイアウト - netyear風） */
+/* 右カラム（列レイアウト） */
 .mega__cols {
     display: grid;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-    gap: 32px;
+    grid-template-columns: 1fr;
+    gap: 0;
 }
 
 .mega__col {
@@ -323,11 +273,22 @@
     position: relative;
 }
 
-/* 各列の前にオレンジの縦線（netyear風） */
-.mega__col::before {
+/* 各列の前にオレンジの縦線（不要なため削除） */
+
+/* メガメニュー内のリンク（Netyear風） */
+.mega__link {
+    position: relative;
+    display: block;
+    padding: 8px 0 8px 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease; /* padding-leftのtransition削除（文字を動かさない） */
+}
+
+.mega__link::before {
     content: "";
     position: absolute;
-    left: -16px;
+    left: 0;
     top: 0;
     bottom: 0;
     width: 3px;
@@ -335,27 +296,25 @@
     border-radius: 2px;
 }
 
-.mega__cols > .mega__col:first-child::before {
-    display: none;
-}
-
-/* メガメニュー内のリンク（netyear風） */
-.mega__link {
-    position: relative;
-    display: block;
-    padding: 10px 0;
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.75);
-    font-size: 14px;
-    line-height: 1.6;
-    transition: color 0.2s ease, padding-left 0.2s ease;
-}
-
 .mega__link:hover,
 .mega__link:focus-visible {
-    color: #000;
-    padding-left: 8px;
+    color: var(--site-accent);
     outline: none;
+    /* padding-leftは変更しない（文字を動かさない） */
+}
+
+.mega__link-title {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.75);
+    transition: color 0.2s ease, font-size 0.2s ease;
+}
+
+.mega__link:hover .mega__link-title,
+.mega__link:focus-visible .mega__link-title {
+    color: var(--site-accent);
+    font-size: 17px;
 }
 
 /* レスポンシブ対応 */
@@ -367,19 +326,14 @@
     }
     
     .mega__left {
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         padding-right: 0;
-        padding-bottom: 24px;
+        padding-bottom: 16px;
     }
     
     .mega__cols {
         grid-template-columns: 1fr;
-        gap: 16px;
-    }
-    
-    .mega__col::before {
-        display: none;
+        gap: 0;
     }
 }
 
@@ -391,8 +345,8 @@
 }
 
 .header__search {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -404,6 +358,7 @@
     transition: background var(--transition-fast), border-color var(--transition-fast);
     padding: 0;
     flex-shrink: 0;
+    margin-right: 20px;
 }
 
 .header__search:hover {
@@ -412,15 +367,15 @@
 }
 
 .header__search svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     stroke-width: 1.5;
 }
 
 .header__cta {
-    font-size: 14px;
+    font-size: 15px;
     letter-spacing: 0.01em;
-    padding: 0 28px;
+    padding: 0 32px;
     height: 46px;
     border-radius: var(--radius-pill);
     border: none;
@@ -435,6 +390,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: none;
+    margin-right: -4px;
 }
 
 .header__cta:hover {
