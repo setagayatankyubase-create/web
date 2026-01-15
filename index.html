@@ -366,34 +366,16 @@
                 <h2 class="section-head__title">お知らせ</h2>
             </header>
             <ul class="news-list">
-                <li class="news-item">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2024-12-10">2024.12.10</time>
-                        <span class="news-cat">News Releases</span>
-                    </div>
-                    <a href="news/index.html" class="news-title">2025年1月の制作枠について</a>
-                </li>
-                <li class="news-item">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2024-11-25">2024.11.25</time>
-                        <span class="news-cat">News Releases</span>
-                    </div>
-                    <a href="news/index.html" class="news-title">ホームページ制作に関する記事を公開しました</a>
-                </li>
-                <li class="news-item">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2024-11-10">2024.11.10</time>
-                        <span class="news-cat">News Releases</span>
-                    </div>
-                    <a href="news/index.html" class="news-title">月額サポートプランの価格を改定しました</a>
-                </li>
-                <li class="news-item">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2024-10-15">2024.10.15</time>
-                        <span class="news-cat">News Releases</span>
-                    </div>
-                    <a href="news/index.html" class="news-title">新サービス「写真撮影」を開始しました</a>
-                </li>
+                <!-- テンプレート（非表示） -->
+                <template id="news-item-template">
+                    <li class="news-item">
+                        <div class="news-meta">
+                            <time class="news-date" datetime=""></time>
+                            <span class="news-cat">News Releases</span>
+                        </div>
+                        <a href="" class="news-title"></a>
+                    </li>
+                </template>
             </ul>
             <div class="news-more">
                 <a href="news/index.html" class="link-arrow">
@@ -417,57 +399,26 @@
                 <p class="section-head__lead">ホームページ制作に関する考え方やノウハウをお届けします。</p>
             </header>
             <div class="top-column__grid">
-                <article class="top-post">
-                    <a class="top-post__link" href="column/2024-11-20-genchi.html">
-                        <figure class="top-post__media">
-                            <img src="assets/img/33643559_m.jpg" alt="ホームページの文章" loading="lazy" width="600" height="400" decoding="async">
-                        </figure>
-                        <div class="top-post__body">
-                            <p class="top-post__meta">
-                                <span class="top-post__cat">文章</span>
-                                <span class="top-post__sep" aria-hidden="true">/</span>
-                                <time class="top-post__date" datetime="2024-11-20">2024.11.20</time>
-                            </p>
-                            <h3 class="top-post__heading">ホームページの文章で気をつけるべき3つのポイント</h3>
-                            <p class="top-post__excerpt">お客様に伝わる文章を書くためのポイントをご紹介します。</p>
-                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
-                        </div>
-                    </a>
-                </article>
-                <article class="top-post">
-                    <a class="top-post__link" href="column/2024-10-15-photo-text.html">
-                        <figure class="top-post__media">
-                            <img src="assets/img/33643563_m.jpg" alt="ホームページの写真" loading="lazy" width="600" height="400" decoding="async">
-                        </figure>
-                        <div class="top-post__body">
-                            <p class="top-post__meta">
-                                <span class="top-post__cat">写真</span>
-                                <span class="top-post__sep" aria-hidden="true">/</span>
-                                <time class="top-post__date" datetime="2024-10-15">2024.10.15</time>
-                            </p>
-                            <h3 class="top-post__heading">ホームページに使う写真選びのコツ</h3>
-                            <p class="top-post__excerpt">効果的な写真の選び方と撮影時のポイントを解説します。</p>
-                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
-                        </div>
-                    </a>
-                </article>
-                <article class="top-post">
-                    <a class="top-post__link" href="column/2024-09-10-example.html">
-                        <figure class="top-post__media">
-                            <img src="assets/img/31990819_m.jpg" alt="ホームページの更新" loading="lazy" width="600" height="400" decoding="async">
-                        </figure>
-                        <div class="top-post__body">
-                            <p class="top-post__meta">
-                                <span class="top-post__cat">更新</span>
-                                <span class="top-post__sep" aria-hidden="true">/</span>
-                                <time class="top-post__date" datetime="2024-09-30">2024.09.30</time>
-                            </p>
-                            <h3 class="top-post__heading">ホームページを定期的に更新する重要性</h3>
-                            <p class="top-post__excerpt">更新頻度がSEOと信頼感に与える影響について解説します。</p>
-                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
-                        </div>
-                    </a>
-                </article>
+                <!-- テンプレート（非表示） -->
+                <template id="top-post-template">
+                    <article class="top-post">
+                        <a class="top-post__link" href="">
+                            <figure class="top-post__media">
+                                <img src="" alt="" loading="lazy" width="600" height="400" decoding="async">
+                            </figure>
+                            <div class="top-post__body">
+                                <p class="top-post__meta">
+                                    <span class="top-post__cat"></span>
+                                    <span class="top-post__sep" aria-hidden="true">/</span>
+                                    <time class="top-post__date" datetime=""></time>
+                                </p>
+                                <h3 class="top-post__heading"></h3>
+                                <p class="top-post__excerpt"></p>
+                                <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
+                            </div>
+                        </a>
+                    </article>
+                </template>
             </div>
         </div>
     </section>
@@ -597,7 +548,7 @@
     <script src="js/modules/megaMenu.js"></script>
     <script src="js/modules/scrollReveal.js"></script>
     <script src="js/modules/floatingCta.js"></script>
-    <script src="js/modules/renderNews.js"></script>
+    <script src="js/modules/renderContent.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -183,32 +183,6 @@ section:not(.page-hero-common--netyear) .section-bg-text,
     pointer-events: none;
 }
 
-/* news-top 用の基本パターン（サイズが少し異なる） */
-.news-top::before {
-    content: "";
-    position: absolute;
-    top: -10%;
-    right: -8%;
-    width: 50%;
-    height: 70%;
-    transform: skewY(-6deg) rotate(-3deg);
-    z-index: 0;
-    filter: blur(0.5px);
-    pointer-events: none;
-}
-
-.news-top::after {
-    content: "";
-    position: absolute;
-    bottom: -10%;
-    right: -5%;
-    width: 48%;
-    height: 65%;
-    transform: skewY(7deg) rotate(3deg);
-    z-index: 0;
-    filter: blur(0.5px);
-    pointer-events: none;
-}
 
 /* ========================================
    セクションヘッダー共通スタイル

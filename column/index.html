@@ -53,57 +53,24 @@
 
             <!-- コラムグリッド（3列） -->
             <div class="column-list-page__grid">
-                <article class="column-list-page__card" data-category="考え方">
-                    <figure class="column-list-page__media">
-                        <img src="../assets/img/33643559_m.jpg" alt="なぜ「現地で話す」ことをやめなかったのか" loading="lazy" width="600" height="400" decoding="async">
-                    </figure>
-                    <div class="column-list-page__content">
-                        <div class="column-list-page__meta">
-                            <span class="column-list-page__category">考え方</span>
-                            <time class="column-list-page__date">2024.11.20</time>
+                <!-- テンプレート（非表示） -->
+                <template id="column-card-template">
+                    <article class="column-list-page__card" data-category="">
+                        <figure class="column-list-page__media">
+                            <img src="" alt="" loading="lazy" width="600" height="400" decoding="async">
+                        </figure>
+                        <div class="column-list-page__content">
+                            <div class="column-list-page__meta">
+                                <span class="column-list-page__category"></span>
+                                <time class="column-list-page__date"></time>
+                            </div>
+                            <h3 class="column-list-page__title">
+                                <a href=""></a>
+                            </h3>
+                            <p class="column-list-page__lead"></p>
                         </div>
-                        <h3 class="column-list-page__title">
-                            <a href="2024-11-20-genchi.html">なぜ「現地で話す」ことをやめなかったのか</a>
-                        </h3>
-                        <p class="column-list-page__lead">
-                            テンプレートに当てはめるだけでは、事業の本質は伝わりません。現地で話すことで見えてくるものがあります。
-                        </p>
-                    </div>
-                </article>
-                <article class="column-list-page__card" data-category="制作">
-                    <figure class="column-list-page__media">
-                        <img src="../assets/img/33643563_m.jpg" alt="写真と文章、どちらが大事か問題" loading="lazy" width="600" height="400" decoding="async">
-                    </figure>
-                    <div class="column-list-page__content">
-                        <div class="column-list-page__meta">
-                            <span class="column-list-page__category">制作</span>
-                            <time class="column-list-page__date">2024.10.15</time>
-                        </div>
-                        <h3 class="column-list-page__title">
-                            <a href="2024-10-15-photo-text.html">写真と文章、どちらが大事か問題</a>
-                        </h3>
-                        <p class="column-list-page__lead">
-                            ホームページを構成する要素の中で、写真と文章はどちらが重要なのでしょうか。両方とも重要ですが、伝え方には順番があります。
-                        </p>
-                    </div>
-                </article>
-                <article class="column-list-page__card" data-category="運用">
-                    <figure class="column-list-page__media">
-                        <img src="../assets/img/31990819_m.jpg" alt="更新されないホームページが信頼を落とす理由" loading="lazy" width="600" height="400" decoding="async">
-                    </figure>
-                    <div class="column-list-page__content">
-                        <div class="column-list-page__meta">
-                            <span class="column-list-page__category">運用</span>
-                            <time class="column-list-page__date">2024.09.10</time>
-                        </div>
-                        <h3 class="column-list-page__title">
-                            <a href="2024-09-10-example.html">更新されないホームページが信頼を落とす理由</a>
-                        </h3>
-                        <p class="column-list-page__lead">
-                            作って終わりでは、ホームページは「死んだサイト」になってしまいます。更新されないサイトが与える印象について考えます。
-                        </p>
-                    </div>
-                </article>
+                    </article>
+                </template>
             </div>
         </div>
     </section>
@@ -120,6 +87,7 @@
         </a>
     </div>
 
+    <script src="../js/modules/renderContent.js"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>

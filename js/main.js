@@ -483,31 +483,49 @@ Utils.onReady(async function() {
         }
     })();
     
+    // ===== ニュース・コラムデータの描画 =====
+    if (typeof window.renderNewsBlock === 'function') {
+        await window.renderNewsBlock();
+    }
+    if (typeof window.renderTopColumns === 'function') {
+        await window.renderTopColumns();
+    }
+    if (typeof window.renderColumnListPage === 'function') {
+        await window.renderColumnListPage();
+    }
+    
     // ===== コラムページ：カテゴリフィルター =====
     const categoryFilter = document.querySelector('.column-category-filter');
     if (categoryFilter) {
         const filterButtons = categoryFilter.querySelectorAll('.category-filter-btn');
-        const columnCards = document.querySelectorAll('.column-list-page__card');
         
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                filterButtons.forEach(btn => btn.classList.remove('is-active'));
-                this.classList.add('is-active');
-                
-                const selectedCategory = this.getAttribute('data-category');
-                columnCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-                        card.classList.remove('is-hidden');
-                        card.style.opacity = '0';
-                        card.style.transition = 'opacity 0.3s ease';
-                        setTimeout(() => { card.style.opacity = '1'; }, 10);
-                    } else {
-                        card.classList.add('is-hidden');
-                    }
+        // フィルターボタンのイベントリスナー（動的に生成されたカードにも対応）
+        const setupFilter = () => {
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('is-active'));
+                    this.classList.add('is-active');
+                    
+                    const selectedCategory = this.getAttribute('data-category');
+                    const columnCards = document.querySelectorAll('.column-list-page__card');
+                    
+                    columnCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.classList.remove('is-hidden');
+                            card.style.opacity = '0';
+                            card.style.transition = 'opacity 0.3s ease';
+                            setTimeout(() => { card.style.opacity = '1'; }, 10);
+                        } else {
+                            card.classList.add('is-hidden');
+                        }
+                    });
                 });
             });
-        });
+        };
+        
+        // コラムデータが読み込まれた後にフィルターを設定
+        setupFilter();
     }
 });
 
