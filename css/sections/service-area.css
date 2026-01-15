@@ -14,26 +14,13 @@
     gap: clamp(20px, 2.5vw, 28px);
 }
 
-/* カードスタイル（共通パターン: border-radius 14px, box-shadow, hover効果） */
+/* カードスタイル（共通パターン: components.cssの.cardを使用） */
 .service-card-item {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
     padding: clamp(28px, 3vw, 36px);
     text-decoration: none;
     color: inherit;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    position: relative;
     min-height: 240px;
-}
-
-.service-card-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
+    /* 共通カードスタイルはcomponents.cssで定義 */
 }
 
 .service-card-item.is-coming-soon {
@@ -139,23 +126,9 @@
     gap: clamp(20px, 2.5vw, 28px);
 }
 
-/* ステップカード（共通パターン） */
+/* ステップカード（共通パターン: components.cssの.cardを使用） */
 .service-flow__step {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(24px, 3vw, 32px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    position: relative;
-}
-
-.service-flow__step:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
+    /* 共通カードスタイルはcomponents.cssで定義 */
 }
 
 /* ステップ番号 */

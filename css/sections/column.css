@@ -9,6 +9,7 @@
     background: #f7f8fa;
 }
 
+/* .section-inner は共通定義を使用（components.css） */
 .column .section-inner {
     position: relative;
     z-index: 1;
@@ -33,20 +34,14 @@
 }
 
 .column-card {
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    /* 共通カードスタイルを継承（components.css） */
     border-radius: 20px;
     overflow: hidden;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
+    padding: 0;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .column-card:hover {
-    transform: translateY(-4px);
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
     border-color: rgba(0, 0, 0, 0.12);
 }

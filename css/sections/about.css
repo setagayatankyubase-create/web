@@ -150,22 +150,7 @@
 .certification-badge-placeholder {
     width: 100%;
     min-height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(20px, 2.5vw, 24px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    position: relative;
-}
-
-.certification-badge:hover .certification-badge-placeholder {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
+    /* 共通カードスタイルはcomponents.cssで定義 */
 }
 
 .certification-badge-text {
@@ -266,21 +251,8 @@
 
 /* 役員カード（共通パターン） */
 .member-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
     padding: clamp(28px, 3vw, 36px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    position: relative;
-}
-
-.member-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
+    /* 共通カードスタイルはcomponents.cssで定義 */
 }
 
 .member-card__header {
@@ -575,26 +547,13 @@
 }
 
 .related-link-card {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
     padding: clamp(32px, 4vw, 40px);
+    min-height: 180px;
     text-decoration: none;
     color: inherit;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    position: relative;
-    min-height: 180px;
-}
-
-.related-link-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
+    /* 共通カードスタイルはcomponents.cssで定義 */
 }
 
 .related-link-label {

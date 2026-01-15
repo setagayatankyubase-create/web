@@ -2,6 +2,7 @@
    Notice Section (重要なお知らせ)
    ======================================== */
 
+/* .section-inner は共通定義を使用（components.css） */
 .notice .section-inner {
     position: relative;
     z-index: 1;

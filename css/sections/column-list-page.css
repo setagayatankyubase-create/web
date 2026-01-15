@@ -18,6 +18,7 @@
     background: rgba(200, 235, 255, 0.08);
 }
 
+/* .section-inner は共通定義を使用（components.css） */
 .column-list-page .section-inner {
     position: relative;
     z-index: 1;

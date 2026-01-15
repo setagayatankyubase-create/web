@@ -60,19 +60,15 @@
 
 /* カードコンポーネント・再利用UI */
 .problem-card {
-    border: var(--border-default);
-    border-radius: 20px; /* デフォルトは20px */
-    padding: 32px; /* デフォルトは32px */
-    background: #ffffff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); /* デフォルトの影 */
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    position: relative;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
     z-index: 2; /* ネット線より上に表示 */
+    /* 共通カードスタイルはcomponents.cssで定義 */
 }
 
 .problem-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08); /* デフォルトのhover影 */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
     border-color: var(--border-strong);
 }
 

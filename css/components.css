@@ -111,7 +111,13 @@
    ======================================== */
 
 /* 統一カードベース（全ページ共通） */
-.card {
+.card,
+.certification-badge-placeholder,
+.member-card,
+.related-link-card,
+.service-card-item,
+.service-flow__step,
+.problem-card {
     display: flex;
     flex-direction: column;
     background: var(--bg-white);
@@ -124,7 +130,13 @@
 }
 
 /* カードのホバーエフェクト（統一） */
-.card:hover {
+.card:hover,
+.certification-badge:hover .certification-badge-placeholder,
+.member-card:hover,
+.related-link-card:hover,
+.service-card-item:hover,
+.service-flow__step:hover,
+.problem-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-xl);
     border-color: rgba(0, 0, 0, 0.15);
@@ -1116,6 +1128,177 @@ a:hover .link-arrow-inline::after {
         transform: translateX(-50%);
     }
 }
+
+/* ========================================
+   共通アニメーション（hero--netyear と page-hero-common--netyear で共有）
+   ======================================== */
+
+@keyframes blobBreath {
+    0%, 100% {
+        transform: scale(1) translate(0, 0);
+    }
+    50% {
+        transform: scale(1.02) translate(1%, -1%);
+    }
+}
+
+@keyframes netDash {
+    to {
+        stroke-dashoffset: -160;
+    }
+}
+
+@keyframes nodePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    50% {
+        transform: scale(1.25);
+        opacity: 0.9;
+    }
+}
+
+@keyframes netFloat {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(14px, -10px, 0);
+    }
+}
+
+/* ========================================
+   共通グラデーション背景（hero--netyear と page-hero-common--netyear で共有）
+   ======================================== */
+
+/* 右側のグラデーション背景・アニメーション */
+.hero--netyear::before,
+.page-hero-common--netyear::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    right: -15%;
+    width: 70vmin;
+    height: 70vmin;
+    background: radial-gradient(circle, rgba(255, 64, 129, 0.32) 0%, rgba(255, 87, 34, 0.24) 50%, rgba(255, 152, 0, 0.18) 100%);
+    filter: blur(100px);
+    opacity: 0.75;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+    animation: blobBreath 28s ease-in-out infinite alternate;
+}
+
+.hero--netyear::after,
+.page-hero-common--netyear::after {
+    content: "";
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 80vmin;
+    height: 80vmin;
+    background: radial-gradient(circle, rgba(255, 152, 0, 0.38) 0%, rgba(255, 193, 7, 0.28) 50%, rgba(255, 87, 34, 0.20) 100%);
+    filter: blur(120px);
+    opacity: 0.65;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+    animation: blobBreath 32s ease-in-out infinite alternate reverse;
+}
+
+/* 追加のグラデーション（完全に同じスタイルを統合） */
+.hero--netyear .hero__bg::before,
+.hero--netyear .hero__inner::after,
+.page-hero-common--netyear .page-hero-common__content::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 55vmin;
+    height: 55vmin;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.22) 0%, rgba(255, 152, 0, 0.15) 60%);
+    filter: blur(90px);
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+}
+
+/* ========================================
+   ネットワーク線（共通スタイル）
+   ======================================== */
+
+.net-lines {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0.15;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* 左側のネット線 */
+.net-lines--left {
+    left: clamp(-40px, -2vw, 0px);
+    top: 10%;
+    width: min(520px, 46vw);
+    height: auto;
+}
+
+/* 右側のネット線 */
+.net-lines--right {
+    right: clamp(-40px, -2vw, 0px);
+    width: min(520px, 46vw);
+    height: auto;
+}
+
+.net-lines--right-1 {
+    top: 20%;
+}
+
+.net-lines--right-2 {
+    top: 60%;
+}
+
+/* 左側と右側のネット線 */
+.net-lines--left,
+.net-lines--right {
+    opacity: 0.18;
+}
+
+.net-lines__svg {
+    width: 100%;
+    height: auto;
+    animation: netFloat 24s ease-in-out infinite alternate;
+}
+
+.net-lines__path {
+    stroke: rgba(100, 100, 100, 0.35);
+    stroke-width: 1.2;
+    fill: none;
+    stroke-dasharray: 6 10;
+    animation: netDash 12s linear infinite;
+}
+
+.net-lines__node {
+    fill: rgba(120, 120, 120, 0.35);
+    animation: nodePulse 4.8s ease-in-out infinite;
+}
+
+.net-lines__node:nth-child(4) { animation-delay: 0s; }
+.net-lines__node:nth-child(5) { animation-delay: 0.4s; }
+.net-lines__node:nth-child(6) { animation-delay: 0.8s; }
+.net-lines__node:nth-child(7) { animation-delay: 1.2s; }
+.net-lines__node:nth-child(8) { animation-delay: 0.2s; }
+.net-lines__node:nth-child(9) { animation-delay: 0.6s; }
+.net-lines__node:nth-child(10) { animation-delay: 1.0s; }
+.net-lines__node:nth-child(11) { animation-delay: 1.4s; }
+.net-lines__node:nth-child(12) { animation-delay: 0.3s; }
+.net-lines__node:nth-child(13) { animation-delay: 0.7s; }
+.net-lines__node:nth-child(14) { animation-delay: 1.1s; }
+.net-lines__node:nth-child(15) { animation-delay: 1.5s; }
+.net-lines__node:nth-child(16) { animation-delay: 0.5s; }
+.net-lines__node:nth-child(17) { animation-delay: 0.9s; }
 
 /* max-width: 880px; margin: 0 auto; の共通パターン */
 .service-scope-table {
