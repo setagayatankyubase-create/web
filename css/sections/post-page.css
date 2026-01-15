@@ -198,7 +198,9 @@
 }
 
 .post-sidebar__category-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 6px 12px;
     background: var(--bg-muted);
     border-radius: 4px;
@@ -211,6 +213,17 @@
 .post-sidebar__category-link:hover {
     background: var(--accent);
     color: white;
+}
+
+.post-sidebar__category-link.is-active {
+    background: var(--accent);
+    color: white;
+    font-weight: 500;
+}
+
+.post-sidebar__category-count {
+    font-size: 11px;
+    opacity: 0.7;
 }
 
 .post-sidebar__text {

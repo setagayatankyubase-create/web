@@ -2,6 +2,41 @@
 
 console.log("[BOOT]", location.pathname, "baseURI:", document.baseURI);
 
+// カテゴリスラッグと表示名のマッピング（フォールバック用）
+const categorySlugMap = {
+    'production-slot': '制作枠',
+    'article': '記事公開',
+    'price': '価格',
+    'service': 'サービス',
+    'philosophy': '考え方',
+    'production': '制作',
+    'update': '更新'
+};
+
+// カテゴリ名からスラッグを取得（categorySlugがない場合のフォールバック）
+function getCategorySlug(item) {
+    if (item.categorySlug) {
+        return item.categorySlug;
+    }
+    // フォールバック：カテゴリ名からスラッグを生成
+    const slugMap = {
+        '制作枠': 'production-slot',
+        '記事公開': 'article',
+        '価格': 'price',
+        'サービス': 'service',
+        '考え方': 'philosophy',
+        '制作': 'production',
+        '更新': 'update'
+    };
+    return slugMap[item.category] || item.category.toLowerCase().replace(/\s+/g, '-');
+}
+
+// スラッグからカテゴリ名を取得
+function getCategoryName(slug, items) {
+    const item = items.find(i => getCategorySlug(i) === slug);
+    return item ? item.category : slug;
+}
+
 // JSONファイルのパスを階層に依存しない形で解決
 function getJsonPath(filename) {
     // 現在のページのパスから、webディレクトリのルートを特定
@@ -82,6 +117,17 @@ async function renderNewsBlock() {
         const newsData = await response.json();
         console.log("[renderNewsBlock] loaded", newsData.length, "items");
         
+        // URLパラメータからカテゴリフィルタを取得（英語スラッグ）
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterCategorySlug = urlParams.get('category');
+        
+        // カテゴリスラッグでフィルタリング
+        let filteredData = newsData;
+        if (filterCategorySlug) {
+            filteredData = newsData.filter(item => getCategorySlug(item) === filterCategorySlug);
+            console.log("[renderNewsBlock] filtered by category slug:", filterCategorySlug, "items:", filteredData.length);
+        }
+        
         // 各ニュースリストに対して処理
         listContainers.forEach((listContainer, containerIndex) => {
             // テンプレート要素を取得
@@ -128,11 +174,16 @@ async function renderNewsBlock() {
                 sectionType = 'seminar';
             }
             
-            // フィルタリング（現時点ではすべて表示、将来的にtypeフィールドで分類可能）
-            const filteredData = newsData; // すべて表示
+            // セクションタイプとカテゴリでフィルタリング
+            let sectionFilteredData = newsData;
             
-            // JSONデータから要素を生成
-            filteredData.forEach((item) => {
+            // カテゴリスラッグフィルタが指定されている場合は適用
+            if (filterCategorySlug) {
+                sectionFilteredData = sectionFilteredData.filter(item => getCategorySlug(item) === filterCategorySlug);
+            }
+            
+            // JSONデータから要素を生成（フィルタリング済みデータを使用）
+            sectionFilteredData.forEach((item) => {
                 const clone = template.cloneNode(true);
                 clone.removeAttribute('data-template');
                 clone.style.display = ''; // テンプレートのdisplay:noneを解除
@@ -310,6 +361,17 @@ async function renderColumnListPage() {
         const columnsData = await response.json();
         console.log("[renderColumnListPage] loaded", columnsData.length, "items");
         
+        // URLパラメータからカテゴリフィルタを取得（英語スラッグ）
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterCategorySlug = urlParams.get('category');
+        
+        // カテゴリスラッグでフィルタリング
+        let filteredData = columnsData;
+        if (filterCategorySlug) {
+            filteredData = columnsData.filter(item => getCategorySlug(item) === filterCategorySlug);
+            console.log("[renderColumnListPage] filtered by category slug:", filterCategorySlug, "items:", filteredData.length);
+        }
+        
         // テンプレート要素を取得
         const template = gridContainer.querySelector('.column-list-page__card[data-template="column-card"]');
         if (!template) {
@@ -324,8 +386,8 @@ async function renderColumnListPage() {
         // テンプレートを非表示にする
         template.style.display = 'none';
         
-        // JSONデータから要素を生成
-        columnsData.forEach((item) => {
+        // JSONデータから要素を生成（フィルタリング済みデータを使用）
+        filteredData.forEach((item) => {
             const clone = template.cloneNode(true);
             clone.removeAttribute('data-template');
             clone.style.display = ''; // テンプレートのdisplay:noneを解除
@@ -377,6 +439,57 @@ async function renderColumnListPage() {
             
             gridContainer.appendChild(clone);
         });
+        
+        // カテゴリフィルターボタンを動的に生成
+        const categoryFilter = document.querySelector('.column-category-filter');
+        if (categoryFilter) {
+            // すべてのユニークなカテゴリを取得（スラッグと表示名のペア）
+            const categoryMap = new Map();
+            columnsData.forEach(item => {
+                const slug = getCategorySlug(item);
+                if (!categoryMap.has(slug)) {
+                    categoryMap.set(slug, item.category);
+                }
+            });
+            
+            // 既存のボタンをクリア（「すべて」ボタン以外）
+            const existingButtons = categoryFilter.querySelectorAll('.category-filter-btn:not([data-category="all"])');
+            existingButtons.forEach(btn => btn.remove());
+            
+            // カテゴリボタンを生成
+            const allButton = categoryFilter.querySelector('[data-category="all"]');
+            categoryMap.forEach((categoryName, categorySlug) => {
+                const button = document.createElement('button');
+                button.className = 'category-filter-btn';
+                button.setAttribute('data-category', categorySlug);
+                button.textContent = categoryName;
+                
+                // URLパラメータと一致する場合はアクティブにする
+                if (filterCategorySlug === categorySlug) {
+                    button.classList.add('is-active');
+                    if (allButton) allButton.classList.remove('is-active');
+                }
+                
+                categoryFilter.appendChild(button);
+            });
+            
+            // フィルターボタンのイベントリスナーを設定
+            const filterButtons = categoryFilter.querySelectorAll('.category-filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedCategorySlug = this.getAttribute('data-category');
+                    const currentUrl = new URL(window.location);
+                    
+                    if (selectedCategorySlug === 'all') {
+                        currentUrl.searchParams.delete('category');
+                    } else {
+                        currentUrl.searchParams.set('category', selectedCategorySlug);
+                    }
+                    
+                    window.location.href = currentUrl.toString();
+                });
+            });
+        }
         
         console.log("[renderColumnListPage] completed");
     } catch (error) {
@@ -511,8 +624,9 @@ async function renderPostContent() {
         const relatedPostsList = document.getElementById('related-posts');
         if (relatedPostsList) {
             // 同じカテゴリの他の記事を取得（現在の記事を除く）
+            const currentCategorySlug = getCategorySlug(postData);
             const relatedPosts = data
-                .filter(item => item.category === postData.category && item.id !== postId)
+                .filter(item => getCategorySlug(item) === currentCategorySlug && item.id !== postId)
                 .slice(0, 5); // 最大5件
             
             if (relatedPosts.length > 0) {
@@ -541,21 +655,38 @@ async function renderPostContent() {
         // サイドバー：カテゴリを表示
         const categoriesList = document.getElementById('post-categories');
         if (categoriesList) {
-            // すべてのユニークなカテゴリを取得
-            const uniqueCategories = [...new Set(data.map(item => item.category))];
+            // すべてのユニークなカテゴリを取得し、記事数をカウント（スラッグベース）
+            const categoryMap = new Map(); // key: slug, value: {name, count}
+            data.forEach(item => {
+                const slug = getCategorySlug(item);
+                if (!categoryMap.has(slug)) {
+                    categoryMap.set(slug, { name: item.category, count: 0 });
+                }
+                categoryMap.get(slug).count++;
+            });
+            
+            // カテゴリを記事数の多い順にソート
+            const sortedCategories = Array.from(categoryMap.entries())
+                .sort((a, b) => b[1].count - a[1].count);
             
             categoriesList.innerHTML = '';
-            uniqueCategories.forEach(category => {
+            sortedCategories.forEach(([categorySlug, { name: categoryName, count }]) => {
                 const li = document.createElement('li');
                 li.className = 'post-sidebar__category';
                 
-                // カテゴリページへのリンク（現時点では同じページに戻る）
+                // カテゴリページへのリンク（一覧ページにカテゴリスラッグパラメータ付き）
                 const categoryUrl = isColumn 
-                    ? `index.html?category=${encodeURIComponent(category)}`
-                    : `index.html?category=${encodeURIComponent(category)}`;
+                    ? `index.html?category=${encodeURIComponent(categorySlug)}`
+                    : `index.html?category=${encodeURIComponent(categorySlug)}`;
+                
+                const currentCategorySlug = getCategorySlug(postData);
+                const isActive = categorySlug === currentCategorySlug;
                 
                 li.innerHTML = `
-                    <a href="${categoryUrl}" class="post-sidebar__category-link">${category}</a>
+                    <a href="${categoryUrl}" class="post-sidebar__category-link ${isActive ? 'is-active' : ''}">
+                        ${categoryName}
+                        <span class="post-sidebar__category-count">(${count})</span>
+                    </a>
                 `;
                 categoriesList.appendChild(li);
             });

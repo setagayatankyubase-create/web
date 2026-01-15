@@ -504,39 +504,8 @@ Utils.onReady(async function() {
         console.error("[INIT ERROR] render functions:", error);
     }
     
-    // ===== コラムページ：カテゴリフィルター =====
-    const categoryFilter = document.querySelector('.column-category-filter');
-    if (categoryFilter) {
-        const filterButtons = categoryFilter.querySelectorAll('.category-filter-btn');
-        
-        // フィルターボタンのイベントリスナー（動的に生成されたカードにも対応）
-        const setupFilter = () => {
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => btn.classList.remove('is-active'));
-                    this.classList.add('is-active');
-                    
-                    const selectedCategory = this.getAttribute('data-category');
-                    const columnCards = document.querySelectorAll('.column-list-page__card');
-                    
-                    columnCards.forEach(card => {
-                        const cardCategory = card.getAttribute('data-category');
-                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-                            card.classList.remove('is-hidden');
-                            card.style.opacity = '0';
-                            card.style.transition = 'opacity 0.3s ease';
-                            setTimeout(() => { card.style.opacity = '1'; }, 10);
-                        } else {
-                            card.classList.add('is-hidden');
-                        }
-                    });
-                });
-            });
-        };
-        
-        // コラムデータが読み込まれた後にフィルターを設定
-        setupFilter();
-    }
+    // ===== コラムページ：カテゴリフィルター（renderColumnListPage内で処理されるため、ここでは削除） =====
+    // カテゴリフィルターは renderColumnListPage() 内で動的に生成・設定される
     } catch (error) {
         console.error("[INIT ERROR]", error);
     }

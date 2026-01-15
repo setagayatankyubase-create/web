@@ -43,12 +43,10 @@
     <!-- コラム一覧 -->
     <section class="column-list-page section">
         <div class="container">
-            <!-- カテゴリフィルター -->
+            <!-- カテゴリフィルター（動的生成） -->
             <div class="column-category-filter">
                 <button class="category-filter-btn is-active" data-category="all">すべて</button>
-                <button class="category-filter-btn" data-category="考え方">考え方</button>
-                <button class="category-filter-btn" data-category="制作">制作</button>
-                <button class="category-filter-btn" data-category="運用">運用</button>
+                <!-- カテゴリボタンは renderContent.js で動的生成 -->
             </div>
 
             <!-- コラムグリッド（3列） -->
