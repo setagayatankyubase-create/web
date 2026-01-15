@@ -18,7 +18,7 @@
     background: rgba(200, 235, 255, 0.08);
 }
 
-.column-list-page .container {
+.column-list-page .section-inner {
     position: relative;
     z-index: 1;
 }

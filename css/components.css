@@ -202,13 +202,13 @@ a:hover .link-arrow-inline::after {
 }
 
 /* ニュースページの左右余白を広げる（netyear型に合わせる） */
-.news-list-page .container {
+.news-list-page .section-inner {
     padding-inline: clamp(40px, 6vw, 120px);
     max-width: 1400px;
 }
 
 /* news-blockはVALUEセクションと同じ余白（TOPページ・NEWSページ共通） */
-.news-block .container {
+.news-block .section-inner {
     max-width: 1200px;
     padding-inline: var(--content-pad-x);
 }

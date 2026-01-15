@@ -9,7 +9,7 @@
     background: #f7f8fa;
 }
 
-.column .container {
+.column .section-inner {
     position: relative;
     z-index: 1;
 }

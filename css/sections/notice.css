@@ -2,7 +2,7 @@
    Notice Section (重要なお知らせ)
    ======================================== */
 
-.notice .container {
+.notice .section-inner {
     position: relative;
     z-index: 1;
 }
