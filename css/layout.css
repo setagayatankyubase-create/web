@@ -651,9 +651,24 @@
 }
 
 .header-news__tag.is-important {
-    background: rgba(30, 58, 95, 0.12);
-    color: #1E3A5F;
-    border-color: rgba(30, 58, 95, 0.25);
+    background: rgba(239, 68, 68, 0.12);
+    color: #EF4444;
+    border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* 各タグタイプに色を付ける */
+.header-news__tag.is-notice {
+    background: rgba(30, 64, 175, 0.12);
+    color: #1E40AF;
+    border-color: rgba(30, 64, 175, 0.25);
+}
+
+/* .header-news__tag.is-update はデフォルトのグレースタイルを使用 */
+
+.header-news__tag.is-campaign {
+    background: rgba(234, 179, 8, 0.15);
+    color: #EAB308;
+    border-color: rgba(234, 179, 8, 0.30);
 }
 
 .header-news__title {

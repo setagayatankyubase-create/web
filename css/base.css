@@ -157,6 +157,11 @@
     --sec-head-margin-bottom: clamp(40px, 5vw, 56px);
 }
 
+/* TOPページ用：見出し余白を統一 */
+body.home {
+    --sec-head-margin-bottom: 32px;
+}
+
 html {
     overflow-x: hidden;
 }
