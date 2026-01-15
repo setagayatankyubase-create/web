@@ -12,6 +12,9 @@
 }
 
 .flow-intro__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: var(--content-pad-x);
     display: grid;
     grid-template-columns: 1fr auto;
     gap: clamp(32px, 4vw, 48px);
@@ -78,6 +81,12 @@
 .flow-process {
     position: relative;
     /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+.flow-process .section-head {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: var(--content-pad-x);
 }
 
 .flow-timeline {
@@ -185,6 +194,12 @@
     /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
+.flow-steps-parallel .section-head {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: var(--content-pad-x);
+}
+
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
 
 .steps-columns {
@@ -240,6 +255,12 @@
 .flow-quality {
     position: relative;
     /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+.flow-quality .section-head {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: var(--content-pad-x);
 }
 
 .quality-table {
@@ -304,6 +325,12 @@
 
 .flow-faq {
     /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+.flow-faq .section-head {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: var(--content-pad-x);
 }
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
