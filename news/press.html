@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせ一覧 | SOCIAL BASE</title>
+    <meta name="description" content="SOCIAL BASEの公式お知らせ・ニュースリリース一覧です。">
+    
+    <!-- OGP -->
+    <meta property="og:title" content="お知らせ一覧 | SOCIAL BASE">
+    <meta property="og:description" content="SOCIAL BASEの公式お知らせ・ニュースリリース一覧です。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/news/press.html">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main>
+
+    <!-- ページヒーロー -->
+    <section class="page-hero-common page-hero-common--netyear">
+        <div class="section-bg-text" aria-hidden="true">NEWS</div>
+        <div class="page-hero-common__dark"></div>
+        <div class="page-hero-common__content">
+            <div class="page-hero-common__panel">
+                <p class="page-hero-common__eyebrow">NEWS RELEASES</p>
+                <h1 class="page-hero-common__title">お知らせ</h1>
+            </div>
+            <nav class="page-hero-common__breadcrumbs" aria-label="パンくずリスト">
+                <a href="../index.html">HOME</a>
+                <span class="page-hero-common__breadcrumbs-separator">/</span>
+                <a href="index.html">NEWS</a>
+                <span class="page-hero-common__breadcrumbs-separator">/</span>
+                <span>NEWS RELEASES</span>
+            </nav>
+        </div>
+        <div class="page-hero-common__image">
+            <img src="../assets/img/24837530_m.jpg" alt="お知らせ" loading="eager" width="800" height="600">
+        </div>
+    </section>
+
+    <!-- お知らせ一覧 -->
+    <section class="news-list-page section">
+        <div class="container">
+            <header class="section-head">
+                <p class="section-head__eyebrow">NEWS RELEASES</p>
+                <h2 class="section-head__title">お知らせ一覧</h2>
+            </header>
+
+            <!-- 年フィルタ -->
+            <div class="news-year-filter">
+                <button class="news-year-btn is-active" data-year="all">All</button>
+                <button class="news-year-btn" data-year="2026">2026</button>
+                <button class="news-year-btn" data-year="2025">2025</button>
+            </div>
+
+            <ul class="news-list">
+                <li class="news-item" data-year="2026">
+                    <div class="news-meta">
+                        <time class="news-date" datetime="2026-01-30">2026.01.30</time>
+                        <span class="news-cat">News Releases</span>
+                    </div>
+                    <a href="#" class="news-title">SOCIAL BASEサービスを開始しました</a>
+                </li>
+                <li class="news-item" data-year="2026">
+                    <div class="news-meta">
+                        <time class="news-date" datetime="2026-01-15">2026.01.15</time>
+                        <span class="news-cat">News Releases</span>
+                    </div>
+                    <a href="#" class="news-title">制作体制の更新について</a>
+                </li>
+                <li class="news-item" data-year="2025">
+                    <div class="news-meta">
+                        <time class="news-date" datetime="2025-12-20">2025.12.20</time>
+                        <span class="news-cat">News Releases</span>
+                    </div>
+                    <a href="#" class="news-title">サイト公開のお知らせ</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <!-- フローティングCTA -->
+    <div class="floating-cta">
+        <a href="../contact.html">
+            <span class="floating-cta-logo">SOCIAL BASE</span>
+            <span>お問い合わせ</span>
+        </a>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 年フィルタ機能
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearButtons = document.querySelectorAll('.news-year-btn');
+            const newsItems = document.querySelectorAll('.news-item[data-year]');
+
+            yearButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const year = this.getAttribute('data-year');
+                    
+                    // ボタンのアクティブ状態を更新
+                    yearButtons.forEach(btn => btn.classList.remove('is-active'));
+                    this.classList.add('is-active');
+                    
+                    // 記事の表示/非表示を切り替え
+                    newsItems.forEach(item => {
+                        if (year === 'all' || item.getAttribute('data-year') === year) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

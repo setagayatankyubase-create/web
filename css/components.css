@@ -190,6 +190,165 @@ a:hover .link-arrow-inline::after {
 }
 
 /* ========================================
+   News Hub Components (ニュース専用コンポーネント)
+   ======================================== */
+
+.news-hub {
+    padding: 0;
+}
+
+.news-block {
+    position: relative;
+}
+
+/* ニュースページの左右余白を広げる（netyear型に合わせる） */
+.news-block .container,
+.news-list-page .container {
+    padding-inline: clamp(40px, 6vw, 120px);
+    max-width: 1400px;
+}
+
+.news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: clamp(32px, 4vw, 48px);
+}
+
+.news-item {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(16px, 2vw, 20px) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.news-item:last-child {
+    border-bottom: none;
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 1.5vw, 16px);
+    flex-shrink: 0;
+    min-width: 180px;
+}
+
+.news-date {
+    font-size: clamp(13px, 1.4vw, 14px);
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.news-cat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    background: rgba(234, 179, 8, 0.15);
+    color: #EAB308;
+    border: 1px solid rgba(234, 179, 8, 0.30);
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.news-title {
+    flex: 1;
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.6;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.news-title:hover {
+    color: var(--cta-primary-bg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.news-more {
+    margin-top: clamp(24px, 3vw, 32px);
+    text-align: right;
+}
+
+.news-more .link-arrow {
+    font-size: clamp(14px, 1.5vw, 15px);
+    color: var(--cta-primary-bg);
+}
+
+.news-more .link-arrow:hover {
+    color: var(--cta-primary-bg-hover);
+}
+
+/* 年フィルタ（press.html用） */
+.news-year-filter {
+    display: flex;
+    gap: 12px;
+    margin-top: clamp(24px, 3vw, 32px);
+    margin-bottom: clamp(24px, 3vw, 32px);
+    flex-wrap: wrap;
+}
+
+.news-year-btn {
+    padding: 8px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: transparent;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 400;
+    font-family: inherit;
+}
+
+.news-year-btn:hover {
+    border-color: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.02);
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.news-year-btn.is-active {
+    background: var(--cta-primary-bg);
+    border-color: var(--cta-primary-bg);
+    color: #fff;
+}
+
+.news-year-btn.is-active:hover {
+    background: var(--cta-primary-bg-hover);
+    border-color: var(--cta-primary-bg-hover);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .news-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .news-meta {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .news-title {
+        width: 100%;
+    }
+}
+
+/* ========================================
    既存スタイル（後方互換性のため維持）
    ======================================== */
 
