@@ -259,14 +259,7 @@
     animation: netFloat 32s ease-in-out infinite alternate;
 }
 
-@keyframes netFloat {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        transform: translate3d(14px, -10px, 0);
-    }
-}
+/* @keyframes netFloat はcomponents.cssで定義済み */
 
 /* ========================================
    レスポンシブ時の思想
