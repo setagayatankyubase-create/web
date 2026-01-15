@@ -507,6 +507,60 @@ async function renderPostContent() {
             metaDesc.setAttribute('content', postData.excerpt || postData.title);
         }
         
+        // サイドバー：関連記事を表示
+        const relatedPostsList = document.getElementById('related-posts');
+        if (relatedPostsList) {
+            // 同じカテゴリの他の記事を取得（現在の記事を除く）
+            const relatedPosts = data
+                .filter(item => item.category === postData.category && item.id !== postId)
+                .slice(0, 5); // 最大5件
+            
+            if (relatedPosts.length > 0) {
+                relatedPostsList.innerHTML = '';
+                relatedPosts.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'post-sidebar__item';
+                    
+                    const formattedDate = item.date.replace(/-/g, '.');
+                    // ニュースかコラムかでリンク生成関数を切り替え
+                    const linkUrl = isColumn ? getColumnLinkUrl(item.url) : getNewsLinkUrl(item.url);
+                    
+                    li.innerHTML = `
+                        <a href="${linkUrl}" class="post-sidebar__link">
+                            <span class="post-sidebar__link-date">${formattedDate}</span>
+                            <span>${item.title}</span>
+                        </a>
+                    `;
+                    relatedPostsList.appendChild(li);
+                });
+            } else {
+                relatedPostsList.innerHTML = '<li class="post-sidebar__item"><p style="color: var(--text-secondary); font-size: 14px;">関連記事はありません</p></li>';
+            }
+        }
+        
+        // サイドバー：カテゴリを表示
+        const categoriesList = document.getElementById('post-categories');
+        if (categoriesList) {
+            // すべてのユニークなカテゴリを取得
+            const uniqueCategories = [...new Set(data.map(item => item.category))];
+            
+            categoriesList.innerHTML = '';
+            uniqueCategories.forEach(category => {
+                const li = document.createElement('li');
+                li.className = 'post-sidebar__category';
+                
+                // カテゴリページへのリンク（現時点では同じページに戻る）
+                const categoryUrl = isColumn 
+                    ? `index.html?category=${encodeURIComponent(category)}`
+                    : `index.html?category=${encodeURIComponent(category)}`;
+                
+                li.innerHTML = `
+                    <a href="${categoryUrl}" class="post-sidebar__category-link">${category}</a>
+                `;
+                categoriesList.appendChild(li);
+            });
+        }
+        
         console.log("[renderPostContent] completed");
     } catch (error) {
         console.error('[renderPostContent] Error loading post content:', error);

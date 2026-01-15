@@ -11,26 +11,56 @@
     <div id="site-header"></div>
 
     <main class="main">
-        <article class="post">
-            <header class="post__head">
-                <time class="post__date" datetime=""></time>
-                <span class="post__tag"></span>
-                <h1 class="post__title"></h1>
-                <p class="post__lead"></p>
-            </header>
+        <div class="post-page section">
+            <div class="container">
+                <div class="post-page__inner">
+                    <article class="post">
+                        <header class="post__head">
+                            <div class="post__meta">
+                                <time class="post__date" datetime=""></time>
+                                <span class="post__tag"></span>
+                            </div>
+                            <h1 class="post__title"></h1>
+                            <p class="post__lead"></p>
+                        </header>
 
-            <figure class="post__hero">
-                <img src="" alt="" loading="lazy">
-            </figure>
+                        <figure class="post__hero">
+                            <img src="" alt="" loading="lazy">
+                        </figure>
 
-            <div class="post__body">
-                <!-- 本文は renderContent.js で動的生成 -->
+                        <div class="post__body">
+                            <!-- 本文は renderContent.js で動的生成 -->
+                        </div>
+
+                        <nav class="post__nav">
+                            <a class="post__back" href="index.html">一覧へ戻る</a>
+                        </nav>
+                    </article>
+
+                    <aside class="post-sidebar">
+                        <div class="post-sidebar__section">
+                            <h2 class="post-sidebar__title">関連記事</h2>
+                            <ul class="post-sidebar__list" id="related-posts">
+                                <!-- 関連記事は renderContent.js で動的生成 -->
+                            </ul>
+                        </div>
+
+                        <div class="post-sidebar__section">
+                            <h2 class="post-sidebar__title">カテゴリ</h2>
+                            <ul class="post-sidebar__categories" id="post-categories">
+                                <!-- カテゴリは renderContent.js で動的生成 -->
+                            </ul>
+                        </div>
+
+                        <div class="post-sidebar__section">
+                            <h2 class="post-sidebar__title">お問い合わせ</h2>
+                            <p class="post-sidebar__text">制作に関するご相談はお気軽にお問い合わせください。</p>
+                            <a href="../../contact.html" class="post-sidebar__cta">お問い合わせフォーム</a>
+                        </div>
+                    </aside>
+                </div>
             </div>
-
-            <nav class="post__nav">
-                <a class="post__back" href="index.html">一覧へ戻る</a>
-            </nav>
-        </article>
+        </div>
     </main>
 
     <div id="site-footer"></div>
