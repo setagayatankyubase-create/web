@@ -7,11 +7,10 @@
 /* 共通スタイル（最優先） */
 @import "./sections/common.css";
 
-/* ページ共通 */
+/* ページ共通（hero--netyear と page-hero-common--netyear を含む） */
 @import "./sections/page-hero-common.css";
 
 /* トップページセクション */
-@import "./sections/hero.css";
 @import "./sections/top-services.css";
 @import "./sections/value-block.css";
 @import "./sections/notice.css";
