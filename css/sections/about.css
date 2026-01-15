@@ -138,8 +138,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(20px, 2.5vw, 28px);
-    max-width: 600px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 .certification-badge {
@@ -198,8 +197,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: clamp(8px, 1vw, 12px);
-    max-width: 600px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 .clients-list li {
@@ -263,8 +261,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(24px, 3vw, 32px);
-    max-width: 1080px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 /* 役員カード（共通パターン） */
@@ -464,8 +461,7 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: clamp(40px, 5vw, 56px);
-    max-width: 1080px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 .access-info {
@@ -575,8 +571,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(24px, 3vw, 32px);
-    max-width: 1080px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 .related-link-card {

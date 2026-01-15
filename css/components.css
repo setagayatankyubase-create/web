@@ -978,10 +978,39 @@ a:hover .link-arrow-inline::after {
 .top-services__inner,
 .page-hero-common__inner,
 .news-list-page__inner,
-.problem__inner {
+.problem__inner,
+.section-inner {
     max-width: 1200px;
     margin: 0 auto;
     padding-inline: var(--content-pad-x);
+}
+
+/* max-width: 880px; margin: 0 auto; の共通パターン */
+.service-scope-table {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+/* max-width: 1080px; margin: 0 auto; の共通パターン */
+.members-list,
+.access-content,
+.related-links-grid {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* max-width: 960px; margin: 0 auto; の共通パターン */
+.service-result-comparison,
+.service-pricing-grid {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* max-width: 600px; margin: 0 auto; の共通パターン */
+.certifications-grid,
+.clients-list {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* ========================================

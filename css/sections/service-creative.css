@@ -9,8 +9,7 @@
    B) 対応範囲（2カラム表）
    ======================================== */
 .service-scope-table {
-    max-width: 880px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
     border-top: var(--border-default);
 }
 
@@ -68,8 +67,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: clamp(24px, 3vw, 32px);
-    max-width: 960px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 .service-result-comparison__label {
@@ -117,8 +115,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: clamp(24px, 3vw, 32px);
-    max-width: 960px;
-    margin: 0 auto;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 .service-pricing-note {
