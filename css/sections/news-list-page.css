@@ -43,9 +43,7 @@
 }
 
 .news-list-page--netyear .news-list-page__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
+    /* 余白設定は共通の .section-inner を使用（components.css） */
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
     gap: clamp(24px, 5vw, 72px);

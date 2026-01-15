@@ -42,9 +42,7 @@
 .problem__inner {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
+    /* 余白設定は共通の .section-inner を使用（components.css） */
 }
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */

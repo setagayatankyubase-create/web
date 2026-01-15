@@ -214,9 +214,7 @@
 .page-hero-common--netyear .page-hero-common__content {
     position: relative;
     z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
+    /* 余白設定は共通の .section-inner を使用（components.css） */
     padding-top: clamp(16px, 2vw, 32px);
     display: grid;
     grid-template-columns: 1fr;

@@ -17,9 +17,7 @@
 }
 
 .top-services--netyear .top-services__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
+    /* 余白設定は共通の .section-inner を使用（components.css） */
     position: relative;
     z-index: 1;
 }
