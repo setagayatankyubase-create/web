@@ -47,8 +47,7 @@
     <!-- B. OUTLINE（会社概要テーブル） -->
     <section class="about-outline section">
         <div class="section-bg-text" aria-hidden="true">OUTLINE</div>
-        <div class="container">
-            <dl class="company-data company-data--netyear">
+        <dl class="company-data company-data--netyear">
                 <div class="company-data__row">
                     <dt>会社名</dt>
                     <dd>株式会社 Social BASE</dd>
@@ -72,9 +71,7 @@
                 <div class="company-data__row">
                     <dt>所在地</dt>
                     <dd>
-                        <span class="address-postal">〒156-0054</span><br>
-                        東京都世田谷区桜丘２丁目２７−１６<br>
-                        <span class="address-building">シルバーTOM 4F</span><br>
+                        <span class="address-postal">〒156-0054</span> 東京都世田谷区桜丘２丁目２７−１６ <span class="address-building">シルバーTOM 4F</span>
                         <a class="company-data__maplink" href="https://www.google.com/maps/search/桜丘2-27-16" target="_blank" rel="noopener noreferrer">
                             Google マップで開く
                         </a>
@@ -108,63 +105,51 @@
                 </div>
 
                 <div class="company-data__row">
-                    <dt>役員構成</dt>
+                    <dt>代表取締役</dt>
                     <dd>
-                        <div class="company-data__members">
-                            <div class="company-data__member">
-                                <span class="company-data__member-name">鳥山 慎悟</span>
-                                <span class="company-data__member-name-en">Shingo Toriyama</span>
-                            </div>
-                            <div class="company-data__member">
-                                <span class="company-data__member-name">森田 有真</span>
-                                <span class="company-data__member-name-en">Yuma Morita</span>
-                            </div>
-                        </div>
+                        <span class="company-data__member-name">鳥山 慎悟</span>
+                        <span class="company-data__member-name-en">Shingo Toriyama</span>
+                    </dd>
+                </div>
+
+                <div class="company-data__row">
+                    <dt>取締役</dt>
+                    <dd>
+                        <span class="company-data__member-name">森田 有真</span>
+                        <span class="company-data__member-name-en">Yuma Morita</span>
                     </dd>
                 </div>
 
                 <div class="company-data__row">
                     <dt>アクセス</dt>
                     <dd>
-                        <div class="company-data__access">
-                            <div class="company-data__map-wrapper">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.8278533985077!2d139.7671248!3d35.6812362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQwJzUyLjQiTiAxMznCsDQ2JzAxLjciRQ!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                            <div class="company-data__map-link">
-                                <a href="https://www.google.com/maps/search/桜丘2-27-16" target="_blank" rel="noopener noreferrer" class="company-data__link">Google マップで開く</a>
-                            </div>
-                        </div>
+                        <a class="company-data__link" href="https://www.google.com/maps/search/桜丘2-27-16" target="_blank" rel="noopener noreferrer">Google マップで開く</a>
                     </dd>
                 </div>
             </dl>
-        </div>
-    </section>
-
-    <!-- H. 関連ページ導線（3リンク） -->
-    <section class="about-related section section--muted">
-        <div class="container">
-            <div class="related-links-grid">
-                <a href="#recruit" class="related-link-card">
-                    <span class="related-link-label">採用情報</span>
-                    <span class="related-link-title">RECRUIT</span>
-                    <span class="related-link-arrow">→</span>
-                </a>
-                <a href="about.html" class="related-link-card">
-                    <span class="related-link-label">会社概要</span>
-                    <span class="related-link-title">COMPANY</span>
-                    <span class="related-link-arrow">→</span>
-                </a>
-                <a href="#office" class="related-link-card">
-                    <span class="related-link-label">オフィス紹介</span>
-                    <span class="related-link-title">OFFICE</span>
-                    <span class="related-link-arrow">→</span>
-                </a>
-            </div>
-        </div>
     </section>
 
     <!-- CTA -->
-    <div id="site-cta"></div>
+    <section class="about-cta section section--dark">
+        <div class="about-cta__inner">
+            <a href="news/index.html" class="about-cta__card about-cta__card--news">
+                <div class="about-cta__bg"></div>
+                <div class="about-cta__content">
+                    <h2 class="about-cta__title">Mail magazine</h2>
+                    <p class="about-cta__desc">Social BASEの最新情報を毎月お届けするメールマガジン</p>
+                    <span class="about-cta__button">ご登録はこちら</span>
+                </div>
+            </a>
+            <a href="contact.html" class="about-cta__card about-cta__card--contact">
+                <div class="about-cta__bg"></div>
+                <div class="about-cta__content">
+                    <h2 class="about-cta__title">Contact</h2>
+                    <p class="about-cta__desc">私たちは、デジタルを活用したマーケティング活動のコンサルティング、構築・運用を支援するデジタルエージェンシー企業です。DXの推進にあたってのお悩みを、是非一度状況をお聞かせください。</p>
+                    <span class="about-cta__button">お問い合わせ</span>
+                </div>
+            </a>
+        </div>
+    </section>
 
     </main>
 
