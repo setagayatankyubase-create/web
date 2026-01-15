@@ -366,16 +366,15 @@
                 <h2 class="section-head__title">お知らせ</h2>
             </header>
             <ul class="news-list">
-                <!-- テンプレート（非表示） -->
-                <template id="news-item-template">
-                    <li class="news-item">
-                        <div class="news-meta">
-                            <time class="news-date" datetime=""></time>
-                            <span class="news-cat">News Releases</span>
-                        </div>
-                        <a href="" class="news-title"></a>
-                    </li>
-                </template>
+                <!-- テンプレート（実際に表示される） -->
+                <!-- ニュースデータは renderContent.js で動的生成 -->
+                <li class="news-item" data-template="news-item">
+                    <div class="news-meta">
+                        <time class="news-date" datetime=""></time>
+                        <span class="news-cat">News Releases</span>
+                    </div>
+                    <a href="" class="news-title"></a>
+                </li>
             </ul>
             <div class="news-more">
                 <a href="news/index.html" class="link-arrow">
@@ -399,26 +398,24 @@
                 <p class="section-head__lead">ホームページ制作に関する考え方やノウハウをお届けします。</p>
             </header>
             <div class="top-column__grid">
-                <!-- テンプレート（非表示） -->
-                <template id="top-post-template">
-                    <article class="top-post">
-                        <a class="top-post__link" href="">
-                            <figure class="top-post__media">
-                                <img src="" alt="" loading="lazy" width="600" height="400" decoding="async">
-                            </figure>
-                            <div class="top-post__body">
-                                <p class="top-post__meta">
-                                    <span class="top-post__cat"></span>
-                                    <span class="top-post__sep" aria-hidden="true">/</span>
-                                    <time class="top-post__date" datetime=""></time>
-                                </p>
-                                <h3 class="top-post__heading"></h3>
-                                <p class="top-post__excerpt"></p>
-                                <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
-                            </div>
-                        </a>
-                    </article>
-                </template>
+                <!-- コラムデータは renderContent.js で動的生成 -->
+                <article class="top-post" data-template="top-post">
+                    <a class="top-post__link" href="">
+                        <figure class="top-post__media">
+                            <img src="" alt="" loading="lazy" width="600" height="400" decoding="async">
+                        </figure>
+                        <div class="top-post__body">
+                            <p class="top-post__meta">
+                                <span class="top-post__cat"></span>
+                                <span class="top-post__sep" aria-hidden="true">/</span>
+                                <time class="top-post__date" datetime=""></time>
+                            </p>
+                            <h3 class="top-post__heading"></h3>
+                            <p class="top-post__excerpt"></p>
+                            <p class="top-post__more">詳しく見る <span aria-hidden="true">→</span></p>
+                        </div>
+                    </a>
+                </article>
             </div>
         </div>
     </section>
@@ -544,12 +541,12 @@
     <!-- メガメニュー用overlay -->
     <div class="mega-overlay" aria-hidden="true"></div>
 
-    <script src="js/modules/includePartials.js"></script>
-    <script src="js/modules/megaMenu.js"></script>
-    <script src="js/modules/scrollReveal.js"></script>
-    <script src="js/modules/floatingCta.js"></script>
-    <script src="js/modules/renderContent.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/modules/includePartials.js" defer></script>
+    <script src="js/modules/megaMenu.js" defer></script>
+    <script src="js/modules/scrollReveal.js" defer></script>
+    <script src="js/modules/floatingCta.js" defer></script>
+    <script src="js/modules/renderContent.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
 

@@ -261,6 +261,9 @@ function setActiveNav() {
 
 // ===== DOMContentLoaded時の初期化 =====
 Utils.onReady(async function() {
+    console.log("[INIT] start");
+    
+    try {
     // ヘッダーとフッターを読み込む
     await loadPartial("#site-header", "partials/header.html");
     await loadPartial("#site-footer", "partials/footer.html");
@@ -484,14 +487,21 @@ Utils.onReady(async function() {
     })();
     
     // ===== ニュース・コラムデータの描画 =====
-    if (typeof window.renderNewsBlock === 'function') {
-        await window.renderNewsBlock();
-    }
-    if (typeof window.renderTopColumns === 'function') {
-        await window.renderTopColumns();
-    }
-    if (typeof window.renderColumnListPage === 'function') {
-        await window.renderColumnListPage();
+    try {
+        if (typeof window.renderNewsBlock === 'function') {
+            await window.renderNewsBlock();
+        }
+        if (typeof window.renderTopColumns === 'function') {
+            await window.renderTopColumns();
+        }
+        if (typeof window.renderColumnListPage === 'function') {
+            await window.renderColumnListPage();
+        }
+        if (typeof window.renderPostContent === 'function') {
+            await window.renderPostContent();
+        }
+    } catch (error) {
+        console.error("[INIT ERROR] render functions:", error);
     }
     
     // ===== コラムページ：カテゴリフィルター =====
@@ -527,6 +537,11 @@ Utils.onReady(async function() {
         // コラムデータが読み込まれた後にフィルターを設定
         setupFilter();
     }
+    } catch (error) {
+        console.error("[INIT ERROR]", error);
+    }
+    
+    console.log("[INIT] completed");
 });
 
 // ===== ヒーロータイピングアニメーション =====

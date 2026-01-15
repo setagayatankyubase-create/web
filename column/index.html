@@ -53,24 +53,23 @@
 
             <!-- コラムグリッド（3列） -->
             <div class="column-list-page__grid">
-                <!-- テンプレート（非表示） -->
-                <template id="column-card-template">
-                    <article class="column-list-page__card" data-category="">
-                        <figure class="column-list-page__media">
-                            <img src="" alt="" loading="lazy" width="600" height="400" decoding="async">
-                        </figure>
-                        <div class="column-list-page__content">
-                            <div class="column-list-page__meta">
-                                <span class="column-list-page__category"></span>
-                                <time class="column-list-page__date"></time>
-                            </div>
-                            <h3 class="column-list-page__title">
-                                <a href=""></a>
-                            </h3>
-                            <p class="column-list-page__lead"></p>
+                <!-- テンプレート（実際に表示される） -->
+                <!-- コラムデータは renderContent.js で動的生成 -->
+                <article class="column-list-page__card" data-category="" data-template="column-card">
+                    <figure class="column-list-page__media">
+                        <img src="" alt="" loading="lazy" width="600" height="400" decoding="async">
+                    </figure>
+                    <div class="column-list-page__content">
+                        <div class="column-list-page__meta">
+                            <span class="column-list-page__category"></span>
+                            <time class="column-list-page__date"></time>
                         </div>
-                    </article>
-                </template>
+                        <h3 class="column-list-page__title">
+                            <a href=""></a>
+                        </h3>
+                        <p class="column-list-page__lead"></p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -87,7 +86,7 @@
         </a>
     </div>
 
-    <script src="../js/modules/renderContent.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="../js/modules/renderContent.js" defer></script>
+    <script src="../js/main.js" defer></script>
 </body>
 </html>

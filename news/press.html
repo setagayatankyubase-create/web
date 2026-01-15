@@ -57,26 +57,13 @@
             </div>
 
             <ul class="news-list">
-                <li class="news-item" data-year="2026">
+                <!-- ニュースデータは renderContent.js で動的生成 -->
+                <li class="news-item" data-template="news-item">
                     <div class="news-meta">
-                        <time class="news-date" datetime="2026-01-30">2026.01.30</time>
+                        <time class="news-date" datetime=""></time>
                         <span class="news-cat">News Releases</span>
                     </div>
-                    <a href="#" class="news-title">SOCIAL BASEサービスを開始しました</a>
-                </li>
-                <li class="news-item" data-year="2026">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2026-01-15">2026.01.15</time>
-                        <span class="news-cat">News Releases</span>
-                    </div>
-                    <a href="#" class="news-title">制作体制の更新について</a>
-                </li>
-                <li class="news-item" data-year="2025">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2025-12-20">2025.12.20</time>
-                        <span class="news-cat">News Releases</span>
-                    </div>
-                    <a href="#" class="news-title">サイト公開のお知らせ</a>
+                    <a href="" class="news-title"></a>
                 </li>
             </ul>
         </div>
@@ -94,31 +81,37 @@
         </a>
     </div>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/modules/renderContent.js" defer></script>
+    <script src="../js/main.js" defer></script>
     <script>
         // 年フィルタ機能
         document.addEventListener('DOMContentLoaded', function() {
             const yearButtons = document.querySelectorAll('.news-year-btn');
-            const newsItems = document.querySelectorAll('.news-item[data-year]');
-
-            yearButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const year = this.getAttribute('data-year');
-                    
-                    // ボタンのアクティブ状態を更新
-                    yearButtons.forEach(btn => btn.classList.remove('is-active'));
-                    this.classList.add('is-active');
-                    
-                    // 記事の表示/非表示を切り替え
-                    newsItems.forEach(item => {
-                        if (year === 'all' || item.getAttribute('data-year') === year) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
+            
+            // ニュースデータが読み込まれた後にフィルターを設定
+            setTimeout(() => {
+                const newsItems = document.querySelectorAll('.news-item:not([data-template="news-item"])');
+                
+                yearButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const year = this.getAttribute('data-year');
+                        
+                        // ボタンのアクティブ状態を更新
+                        yearButtons.forEach(btn => btn.classList.remove('is-active'));
+                        this.classList.add('is-active');
+                        
+                        // 記事の表示/非表示を切り替え
+                        newsItems.forEach(item => {
+                            const itemYear = item.querySelector('.news-date')?.getAttribute('datetime')?.substring(0, 4);
+                            if (year === 'all' || itemYear === year) {
+                                item.style.display = '';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
                     });
                 });
-            });
+            }, 500);
         });
     </script>
 </body>

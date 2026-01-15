@@ -50,26 +50,13 @@
             </header>
 
             <ul class="news-list">
-                <li class="news-item">
+                <!-- ニュースデータは renderContent.js で動的生成 -->
+                <li class="news-item" data-template="news-item">
                     <div class="news-meta">
-                        <time class="news-date" datetime="2026-01-25">2026.01.25</time>
+                        <time class="news-date" datetime=""></time>
                         <span class="news-cat">Topics</span>
                     </div>
-                    <a href="#" class="news-title">制作プロセスの紹介：現地訪問から公開まで</a>
-                </li>
-                <li class="news-item">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2026-01-10">2026.01.10</time>
-                        <span class="news-cat">Topics</span>
-                    </div>
-                    <a href="#" class="news-title">改善事例：運用しやすいCMS設計のポイント</a>
-                </li>
-                <li class="news-item">
-                    <div class="news-meta">
-                        <time class="news-date" datetime="2025-12-15">2025.12.15</time>
-                        <span class="news-cat">Topics</span>
-                    </div>
-                    <a href="#" class="news-title">ツール運用の小話：更新作業の効率化について</a>
+                    <a href="" class="news-title"></a>
                 </li>
             </ul>
         </div>
@@ -87,6 +74,7 @@
         </a>
     </div>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/modules/renderContent.js" defer></script>
+    <script src="../js/main.js" defer></script>
 </body>
 </html>
