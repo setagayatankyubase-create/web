@@ -965,6 +965,20 @@ a:hover .link-arrow-inline::after {
 }
 
 /* ========================================
+   Section Inner (セクション内側ラッパー)
+   共通の余白設定を提供
+   ======================================== */
+.value-block__inner,
+.flow-process__inner,
+.flow-steps-parallel__inner,
+.flow-quality__inner,
+.flow-faq__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: var(--content-pad-x);
+}
+
+/* ========================================
    Card Component (共通カードスタイル)
    ======================================== */
 

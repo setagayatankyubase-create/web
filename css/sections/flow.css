@@ -11,11 +11,7 @@
     /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
-.flow-process__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x);
-}
+/* 余白設定は共通の .section-inner を使用（components.css） */
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
 
@@ -119,11 +115,7 @@
    Deliverables（納品物）- 5列並列
    ======================================== */
 
-.flow-steps-parallel__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x);
-}
+/* 余白設定は共通の .section-inner を使用（components.css） */
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
 
@@ -181,11 +173,7 @@
     /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
-.flow-quality__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x);
-}
+/* 余白設定は共通の .section-inner を使用（components.css） */
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
 
@@ -248,11 +236,7 @@
    FAQ（アコーディオン）
    ======================================== */
 
-.flow-faq__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x);
-}
+/* 余白設定は共通の .section-inner を使用（components.css） */
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
 

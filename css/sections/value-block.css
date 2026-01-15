@@ -40,14 +40,13 @@
 .value-block__inner {
     position: relative;
     z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x); /* 統一変数を使用 */
     display: grid;
     grid-template-columns: 1fr 1.1fr;
     gap: clamp(32px, 6vw, 80px);
     align-items: center;
 }
+
+/* 余白設定は共通の .section-inner を使用（components.css） */
 
 .value-block__copy {
     position: relative;
