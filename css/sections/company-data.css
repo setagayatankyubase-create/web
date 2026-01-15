@@ -1,0 +1,253 @@
+/* ========================================
+   Company Data (会社概要データ) - netyear風
+   ======================================== */
+
+/* ===== セクションタイトル（追加クラス対応） ===== */
+.about-outline .section-title-wrapper--company {
+    /* 既存のsection-title-wrapperのスタイルを継承 */
+    /* 追加の調整が必要な場合はここに記述 */
+}
+
+/* ===== 会社データ（DL） - netyear風 ===== */
+.company-data--netyear {
+    margin: clamp(48px, 6vw, 64px) auto 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1行 = 1ラッパー */
+.company-data--netyear .company-data__row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: clamp(16px, 2vw, 20px) 0;
+    gap: clamp(20px, 2.5vw, 24px);
+    align-items: start;
+}
+
+/* 最初の行は上線なし */
+.company-data--netyear .company-data__row:first-child {
+    border-top: none;
+}
+
+/* 最後の行は下線なし */
+.company-data--netyear .company-data__row:last-child {
+    border-bottom: none;
+}
+
+/* dt（項目） */
+.company-data--netyear dt {
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* dd（値） */
+.company-data--netyear dd {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    padding: 0;
+}
+
+/* 日付や郵便番号を揃える（tabular-nums） */
+.company-data--netyear dd,
+.company-data--netyear .address-postal {
+    font-variant-numeric: tabular-nums;
+}
+
+/* 住所のスタイル */
+.company-data--netyear .address-postal {
+    font-weight: 600;
+    color: var(--black);
+    margin-right: 8px;
+}
+
+.company-data--netyear .address-building {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: clamp(13px, 1.5vw, 15px);
+}
+
+/* マップリンク */
+.company-data--netyear .company-data__maplink {
+    display: inline-block;
+    margin-top: clamp(8px, 1vw, 12px);
+    font-size: clamp(13px, 1.5vw, 14px);
+    color: var(--cta-primary-bg);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.company-data--netyear .company-data__maplink:hover {
+    color: var(--cta-primary-bg-hover);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* 箇条書き（事業内容） */
+.company-data--netyear .company-data__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 12px);
+}
+
+.company-data--netyear .company-data__bullets li {
+    position: relative;
+    padding-left: clamp(16px, 2vw, 20px);
+    line-height: 1.8;
+}
+
+.company-data--netyear .company-data__bullets li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* リンク（お問い合わせ） */
+.company-data--netyear .company-data__link {
+    color: var(--cta-primary-bg);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.company-data--netyear .company-data__link:hover {
+    color: var(--cta-primary-bg-hover);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* 役員構成 */
+.company-data--netyear .company-data__members {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 1.5vw, 16px);
+}
+
+.company-data--netyear .company-data__member {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.5vw, 6px);
+}
+
+.company-data--netyear .company-data__member-name {
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.6;
+    font-size: clamp(14px, 1.6vw, 16px);
+}
+
+.company-data--netyear .company-data__member-name-en {
+    font-size: clamp(12px, 1.4vw, 13px);
+    color: rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+}
+
+/* アクセス（地図） */
+.company-data--netyear .company-data__access {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2vw, 20px);
+}
+
+.company-data--netyear .company-data__map-wrapper {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.company-data--netyear .company-data__map-wrapper iframe {
+    display: block;
+    width: 100%;
+    height: 400px;
+    border: none;
+}
+
+.company-data--netyear .company-data__map-link {
+    text-align: center;
+}
+
+/* ===== 補助ブロック（認証・認定 / 主要取引先） ===== */
+.company-subblocks {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 4vw, 40px);
+}
+
+.company-subblock {
+    padding-bottom: clamp(24px, 3vw, 32px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.company-subblock:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.company-subblock__title {
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    color: var(--black);
+    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    letter-spacing: 0.01em;
+}
+
+.company-subblock__body {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.company-subblock__body p {
+    margin: 0;
+    line-height: 1.8;
+}
+
+/* ===== レスポンシブ（スマホ：縦積み） ===== */
+@media (max-width: 768px) {
+    .company-data--netyear .company-data__row {
+        grid-template-columns: 1fr;
+        gap: clamp(8px, 1vw, 12px);
+        padding: clamp(16px, 2vw, 20px) 0;
+    }
+
+    .company-data--netyear dt {
+        font-size: clamp(13px, 1.5vw, 14px);
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: clamp(4px, 0.5vw, 8px);
+    }
+
+    .company-data--netyear dd {
+        font-size: clamp(14px, 1.6vw, 16px);
+        padding-top: 0;
+    }
+
+    .company-subblocks {
+        gap: clamp(24px, 3vw, 32px);
+    }
+
+    .company-subblock {
+        padding-bottom: clamp(20px, 2.5vw, 28px);
+    }
+
+    .company-subblock__title {
+        font-size: clamp(14px, 1.6vw, 15px);
+        margin-bottom: clamp(10px, 1.2vw, 14px);
+    }
+
+    .company-subblock__body {
+        font-size: 14px;
+    }
+}

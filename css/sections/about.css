@@ -12,10 +12,7 @@
     position: relative;
     z-index: 1;
     margin-bottom: clamp(40px, 5vw, 56px);
-    max-width: 880px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .about-outline .eyebrow {
@@ -347,6 +344,85 @@
     margin: 0;
 }
 
+/* ===== 役員リスト（netyear風） ===== */
+.members-list--netyear {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.members-list--netyear .members-list__row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: clamp(16px, 2vw, 20px) 0;
+    gap: clamp(20px, 2.5vw, 24px);
+    align-items: start;
+}
+
+.members-list--netyear .members-list__row:first-child {
+    border-top: none;
+}
+
+.members-list--netyear .members-list__row:last-child {
+    border-bottom: none;
+}
+
+.members-list--netyear dt {
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.members-list--netyear dd {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.5vw, 8px);
+}
+
+.members-list--netyear .members-list__name {
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.6;
+}
+
+.members-list--netyear .members-list__name-en {
+    font-size: clamp(12px, 1.4vw, 13px);
+    color: rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+}
+
+/* レスポンシブ（スマホ：縦積み） */
+@media (max-width: 768px) {
+    .members-list--netyear .members-list__row {
+        grid-template-columns: 1fr;
+        gap: clamp(8px, 1vw, 12px);
+        padding: clamp(16px, 2vw, 20px) 0;
+    }
+
+    .members-list--netyear dt {
+        font-size: clamp(13px, 1.5vw, 14px);
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: clamp(4px, 0.5vw, 8px);
+    }
+
+    .members-list--netyear dd {
+        font-size: clamp(14px, 1.6vw, 16px);
+        padding-top: 0;
+    }
+}
+
 /* ===== ACCESS セクション ===== */
 .about-access {
     position: relative;
@@ -560,7 +636,7 @@
 
 /* レスポンシブ */
 @media (max-width: 1024px) {
-    .members-list,
+    .members-list:not(.members-list--netyear),
     .related-links-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: clamp(20px, 2.5vw, 28px);
@@ -578,7 +654,7 @@
 }
 
 @media (max-width: 768px) {
-    .members-list,
+    .members-list:not(.members-list--netyear),
     .related-links-grid,
     .certifications-grid {
         grid-template-columns: 1fr;
