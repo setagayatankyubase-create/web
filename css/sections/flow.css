@@ -3,78 +3,6 @@
    ======================================== */
 
 /* ========================================
-   Intro（導入の帯）
-   ======================================== */
-
-.flow-intro {
-    background: var(--bg-light);
-    /* paddingは共通の.sectionクラスで統一（layout.css） */
-}
-
-.flow-intro__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: var(--content-pad-x);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: clamp(32px, 4vw, 48px);
-    align-items: center;
-}
-
-.flow-intro__lead {
-    font-size: clamp(18px, 2.2vw, 22px);
-    line-height: 1.8;
-    color: var(--text);
-    margin: 0;
-    letter-spacing: -0.01em;
-}
-
-.flow-intro__tips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.flow-intro__tip {
-    display: inline-block;
-    padding: 8px 16px;
-    background: var(--bg-white);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-/* ========================================
-   Flow Image（全体フロー画像）
-   ======================================== */
-
-.flow-image {
-}
-
-.flow-image__figure {
-    margin: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.flow-image__figure img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.flow-image__caption {
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
-/* ========================================
    Process（タイムライン）
    ======================================== */
 
@@ -83,16 +11,13 @@
     /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
-.flow-process .section-head {
+.flow-process__inner {
     max-width: 1200px;
     margin: 0 auto;
     padding-inline: var(--content-pad-x);
 }
 
-.flow-process .section-head__eyebrow,
-.flow-process .section-head__badge {
-    padding-inline: 0;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
 
 .flow-timeline {
     list-style: none;
@@ -100,7 +25,6 @@
     padding: 0;
     position: relative;
     max-width: 880px;
-    margin: 0 auto;
 }
 
 /* タイムラインの縦線 */
@@ -195,19 +119,10 @@
    Deliverables（納品物）- 5列並列
    ======================================== */
 
-.flow-steps-parallel {
-    /* paddingは共通の.sectionクラスで統一（layout.css） */
-}
-
-.flow-steps-parallel .section-head {
+.flow-steps-parallel__inner {
     max-width: 1200px;
     margin: 0 auto;
     padding-inline: var(--content-pad-x);
-}
-
-.flow-steps-parallel .section-head__eyebrow,
-.flow-steps-parallel .section-head__badge {
-    padding-inline: 0;
 }
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
@@ -217,8 +132,7 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
     border-top: 1px solid rgba(15, 23, 42, 0.12);
     border-bottom: 1px solid rgba(15, 23, 42, 0.12);
-    max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .step-col {
@@ -267,24 +181,20 @@
     /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
-.flow-quality .section-head {
+.flow-quality__inner {
     max-width: 1200px;
     margin: 0 auto;
     padding-inline: var(--content-pad-x);
 }
 
-.flow-quality .section-head__eyebrow,
-.flow-quality .section-head__badge {
-    padding-inline: 0;
-}
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
 
 .quality-table {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     border-top: 1px solid rgba(15, 23, 42, 0.12);
     border-left: 1px solid rgba(15, 23, 42, 0.12);
-    max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .quality-cell {
@@ -338,19 +248,10 @@
    FAQ（アコーディオン）
    ======================================== */
 
-.flow-faq {
-    /* paddingは共通の.sectionクラスで統一（layout.css） */
-}
-
-.flow-faq .section-head {
+.flow-faq__inner {
     max-width: 1200px;
     margin: 0 auto;
     padding-inline: var(--content-pad-x);
-}
-
-.flow-faq .section-head__eyebrow,
-.flow-faq .section-head__badge {
-    padding-inline: 0;
 }
 
 /* 見出しスタイルは共通の .section-head を使用（components.css） */
@@ -360,7 +261,7 @@
     flex-direction: column;
     gap: clamp(1px, 0.1vw, 2px);
     max-width: 880px;
-    margin: 0 auto;
+    margin: 0;
     border: 1px solid var(--line);
     border-radius: 8px;
     overflow: hidden;
@@ -444,47 +345,6 @@
 }
 
 /* ========================================
-   CTA（Netyear風）
-   ======================================== */
-
-.flow-cta {
-    background: var(--bg-light);
-}
-
-.flow-cta__inner {
-    max-width: 880px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: clamp(32px, 4vw, 48px);
-    align-items: center;
-}
-
-.flow-cta__content {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(8px, 1vw, 12px);
-}
-
-.flow-cta__title {
-    font-size: clamp(24px, 3vw, 32px);
-    font-weight: 700;
-    color: var(--black);
-    margin: 0;
-    letter-spacing: -0.02em;
-}
-
-.flow-cta__note {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-.flow-cta__action {
-    flex-shrink: 0;
-}
-
-/* ========================================
    レスポンシブ
    ======================================== */
 
@@ -509,15 +369,6 @@
 }
 
 @media (max-width: 960px) {
-    .flow-intro__inner {
-        grid-template-columns: 1fr;
-        gap: clamp(24px, 3vw, 32px);
-    }
-
-    .flow-intro__tips {
-        justify-content: flex-start;
-    }
-
     .flow-timeline {
         padding-left: 0;
     }
@@ -547,11 +398,6 @@
 
     .quality-cell:nth-child(1) {
         border-top: none;
-    }
-
-    .flow-cta__inner {
-        grid-template-columns: 1fr;
-        text-align: center;
     }
 }
 
