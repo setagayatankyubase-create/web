@@ -44,209 +44,258 @@
         </div>
     </section>
 
-    <!-- 制作フロー -->
-    <section class="flow section" aria-labelledby="flow-heading">
+    <!-- Intro（導入の帯） -->
+    <section class="flow-intro section">
         <div class="container">
-            <!-- ① FLOW導入テキスト -->
-            <header class="flow-intro">
-                <p class="flow-intro__kicker">PROCESS</p>
-                <h2 class="flow-intro__title">SHIKUMIがどう進めるか</h2>
-                <p class="flow-intro__text">
-                    現地訪問を起点に、事業の背景や強みを理解した上で、<br>
-                    ホームページの構成・写真・文章を設計します。専門用語を使わず、<br>
-                    一貫して対応するため、途中で迷うことがありません。
-                </p>
+            <div class="flow-intro__inner">
+                <div class="flow-intro__text">
+                    <p class="flow-intro__lead">
+                        ヒアリングから制作、公開まで<br>
+                        一貫して対応するため、途中で迷うことがありません。
+                    </p>
+                </div>
+                <div class="flow-intro__tips">
+                    <div class="flow-intro__tip">現地訪問</div>
+                    <div class="flow-intro__tip">文章作成込み</div>
+                    <div class="flow-intro__tip">公開後サポート</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process（タイムライン） -->
+    <section class="flow-process section section--muted">
+        <div class="container">
+            <header class="section-head">
+                <p class="section-head__eyebrow">PROCESS</p>
+                <h2 class="section-head__title">制作の流れ</h2>
             </header>
             
-            <div class="flow-steps">
-                <article class="flow-step">
-                    <div class="flow-number">01</div>
-                    <h3 class="flow-title">相談・ヒアリング</h3>
-                    <p class="flow-text">
-                        お電話やメールでご相談いただきます。「問い合わせ」ではなく、仕事が始まる入口です。事業内容やご要望をお聞きし、現地訪問の日程を調整します。不安な点があれば、この段階でお気軽にお聞きください。
-                    </p>
-                    <p class="flow-deliverable">現地訪問日程の確定</p>
+            <ol class="flow-timeline">
+                <li class="flow-step">
+                    <div class="flow-step__marker">
+                        <span class="flow-step__number">01</span>
+                    </div>
+                    <div class="flow-step__body">
+                        <h3 class="flow-step__title">相談・ヒアリング</h3>
+                        <p class="flow-step__text">
+                            お電話やメールでご相談いただきます。「問い合わせ」ではなく、仕事が始まる入口です。事業内容やご要望をお聞きし、現地訪問の日程を調整します。不安な点があれば、この段階でお気軽にお聞きください。
+                        </p>
+                        <ul class="flow-step__outcomes">
+                            <li>現地訪問日程の確定</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="flow-step">
+                    <div class="flow-step__marker">
+                        <span class="flow-step__number">02</span>
+                    </div>
+                    <div class="flow-step__body">
+                        <h3 class="flow-step__title">現地訪問</h3>
+                        <p class="flow-step__text">
+                            お客様の事業現場に訪問し、実際の作業風景や商品、スタッフの様子などを撮影します。写真撮影だけでなく、事業の背景や強みを理解する工程です。机上のヒアリングでは見えない事業の空気感を把握します。
+                        </p>
+                        <ul class="flow-step__outcomes">
+                            <li>撮影写真</li>
+                            <li>ヒアリングシート</li>
+                            <li>事業理解の整理</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="flow-step">
+                    <div class="flow-step__marker">
+                        <span class="flow-step__number">03</span>
+                    </div>
+                    <div class="flow-step__body">
+                        <h3 class="flow-step__title">構成・文章作成</h3>
+                        <p class="flow-step__text">
+                            ヒアリング内容と撮影した写真をもとに、サイト構成と文章を作成します。ここで設計している工程です。デザインの前に、何を載せるか、どう伝えるかを思考します。
+                        </p>
+                        <ul class="flow-step__outcomes">
+                            <li>構成案</li>
+                            <li>文章たたき台</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="flow-step">
+                    <div class="flow-step__marker">
+                        <span class="flow-step__number">04</span>
+                    </div>
+                    <div class="flow-step__body">
+                        <h3 class="flow-step__title">サイト制作</h3>
+                        <p class="flow-step__text">
+                            決定した構成と文章、写真をもとにサイトを制作します。STEP03の延長線として、設計した内容を形にします。
+                        </p>
+                        <ul class="flow-step__outcomes">
+                            <li>デザイン初稿</li>
+                            <li>サイトプレビュー</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="flow-step">
+                    <div class="flow-step__marker">
+                        <span class="flow-step__number">05</span>
+                    </div>
+                    <div class="flow-step__body">
+                        <h3 class="flow-step__title">公開・運用開始</h3>
+                        <p class="flow-step__text">
+                            最終確認後、サイトを公開します。公開して終わりではなく、公開後も月額サポートで継続的にサポートします。事業の変化に合わせて調整を続けます。
+                        </p>
+                        <ul class="flow-step__outcomes">
+                            <li>公開サイト</li>
+                            <li>運用開始通知</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Deliverables（納品物） -->
+    <section class="flow-steps-parallel section">
+        <div class="container">
+            <header class="section-head">
+                <p class="section-head__eyebrow">DELIVERABLES</p>
+                <h2 class="section-head__title">各ステップで何が決まりますか？</h2>
+                <p class="section-head__lead">各ステップで確認・承認を経て、次の工程へ進みます。</p>
+            </header>
+            <div class="steps-columns" role="list">
+                <article class="step-col" role="listitem">
+                    <p class="step-col__label">STEP 01</p>
+                    <h3 class="step-col__title">相談・ヒアリング</h3>
+                    <p class="step-col__desc">現地訪問日程の確定</p>
                 </article>
-                <article class="flow-step">
-                    <div class="flow-number">02</div>
-                    <h3 class="flow-title">現地訪問</h3>
-                    <p class="flow-text">
-                        お客様の事業現場に訪問し、実際の作業風景や商品、スタッフの様子などを撮影します。写真撮影だけでなく、事業の背景や強みを理解する工程です。机上のヒアリングでは見えない事業の空気感を把握します。
-                    </p>
-                    <p class="flow-deliverable">撮影写真・ヒアリングシート・事業理解の整理</p>
+                <article class="step-col" role="listitem">
+                    <p class="step-col__label">STEP 02</p>
+                    <h3 class="step-col__title">現地訪問</h3>
+                    <p class="step-col__desc">撮影写真・ヒアリングシート・事業理解の整理</p>
                 </article>
-                <article class="flow-step">
-                    <div class="flow-number">03</div>
-                    <h3 class="flow-title">構成・文章作成</h3>
-                    <p class="flow-text">
-                        ヒアリング内容と撮影した写真をもとに、サイト構成と文章を作成します。ここで設計している工程です。デザインの前に、何を載せるか、どう伝えるかを思考します。
-                    </p>
-                    <p class="flow-deliverable">構成案・文章たたき台</p>
+                <article class="step-col" role="listitem">
+                    <p class="step-col__label">STEP 03</p>
+                    <h3 class="step-col__title">構成・文章作成</h3>
+                    <p class="step-col__desc">構成案・文章たたき台</p>
                 </article>
-                <article class="flow-step">
-                    <div class="flow-number">04</div>
-                    <h3 class="flow-title">サイト制作</h3>
-                    <p class="flow-text">
-                        決定した構成と文章、写真をもとにサイトを制作します。STEP03の延長線として、設計した内容を形にします。
-                    </p>
-                    <p class="flow-deliverable">デザイン初稿・サイトプレビュー</p>
+                <article class="step-col" role="listitem">
+                    <p class="step-col__label">STEP 04</p>
+                    <h3 class="step-col__title">サイト制作</h3>
+                    <p class="step-col__desc">デザイン初稿・サイトプレビュー</p>
                 </article>
-                <article class="flow-step">
-                    <div class="flow-number">05</div>
-                    <h3 class="flow-title">公開・運用開始</h3>
-                    <p class="flow-text">
-                        最終確認後、サイトを公開します。公開して終わりではなく、公開後も月額サポートで継続的にサポートします。事業の変化に合わせて調整を続けます。
-                    </p>
-                    <p class="flow-deliverable">公開サイト・運用開始通知</p>
+                <article class="step-col" role="listitem">
+                    <p class="step-col__label">STEP 05</p>
+                    <h3 class="step-col__title">公開・運用開始</h3>
+                    <p class="step-col__desc">公開サイト・運用開始通知</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- 品質保証 -->
-    <section class="quality-assurance section section--muted">
+    <!-- Quality（品質保証） -->
+    <section class="flow-quality section section--muted">
         <div class="section-bg-text" aria-hidden="true">QUALITY</div>
         <div class="container">
             <header class="section-head">
-                <span class="section-head__eyebrow">QUALITY ASSURANCE</span>
+                <p class="section-head__eyebrow">QUALITY ASSURANCE</p>
                 <h2 class="section-head__title">品質保証（チェック項目）</h2>
                 <p class="section-head__lead">公開前に必ず実施する品質チェック項目です。</p>
             </header>
-            <div class="quality-checklist">
-                <div class="quality-item">
-                    <div class="quality-icon">✓</div>
-                    <div class="quality-content">
-                        <h3 class="quality-title">文言チェック</h3>
-                        <p class="quality-desc">誤字脱字、表現の統一、読みやすさを確認します。</p>
-                    </div>
+            <div class="quality-table">
+                <div class="quality-cell">
+                    <h3 class="quality-cell__title">文言チェック</h3>
+                    <p class="quality-cell__desc">誤字脱字、表現の統一、読みやすさを確認します。</p>
                 </div>
-                <div class="quality-item">
-                    <div class="quality-icon">✓</div>
-                    <div class="quality-content">
-                        <h3 class="quality-title">スマホ最適化</h3>
-                        <p class="quality-desc">各種スマートフォンでの表示・操作を確認します。</p>
-                    </div>
+                <div class="quality-cell">
+                    <h3 class="quality-cell__title">スマホ最適化</h3>
+                    <p class="quality-cell__desc">各種スマートフォンでの表示・操作を確認します。</p>
                 </div>
-                <div class="quality-item">
-                    <div class="quality-icon">✓</div>
-                    <div class="quality-content">
-                        <h3 class="quality-title">表示速度</h3>
-                        <p class="quality-desc">ページ読み込み速度を最適化し、快適に閲覧できるようにします。</p>
-                    </div>
+                <div class="quality-cell">
+                    <h3 class="quality-cell__title">表示速度</h3>
+                    <p class="quality-cell__desc">ページ読み込み速度を最適化し、快適に閲覧できるようにします。</p>
                 </div>
-                <div class="quality-item">
-                    <div class="quality-icon">✓</div>
-                    <div class="quality-content">
-                        <h3 class="quality-title">基本SEO</h3>
-                        <p class="quality-desc">検索エンジンに適切に認識されるよう、基本的なSEO設定を行います。</p>
-                    </div>
+                <div class="quality-cell">
+                    <h3 class="quality-cell__title">基本SEO</h3>
+                    <p class="quality-cell__desc">検索エンジンに適切に認識されるよう、基本的なSEO設定を行います。</p>
                 </div>
-                <div class="quality-item">
-                    <div class="quality-icon">✓</div>
-                    <div class="quality-content">
-                        <h3 class="quality-title">フォーム動作</h3>
-                        <p class="quality-desc">お問い合わせフォームが正しく動作するか確認します。</p>
-                    </div>
+                <div class="quality-cell">
+                    <h3 class="quality-cell__title">フォーム動作</h3>
+                    <p class="quality-cell__desc">お問い合わせフォームが正しく動作するか確認します。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- よくある質問 -->
-    <section class="faq section">
+    <!-- FAQ（アコーディオン） -->
+    <section class="flow-faq section">
         <div class="container">
-            <div class="faq-categories">
-                <!-- カテゴリ1：制作の流れについて -->
-                <div class="faq-category">
-                    <h2 class="faq-category__title">制作の流れについて</h2>
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">制作期間はどのくらいかかりますか？</summary>
-                            <div class="faq-answer">
-                                <p>プランや内容によって異なりますが、通常1〜2ヶ月程度を目安としています。現地訪問から公開まで、通常2〜3週間程度かかります。内容によっては前後する場合がありますので、詳しくは<a href="contact.html">お問い合わせ</a>時にご相談ください。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">写真や文章が用意できなくても対応可能ですか？</summary>
-                            <div class="faq-answer">
-                                <p>はい、対応可能です。現地訪問時に写真撮影を行い、ヒアリング内容をもとに文章を作成します。何を載せればいいかわからない方でも、事業の背景や強みを理解した上で必要な情報を整理します。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">現地訪問は必須ですか？</summary>
-                            <div class="faq-answer">
-                                <p>現地訪問は事業の背景や強みを理解する上で重要です。ただし、遠方の場合や訪問が難しい場合は、オンラインでのヒアリングや写真の共有など、柔軟に対応いたします。詳細は<a href="contact.html">お問い合わせ</a>時にご相談ください。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">各ステップで何が決まりますか？</summary>
-                            <div class="faq-answer">
-                                <p>STEP01（相談・ヒアリング）で現地訪問日程を確定、STEP02（現地訪問）で撮影写真とヒアリングシート、STEP03（構成・文章作成）で構成案と文章たたき台、STEP04（サイト制作）でデザイン初稿とサイトプレビュー、STEP05（公開・運用開始）で公開サイトと運用開始通知が納品されます。各ステップで確認・承認を経て次のステップへ進みます。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">修正は何回まで対応してもらえますか？</summary>
-                            <div class="faq-answer">
-                                <p>修正対応は2回までとなります。文言変更や軽微な配置調整を想定しており、構成変更やページ追加などは別途ご相談となります。詳細は<a href="service.html">サービス内容</a>ページをご確認ください。</p>
-                            </div>
-                        </details>
+            <header class="section-head">
+                <p class="section-head__eyebrow">FAQ</p>
+                <h2 class="section-head__title">よくある質問</h2>
+            </header>
+            <div class="flow-faq__list">
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">制作期間はどのくらいかかりますか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>プランや内容によって異なりますが、通常1〜2ヶ月程度を目安としています。現地訪問から公開まで、通常2〜3週間程度かかります。内容によっては前後する場合がありますので、詳しくは<a href="contact.html">お問い合わせ</a>時にご相談ください。</p>
                     </div>
-                </div>
-
-                <!-- カテゴリ2：制作後のサポートについて -->
-                <div class="faq-category">
-                    <h2 class="faq-category__title">制作後のサポートについて</h2>
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">公開後の対応範囲を教えてください</summary>
-                            <div class="faq-answer">
-                                <p>月額サポートプランにご加入いただくと、既存ページ内の文章・画像更新（月5回まで）、お問い合わせフォーム等の軽微な不具合対応、サーバー・ドメインに関する管理・簡易相談を含みます。詳しくは<a href="service.html#support">月額サポート</a>のページをご覧ください。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">公開後の更新作業は自分でできますか？</summary>
-                            <div class="faq-answer">
-                                <p>月額サポートプランにご加入いただくと、既存ページ内の文章・画像更新を代行いたします（月5回まで）。ご自身での更新も可能ですが、お困りの際はお気軽にご相談ください。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">サーバーやドメインの管理もお願いできますか？</summary>
-                            <div class="faq-answer">
-                                <p>月額サポートプランにご加入いただくと、サーバー・ドメインに関する管理・簡易相談を含みます。セキュリティ更新、バックアップ管理も行います。詳しくは<a href="service.html#support">月額サポート</a>のページをご覧ください。</p>
-                            </div>
-                        </details>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">写真や文章が用意できなくても対応可能ですか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>はい、対応可能です。現地訪問時に写真撮影を行い、ヒアリング内容をもとに文章を作成します。何を載せればいいかわからない方でも、事業の背景や強みを理解した上で必要な情報を整理します。</p>
                     </div>
-                </div>
-
-                <!-- カテゴリ3：その他 -->
-                <div class="faq-category">
-                    <h2 class="faq-category__title">その他</h2>
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">対応地域を教えてください</summary>
-                            <div class="faq-answer">
-                                <p>関東圏を中心に現地訪問に対応しております。遠方の場合でも、オンラインでのご相談・制作は可能です。詳しくは<a href="contact.html">お問い合わせ</a>フォームよりご相談ください。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">テンプレートではなく、オリジナルのデザインにできますか？</summary>
-                            <div class="faq-answer">
-                                <p>はい、可能です。テンプレートに当てはめるのではなく、事業の強みが正しく伝わる形を設計します。ヒアリングから制作、公開、運用・改善まで一貫してサポートいたします。</p>
-                            </div>
-                        </details>
-                        <details class="faq-item">
-                            <summary class="faq-question">スマートフォンにも対応していますか？</summary>
-                            <div class="faq-answer">
-                                <p>はい、すべてのホームページはスマートフォン・タブレット・パソコンの各デバイスで適切に表示されるよう、レスポンシブ対応となっています。</p>
-                            </div>
-                        </details>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">現地訪問は必須ですか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>現地訪問は事業の背景や強みを理解する上で重要です。ただし、遠方の場合や訪問が難しい場合は、オンラインでのヒアリングや写真の共有など、柔軟に対応いたします。詳細は<a href="contact.html">お問い合わせ</a>時にご相談ください。</p>
                     </div>
-                </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">修正は何回まで対応してもらえますか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>修正対応は2回までとなります。文言変更や軽微な配置調整を想定しており、構成変更やページ追加などは別途ご相談となります。詳細は<a href="service.html">サービス内容</a>ページをご確認ください。</p>
+                    </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">公開後の対応範囲を教えてください</summary>
+                    <div class="flow-faq__answer">
+                        <p>月額サポートプランにご加入いただくと、既存ページ内の文章・画像更新（月5回まで）、お問い合わせフォーム等の軽微な不具合対応、サーバー・ドメインに関する管理・簡易相談を含みます。詳しくは<a href="service.html#support">月額サポート</a>のページをご覧ください。</p>
+                    </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">公開後の更新作業は自分でできますか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>月額サポートプランにご加入いただくと、既存ページ内の文章・画像更新を代行いたします（月5回まで）。ご自身での更新も可能ですが、お困りの際はお気軽にご相談ください。</p>
+                    </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">サーバーやドメインの管理もお願いできますか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>月額サポートプランにご加入いただくと、サーバー・ドメインに関する管理・簡易相談を含みます。セキュリティ更新、バックアップ管理も行います。詳しくは<a href="service.html#support">月額サポート</a>のページをご覧ください。</p>
+                    </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">対応地域を教えてください</summary>
+                    <div class="flow-faq__answer">
+                        <p>関東圏を中心に現地訪問に対応しております。遠方の場合でも、オンラインでのご相談・制作は可能です。詳しくは<a href="contact.html">お問い合わせ</a>フォームよりご相談ください。</p>
+                    </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">テンプレートではなく、オリジナルのデザインにできますか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>はい、可能です。テンプレートに当てはめるのではなく、事業の強みが正しく伝わる形を設計します。ヒアリングから制作、公開、運用・改善まで一貫してサポートいたします。</p>
+                    </div>
+                </details>
+                <details class="flow-faq__item">
+                    <summary class="flow-faq__question">スマートフォンにも対応していますか？</summary>
+                    <div class="flow-faq__answer">
+                        <p>はい、すべてのホームページはスマートフォン・タブレット・パソコンの各デバイスで適切に表示されるよう、レスポンシブ対応となっています。</p>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- 共通CTA -->
     <div id="site-cta"></div>
 
     </main>

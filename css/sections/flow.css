@@ -1,423 +1,522 @@
 /* ========================================
-   Flow Section (制作の流れ)
+   Flow Page (制作の流れページ) - Netyear風
    ======================================== */
 
-.flow {
-    position: relative;
-    overflow: hidden;
-    padding: clamp(56px, 8vw, 96px) 0;
-    background: var(--bg-white);
-}
+/* ========================================
+   Intro（導入の帯）
+   ======================================== */
 
-/* 背景装飾の疑似要素 - 共通パターンを使用、色のみ個別指定 */
-.flow::before {
-    background: rgba(255, 243, 200, 0.10);
-}
-
-.flow::after {
-    background: rgba(200, 235, 255, 0.08);
-}
-
-.flow .container {
-    position: relative;
-    z-index: 1;
-}
-
-/* FLOWセクションの見出し */
 .flow-intro {
-    max-width: 600px;
-    margin-bottom: clamp(40px, 6vw, 64px);
+    background: var(--bg-light);
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
-.flow-intro__kicker {
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: rgba(0, 0, 0, 0.65);
-    font-weight: 400;
-    line-height: 1.2;
-    text-transform: uppercase;
-    margin: 0 0 clamp(10px, 1.2vw, 14px) 0;
+.flow-intro__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(32px, 4vw, 48px);
+    align-items: center;
 }
 
-.flow-intro__title {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
-    color: var(--black);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin: 0 0 clamp(16px, 2vw, 20px) 0;
-}
-
-.flow-intro__text {
-    font-size: clamp(15px, 1.6vw, 16px);
-    line-height: 1.9;
-    color: rgba(0, 0, 0, 0.7);
+.flow-intro__lead {
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.8;
+    color: var(--text);
     margin: 0;
+    letter-spacing: -0.01em;
 }
 
-/* ===== FLOW - ステップ一覧 ===== */
-.flow-steps {
-    max-width: 680px;
+.flow-intro__tips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.flow-intro__tip {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--bg-white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ========================================
+   Flow Image（全体フロー画像）
+   ======================================== */
+
+.flow-image {
+}
+
+.flow-image__figure {
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.flow-image__figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.flow-image__caption {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ========================================
+   Process（タイムライン）
+   ======================================== */
+
+.flow-process {
     position: relative;
-    padding-left: 48px;
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
 }
 
-/* ステップの縦線 */
-.flow-steps::before {
+.flow-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+/* タイムラインの縦線 */
+.flow-timeline::before {
     content: "";
     position: absolute;
-    left: 20px;
+    left: 28px;
     top: 0;
     bottom: 0;
     width: 1px;
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(15, 23, 42, 0.12);
     z-index: 0;
 }
 
 .flow-step {
     position: relative;
-    margin-bottom: clamp(24px, 3.5vw, 32px);
-    padding: clamp(24px, 3vw, 32px);
-    background: var(--bg-white);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 14px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    z-index: 2;
-}
-
-.flow-step:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.12);
-}
-
-.flow-step--muted {
-    background: #f9fafb;
+    margin-bottom: clamp(48px, 6vw, 64px);
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: clamp(24px, 3vw, 32px);
+    align-items: start;
 }
 
 .flow-step:last-child {
     margin-bottom: 0;
 }
 
-/* ステップ番号（左側に配置） */
-.flow-number {
-    position: absolute;
-    left: -64px;
-    top: 28px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #2f6bff;
-    margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(47, 107, 255, 0.2);
-    width: fit-content;
-    display: block;
-    z-index: 2;
-    line-height: 1;
-}
-
-.flow-step::before {
-    display: none;
-}
-
-.flow-step--muted .flow-number {
-    color: rgba(0, 0, 0, 0.65);
-    border-bottom-color: rgba(0, 0, 0, 0.2);
-}
-
-.flow-title {
-    font-size: clamp(17px, 1.8vw, 20px);
-    font-weight: 600;
-    line-height: 1.5;
-    color: var(--black);
-    margin: 0 0 clamp(10px, 1.2vw, 14px) 0;
-    letter-spacing: -0.01em;
-}
-
-.flow-title strong {
-    font-weight: 600;
-}
-
-.flow-text {
-    font-size: clamp(14px, 1.5vw, 16px);
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.65);
-    margin: 0 0 16px 0;
-}
-
-.flow-deliverable {
-    font-size: 12px;
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.65);
-    margin: 0;
-    padding-top: 16px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    font-weight: 500;
-}
-
-.flow-deliverable::before {
-    content: "納品物：";
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    margin-right: 6px;
-}
-
-/* ===== 品質保証セクション ===== */
-.quality-assurance {
+/* マーカー（番号+丸） */
+.flow-step__marker {
     position: relative;
+    z-index: 1;
 }
 
-.quality-checklist {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, 2.5vw, 28px);
-}
-
-/* 品質チェック項目カード（共通パターン） */
-.quality-item {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: clamp(24px, 3vw, 32px);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.quality-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-/* アイコン */
-.quality-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
+.flow-step__number {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(47, 107, 255, 0.1);
-    border-radius: 12px;
-    font-size: 24px;
-    color: #2f6bff;
-    font-weight: 600;
-    margin-bottom: clamp(16px, 2vw, 20px);
-    flex-shrink: 0;
-}
-
-/* コンテンツ */
-.quality-content {
-    flex: 1;
-}
-
-.quality-title {
-    font-size: clamp(18px, 2vw, 20px);
+    width: 48px;
+    height: 48px;
+    background: var(--bg-white);
+    border: 2px solid rgba(15, 23, 42, 0.12);
+    border-radius: 50%;
+    font-size: clamp(16px, 1.8vw, 18px);
     font-weight: 700;
-    line-height: 1.4;
     color: var(--black);
-    margin: 0 0 clamp(8px, 1vw, 12px) 0;
-    letter-spacing: -0.01em;
-}
-
-.quality-desc {
-    font-size: clamp(14px, 1.5vw, 15px);
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-}
-
-/* レスポンシブ */
-@media (max-width: 900px) {
-    .flow-steps {
-        padding-left: 0;
-    }
-    
-    .flow-steps::before {
-        display: none;
-    }
-    
-    .flow-number {
-        position: static;
-        left: auto;
-        top: auto;
-        margin-bottom: 12px;
-        padding-bottom: 8px;
-    }
-    
-    .quality-checklist {
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(16px, 2vw, 20px);
-    }
-}
-
-@media (max-width: 768px) {
-    .quality-checklist {
-        grid-template-columns: 1fr;
-        gap: clamp(16px, 2vw, 20px);
-    }
-}
-
-/* ===== FAQセクション ===== */
-.faq {
-    position: relative;
-}
-
-.faq-categories {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(48px, 6vw, 64px);
-}
-
-.faq-category {
-    display: flex;
-    flex-direction: column;
-}
-
-.faq-category__title {
-    font-size: clamp(24px, 3vw, 28px);
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--black);
-    margin: 0 0 clamp(24px, 3vw, 32px) 0;
+    font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
 }
 
-.faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(16px, 2vw, 20px);
+/* ボディ（タイトル+本文+outcomes） */
+.flow-step__body {
+    padding-top: 8px;
 }
 
-/* FAQ項目カード（共通パターン、アコーディオン対応） */
-.faq-item {
-    display: block;
-    background: var(--bg-white);
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+.flow-step__title {
+    font-size: clamp(20px, 2.4vw, 24px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--black);
+    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    letter-spacing: -0.02em;
+}
+
+.flow-step__text {
+    font-size: clamp(15px, 1.8vw, 16px);
+    line-height: 1.9;
+    color: var(--text);
+    margin: 0 0 clamp(16px, 2vw, 20px) 0;
+}
+
+.flow-step__outcomes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.flow-step__outcomes li {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--bg-muted);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ========================================
+   Deliverables（納品物）- 5列並列
+   ======================================== */
+
+.flow-steps-parallel {
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+
+.steps-columns {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid rgba(15, 23, 42, 0.12);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-col {
+    padding: clamp(24px, 3vw, 32px) clamp(20px, 2.5vw, 24px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 12px);
+}
+
+.step-col + .step-col {
+    border-left: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.step-col__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    opacity: 0.65;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.step-col__title {
+    font-size: clamp(17px, 2vw, 20px);
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.4;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.step-col__desc {
+    font-size: clamp(14px, 1.6vw, 15px);
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ========================================
+   Quality（品質保証）
+   ======================================== */
+
+.flow-quality {
+    position: relative;
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+.quality-table {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid rgba(15, 23, 42, 0.12);
+    border-left: 1px solid rgba(15, 23, 42, 0.12);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.quality-cell {
+    padding: clamp(24px, 3vw, 32px) clamp(20px, 2.5vw, 28px);
+    background: transparent;
+    border-right: 1px solid rgba(15, 23, 42, 0.12);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+    display: flex;
+    flex-direction: column;
+}
+
+.quality-cell__title {
+    font-size: clamp(18px, 2vw, 20px);
+    font-weight: 700;
+    color: var(--black);
+    margin: 0 0 12px 0;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+}
+
+.quality-cell__desc {
+    font-size: clamp(14px, 1.6vw, 15px);
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.quality-cell__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: clamp(14px, 1.6vw, 15px);
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.quality-cell__list li {
+    position: relative;
+    padding-left: 16px;
+}
+
+.quality-cell__list li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+/* ========================================
+   FAQ（アコーディオン）
+   ======================================== */
+
+.flow-faq {
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+
+.flow-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1px, 0.1vw, 2px);
+    max-width: 880px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
     overflow: hidden;
 }
 
-.faq-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.12);
+.flow-faq__item {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--line);
+    transition: background var(--transition-fast);
 }
 
-.faq-item[open] {
-    border-color: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+.flow-faq__item:last-child {
+    border-bottom: none;
 }
 
-/* 質問（summary） */
-.faq-question {
+.flow-faq__item[open] {
+    background: var(--bg-light);
+}
+
+.flow-faq__question {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: clamp(20px, 2.5vw, 24px);
+    padding: clamp(14px, 2vw, 18px);
     font-size: clamp(16px, 1.8vw, 18px);
     font-weight: 600;
-    line-height: 1.5;
     color: var(--black);
     cursor: pointer;
     list-style: none;
     user-select: none;
-    transition: color 0.2s ease;
+    transition: color var(--transition-fast);
+    letter-spacing: -0.01em;
 }
 
-.faq-question::-webkit-details-marker {
+.flow-faq__question::-webkit-details-marker {
     display: none;
 }
 
-.faq-question::marker {
+.flow-faq__question::marker {
     display: none;
 }
 
-.faq-question::after {
+.flow-faq__question::after {
     content: "▼";
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, color 0.2s ease;
+    color: var(--text-secondary);
+    transition: transform var(--transition-base), color var(--transition-fast);
     flex-shrink: 0;
     margin-left: 16px;
 }
 
-.faq-item[open] .faq-question::after {
+.flow-faq__item[open] .flow-faq__question::after {
     transform: rotate(180deg);
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--accent);
 }
 
-.faq-item:hover .faq-question {
-    color: rgba(0, 0, 0, 0.85);
+.flow-faq__question:hover {
+    color: var(--accent);
 }
 
-/* 回答 */
-.faq-answer {
-    padding: 0 clamp(20px, 2.5vw, 24px) clamp(20px, 2.5vw, 24px) clamp(20px, 2.5vw, 24px);
-    font-size: clamp(14px, 1.6vw, 15px);
+.flow-faq__answer {
+    padding: 0 clamp(14px, 2vw, 18px) clamp(14px, 2vw, 18px) clamp(14px, 2vw, 18px);
+    font-size: clamp(15px, 1.7vw, 16px);
     line-height: 1.8;
-    color: rgba(0, 0, 0, 0.7);
-    animation: fadeIn 0.3s ease;
+    color: var(--text);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.faq-item:not([open]) .faq-answer {
-    display: none;
-}
-
-.faq-answer p {
+.flow-faq__answer p {
     margin: 0;
 }
 
-.faq-answer a {
-    color: #2f6bff;
+.flow-faq__answer a {
+    color: var(--accent);
     text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: color 0.2s ease;
+    text-underline-offset: 3px;
+    transition: color var(--transition-fast);
 }
 
-.faq-answer a:hover {
-    color: #1e4ed8;
+.flow-faq__answer a:hover {
+    color: var(--accent-dark);
 }
 
-/* レスポンシブ */
+/* ========================================
+   CTA（Netyear風）
+   ======================================== */
+
+.flow-cta {
+    background: var(--bg-light);
+}
+
+.flow-cta__inner {
+    max-width: 880px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(32px, 4vw, 48px);
+    align-items: center;
+}
+
+.flow-cta__content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 12px);
+}
+
+.flow-cta__title {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--black);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.flow-cta__note {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.flow-cta__action {
+    flex-shrink: 0;
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .steps-columns {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(260px, 1fr);
+        grid-template-columns: unset;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .step-col {
+        scroll-snap-align: start;
+        min-width: 260px;
+    }
+
+    .step-col + .step-col {
+        border-left: 1px solid rgba(15, 23, 42, 0.12);
+    }
+}
+
+@media (max-width: 960px) {
+    .flow-intro__inner {
+        grid-template-columns: 1fr;
+        gap: clamp(24px, 3vw, 32px);
+    }
+
+    .flow-intro__tips {
+        justify-content: flex-start;
+    }
+
+    .flow-timeline {
+        padding-left: 0;
+    }
+
+    .flow-timeline::before {
+        display: none;
+    }
+
+    .flow-step {
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 2vw, 20px);
+    }
+
+    .flow-step__marker {
+        order: -1;
+    }
+
+    .quality-table {
+        grid-template-columns: 1fr;
+        border-left: none;
+    }
+
+    .quality-cell {
+        border-right: none;
+        border-top: 1px solid rgba(15, 23, 42, 0.12);
+    }
+
+    .quality-cell:nth-child(1) {
+        border-top: none;
+    }
+
+    .flow-cta__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
 @media (max-width: 768px) {
-    .faq-categories {
-        gap: clamp(32px, 4vw, 48px);
+    .flow-timeline::before {
+        left: 20px;
     }
-    
-    .faq-category__title {
-        font-size: clamp(22px, 4vw, 24px);
-        margin-bottom: clamp(20px, 2.5vw, 24px);
+
+    .flow-step__number {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
     }
-    
-    .faq-list {
-        gap: clamp(12px, 1.5vw, 16px);
-    }
-    
-    .faq-question {
-        padding: clamp(18px, 2vw, 20px);
-        font-size: clamp(15px, 2vw, 16px);
-    }
-    
-    .faq-answer {
-        padding: 0 clamp(18px, 2vw, 20px) clamp(18px, 2vw, 20px) clamp(18px, 2vw, 20px);
-        font-size: clamp(13px, 1.5vw, 14px);
-    }
+
 }
