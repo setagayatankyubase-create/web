@@ -255,9 +255,9 @@ a:hover .link-arrow-inline::after {
     font-weight: 600;
     letter-spacing: 0.08em;
     line-height: 1;
-    background: rgba(234, 179, 8, 0.15);
-    color: #EAB308;
-    border: 1px solid rgba(234, 179, 8, 0.30);
+    background: rgba(30, 64, 175, 0.12);
+    color: #1E40AF;
+    border: 1px solid rgba(30, 64, 175, 0.25);
     white-space: nowrap;
     text-transform: uppercase;
 }
