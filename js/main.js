@@ -270,6 +270,10 @@ Utils.onReady(async function() {
     
     // ===== ニュース・コラムデータの描画 =====
     try {
+        // ヘッダーのお知らせスクロールを先に描画
+        if (typeof window.renderHeaderNews === 'function') {
+            await window.renderHeaderNews();
+        }
         if (typeof window.renderNewsBlock === 'function') {
             await window.renderNewsBlock();
         }

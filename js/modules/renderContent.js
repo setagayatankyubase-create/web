@@ -698,8 +698,117 @@ async function renderPostContent() {
     }
 }
 
+/**
+ * ヘッダーのお知らせスクロールを描画
+ */
+async function renderHeaderNews() {
+    console.log("[renderHeaderNews] start");
+    
+    const headerNewsTrack = document.querySelector('.header-news__track');
+    if (!headerNewsTrack) {
+        console.log("[renderHeaderNews] container not found");
+        return;
+    }
+    
+    const jsonPath = getJsonPath('news.json');
+    console.log("[FETCH] url:", jsonPath);
+    
+    try {
+        const response = await fetch(jsonPath);
+        console.log("[FETCH] status:", response.status, response.url);
+        
+        if (!response.ok) {
+            throw new Error("Fetch failed: " + response.status + " " + response.url);
+        }
+        
+        const newsData = await response.json();
+        // 最新5件を取得
+        const displayData = newsData.slice(0, 5);
+        console.log("[renderHeaderNews] loaded", displayData.length, "items");
+        
+        // カテゴリからタグタイプを取得する関数
+        function getTagType(category) {
+            const categoryMap = {
+                '制作枠': 'is-notice',
+                '記事公開': 'is-notice',
+                '価格': 'is-update',
+                'サービス': 'is-notice',
+                '重要': 'is-important',
+                'キャンペーン': 'is-campaign',
+                '更新': 'is-update'
+            };
+            return categoryMap[category] || 'is-notice';
+        }
+        
+        // カテゴリからタグ表示名を取得する関数
+        function getTagLabel(category) {
+            const labelMap = {
+                '制作枠': 'お知らせ',
+                '記事公開': 'お知らせ',
+                '価格': '更新',
+                'サービス': 'お知らせ',
+                '重要': '重要',
+                'キャンペーン': 'キャンペーン',
+                '更新': '更新'
+            };
+            return labelMap[category] || 'お知らせ';
+        }
+        
+        // 既存の要素をクリア
+        headerNewsTrack.innerHTML = '';
+        
+        // ニュースデータから要素を生成（ループ用に2回生成）
+        for (let loop = 0; loop < 2; loop++) {
+            displayData.forEach((item) => {
+                const link = document.createElement('a');
+                link.className = 'header-news__item';
+                
+                // URLパスの調整（現在のページの階層に応じて）
+                // ヘッダーは全ページで表示されるため、現在のページのパスに応じて適切な相対パスを生成
+                const currentPath = window.location.pathname;
+                let newsUrl = item.url;
+                
+                // 現在のページの階層の深さを計算
+                const pathParts = currentPath.split('/').filter(p => p && p !== 'index.html');
+                const depth = pathParts.length;
+                
+                // news/post.html 形式のURLを現在のページの階層に応じて調整
+                if (newsUrl.startsWith('news/')) {
+                    if (depth > 1) {
+                        // news/ や column/ 配下など、深い階層の場合
+                        newsUrl = '../' + newsUrl;
+                    }
+                    // depth <= 1 の場合はそのまま（ルートページなど）
+                } else if (!newsUrl.startsWith('../') && !newsUrl.startsWith('http') && !newsUrl.startsWith('/')) {
+                    // その他の相対パスの場合も同様に調整
+                    if (depth > 1) {
+                        newsUrl = '../' + newsUrl;
+                    }
+                }
+                
+                link.setAttribute('href', newsUrl);
+                
+                const tagType = getTagType(item.category);
+                const tagLabel = getTagLabel(item.category);
+                
+                link.innerHTML = `
+                    <span class="header-news__tag ${tagType}">${tagLabel}</span>
+                    <span class="header-news__title">${item.title}</span>
+                `;
+                
+                headerNewsTrack.appendChild(link);
+            });
+        }
+        
+        console.log("[renderHeaderNews] completed");
+    } catch (error) {
+        console.error('[renderHeaderNews] Error loading news.json:', error);
+    }
+}
+
 // グローバルに公開
 window.renderNewsBlock = renderNewsBlock;
 window.renderTopColumns = renderTopColumns;
 window.renderColumnListPage = renderColumnListPage;
 window.renderPostContent = renderPostContent;
+window.renderHeaderNews = renderHeaderNews;
