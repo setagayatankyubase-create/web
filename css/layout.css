@@ -338,57 +338,54 @@
     display: none;
 }
 
-/* メガメニュー本体（netyear風 - 位置固定、崩れ防止） */
+/* ===== メガメニュー本体 ===== */
 .mega {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
-    top: calc(100% + 14px);
     width: min(1040px, calc(100vw - 48px));
     max-width: 1040px;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: 
-        opacity 0.2s ease,
-        visibility 0.2s ease,
-        transform 0.2s ease;
     z-index: 1100;
     padding-top: 0;
-    will-change: opacity, visibility, transform;
     margin-top: 0;
     overflow: visible;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* 共通：フェードとvisibilityだけ */
-.gnav-item--has-mega:hover .mega,
-.gnav-item--has-mega.is-open .mega {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-/* SP/小さめ：従来通り transform を使ってもOK */
+/* SP: 従来のabsolute配置 */
 @media (max-width: 959.98px) {
+    .mega {
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 14px);
+        transform: translateX(-50%) translateY(6px);
+        transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    }
+    
     .gnav-item--has-mega:hover .mega,
     .gnav-item--has-mega.is-open .mega {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
         transform: translateX(-50%) translateY(0);
     }
 }
 
-/* PC: Serviceリンク基準でパネルを配置（position: fixed + JSで位置計算） */
+/* PC: fixed配置 + JSで位置計算 */
 @media (min-width: 960px) {
     .mega {
         position: fixed;
+        top: 0;
+        left: 0;
         transform: none;
-        /* left/top はJSが入れるので CSSでは指定しない */
-        width: min(1040px, calc(100vw - 48px));
-        max-width: 1040px;
+        /* left/top はJSで上書きされる */
     }
     
-    /* PC：transformは絶対none（JS left/top をそのまま使う） */
     .gnav-item--has-mega:hover .mega,
     .gnav-item--has-mega.is-open .mega {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
         transform: none !important;
     }
 }
@@ -418,7 +415,7 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
     display: grid;
     grid-template-columns: 240px 1fr;
-    gap: 24px;
+    gap: 4px;
     position: relative;
 }
 
@@ -500,7 +497,7 @@
     display: flex;
     align-items: center;
     padding: 10px 0;
-    padding-left: 32px;
+    padding-left: 48px;
     text-decoration: none;
     color: inherit;
     transition: color 0.2s ease;
@@ -511,7 +508,7 @@
 .mega__link::before {
     content: "";
     position: absolute;
-    left: 0;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     width: 3px;

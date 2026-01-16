@@ -5,6 +5,7 @@ console.log('[MegaMenu] loaded on', location.pathname);
 window.initMegaMenu = function initMegaMenu() {
     let closeTimer = null;
     let currentItem = null; // 現在ホバー中のitemを状態として保持
+    let isInitialized = false; // イベントリスナーの重複登録を防ぐ
     
     // backdrop/overlayを毎回再取得（DOM差し替え対応）
     const getOrCreateBackdrop = () => {
@@ -84,92 +85,42 @@ window.initMegaMenu = function initMegaMenu() {
         const mega = item.querySelector('.mega');
         const isMobile = window.matchMedia('(max-width: 960px)').matches;
         if (mega && !isMobile && trigger) {
-            // パネルの幅を計測するため、一時的に表示状態を変更
-            const originalDisplay = mega.style.display;
-            const originalVisibility = mega.style.visibility;
-            const originalOpacity = mega.style.opacity;
-            const originalPointerEvents = mega.style.pointerEvents;
-            
-            // 計測用に設定（表示はしない）
-            mega.style.display = 'block';
+            // パネルの幅を計測（一時的に表示して計測）
+            mega.style.position = 'fixed';
             mega.style.visibility = 'hidden';
             mega.style.opacity = '0';
+            mega.style.display = 'block';
             mega.style.pointerEvents = 'none';
             
-            // パネルの幅を取得
-            const panelWidth = mega.getBoundingClientRect().width || mega.offsetWidth || Math.min(1040, window.innerWidth - 48);
+            const panelWidth = mega.offsetWidth || mega.getBoundingClientRect().width || Math.min(1040, window.innerWidth - 48);
             
-            // トリガー（Serviceリンク）の位置を取得
+            // トリガーとメインヘッダーの位置を取得
             const triggerRect = trigger.getBoundingClientRect();
+            // メインヘッダーを取得（複数の方法で試行）
+            const headerMain = document.querySelector('.header__main') || 
+                              document.querySelector('.header > div:first-child') ||
+                              document.querySelector('.header');
+            const headerMainRect = headerMain?.getBoundingClientRect();
             
-            // GAPをCSS変数から取得（フォールバック: 14px）
-            const GAP = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mega-gap')) || 14;
+            // CSS変数から値を取得
+            const GAP = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mega-gap')) || 0;
+            const X_OFFSET = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mega-x-offset')) || 0;
             
-            // ヘッダー要素を取得（全ページ共通）
-            const header = document.querySelector('.header') || document.querySelector('header');
-            const headerRect = header?.getBoundingClientRect();
-            
-            const centerX = triggerRect.left + triggerRect.width / 2;
-            
-            // 左右はみ出しを防止（margin 24px）
-            const left = Math.max(
-                24,
-                Math.min(
-                    centerX - panelWidth / 2,
-                    window.innerWidth - panelWidth - 24
-                )
-            );
-            
-            // ヘッダー下端 + GAP（PCのみ、ヘッダー基準で統一）
-            // ヘッダーが取得できない場合はフォールバックでトリガー基準
-            const top = (headerRect ? headerRect.bottom : triggerRect.bottom) + GAP;
+            // 位置を計算（画面中央に配置）
+            const screenCenterX = window.innerWidth / 2;
+            const left = Math.max(24, Math.min(screenCenterX - panelWidth / 2 + X_OFFSET, window.innerWidth - panelWidth - 24));
+            // メインヘッダーが見つからない場合はトリガーの位置を使用
+            const top = (headerMainRect ? headerMainRect.bottom : triggerRect.bottom) + GAP;
             
             // 位置を設定
-            mega.style.left = left + 'px';
-            mega.style.top = top + 'px';
+            mega.style.setProperty('left', left + 'px', 'important');
+            mega.style.setProperty('top', top + 'px', 'important');
             
-            // 元の状態に戻す（表示はCSSのtransitionで行う）
-            mega.style.display = originalDisplay || '';
-            mega.style.visibility = originalVisibility || '';
-            mega.style.opacity = originalOpacity || '';
-            mega.style.pointerEvents = originalPointerEvents || '';
-            
-            // デバッグ用：最終的なleft/top/transformを確認
-            setTimeout(() => {
-                const computedTransform = getComputedStyle(mega).transform;
-                console.log('Mega Menu Position Debug:', {
-                    left: mega.style.left,
-                    top: mega.style.top,
-                    computedTransform: computedTransform,
-                    gap: GAP,
-                    headerInfo: {
-                        element: header,
-                        rect: headerRect ? {
-                            top: headerRect.top,
-                            bottom: headerRect.bottom,
-                            height: headerRect.height
-                        } : null
-                    },
-                    triggerInfo: {
-                        element: trigger,
-                        text: trigger.textContent?.trim(),
-                        href: trigger.href,
-                        rect: {
-                            left: triggerRect.left,
-                            top: triggerRect.top,
-                            bottom: triggerRect.bottom,
-                            width: triggerRect.width,
-                            centerX: centerX
-                        }
-                    },
-                    panelWidth: panelWidth,
-                    calculatedPosition: {
-                        left: left,
-                        top: top,
-                        topSource: headerRect ? 'header' : 'trigger'
-                    }
-                });
-            }, 100);
+            // 計測用スタイルを削除（CSSクラスで表示制御）
+            mega.style.removeProperty('display');
+            mega.style.removeProperty('visibility');
+            mega.style.removeProperty('opacity');
+            mega.style.removeProperty('pointer-events');
         }
     };
 
@@ -186,59 +137,36 @@ window.initMegaMenu = function initMegaMenu() {
         // トリガー（Serviceリンク）の位置を取得
         const triggerRect = trigger.getBoundingClientRect();
         
-        // GAPをCSS変数から取得（フォールバック: 14px）
-        const GAP = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mega-gap')) || 14;
+        // GAPをCSS変数から取得（フォールバック: 0px）
+        const GAP = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mega-gap')) || 0;
         
-        // ヘッダー要素を取得（全ページ共通）
-        const header = document.querySelector('.header') || document.querySelector('header');
-        const headerRect = header?.getBoundingClientRect();
+        // メインヘッダー要素を取得（お知らせバーは除外、複数の方法で試行）
+        const headerMain = document.querySelector('.header__main') || 
+                          document.querySelector('.header > div:first-child') ||
+                          document.querySelector('.header');
+        const headerMainRect = headerMain?.getBoundingClientRect();
         
-        const centerX = triggerRect.left + triggerRect.width / 2;
+        // XオフセットをCSS変数から取得（フォールバック: 0px）
+        const X_OFFSET = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mega-x-offset')) || 0;
         
         // パネルの幅を取得（既に表示されているのでそのまま取得可能）
         const panelWidth = mega.getBoundingClientRect().width || mega.offsetWidth || Math.min(1040, window.innerWidth - 48);
         
-        // 左右はみ出しを防止（margin 24px）
-        const left = Math.max(
-            24,
-            Math.min(
-                centerX - panelWidth / 2,
-                window.innerWidth - panelWidth - 24
-            )
-        );
+        // 位置を計算（画面中央に配置）
+        const screenCenterX = window.innerWidth / 2;
+        const left = Math.max(24, Math.min(screenCenterX - panelWidth / 2 + X_OFFSET, window.innerWidth - panelWidth - 24));
+        const top = (headerMainRect ? headerMainRect.bottom : triggerRect.bottom) + GAP;
         
-        // ヘッダー下端 + GAP（PCのみ、ヘッダー基準で統一）
-        // ヘッダーが取得できない場合はフォールバックでトリガー基準
-        const top = (headerRect ? headerRect.bottom : triggerRect.bottom) + GAP;
-        
-        // 位置を設定
-        mega.style.left = left + 'px';
-        mega.style.top = top + 'px';
+        // 位置を設定（!importantでCSSを上書き）
+        mega.style.setProperty('left', left + 'px', 'important');
+        mega.style.setProperty('top', top + 'px', 'important');
     };
 
-    // 初期化と診断ログ
-    const init = () => {
-        const megaItems = document.querySelectorAll('.gnav-item--has-mega');
+    // イベントリスナーの登録（1回のみ）
+    const setupEventListeners = () => {
+        if (isInitialized) return; // 既に登録済みならスキップ
+        isInitialized = true;
         
-        // 自己診断ログ：起動時の状態を確認
-        const links = Array.from(megaItems).map(item => {
-            const link = item.querySelector('.gnav-link');
-            return {
-                text: link?.textContent?.trim() || 'N/A',
-                href: link?.href || 'N/A',
-                hasMega: !!item.querySelector('.mega')
-            };
-        });
-        
-        console.log('[MegaMenu init]', {
-            pathname: location.pathname,
-            items: megaItems.length,
-            links: links,
-            backdrop: !!document.querySelector('.mega-backdrop'),
-            overlay: !!document.querySelector('.mega-overlay')
-        });
-        
-        // イベント委譲：documentでmouseover/mouseoutを拾う（DOM差し替え対応）
         const isMobile = window.matchMedia('(max-width: 960px)').matches;
         
         if (!isMobile) {
@@ -421,6 +349,32 @@ window.initMegaMenu = function initMegaMenu() {
             
             window.addEventListener('resize', handleResize);
         }
+    };
+    
+    // 初期化と診断ログ
+    const init = () => {
+        const megaItems = document.querySelectorAll('.gnav-item--has-mega');
+        
+        // 自己診断ログ：起動時の状態を確認
+        const links = Array.from(megaItems).map(item => {
+            const link = item.querySelector('.gnav-link');
+            return {
+                text: link?.textContent?.trim() || 'N/A',
+                href: link?.href || 'N/A',
+                hasMega: !!item.querySelector('.mega')
+            };
+        });
+        
+        console.log('[MegaMenu init]', {
+            pathname: location.pathname,
+            items: megaItems.length,
+            links: links,
+            backdrop: !!document.querySelector('.mega-backdrop'),
+            overlay: !!document.querySelector('.mega-overlay')
+        });
+        
+        // イベントリスナーを1回だけ登録
+        setupEventListeners();
     };
 
     // 初期化トリガー：DOMContentLoaded / site:header-ready / MutationObserver
