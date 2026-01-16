@@ -93,6 +93,11 @@ Utils.onReady(async function() {
     await window.loadPartial("#site-header", "partials/header.html");
     await window.loadPartial("#site-footer", "partials/footer.html");
     
+    // ヘッダー読み込み後、お知らせスクロールを描画
+    if (typeof window.renderHeaderNews === 'function') {
+        await window.renderHeaderNews();
+    }
+    
     // CTAを読み込む（存在する場合のみ）
     const ctaContainer = document.querySelector("#site-cta");
     if (ctaContainer) {
@@ -270,10 +275,7 @@ Utils.onReady(async function() {
     
     // ===== ニュース・コラムデータの描画 =====
     try {
-        // ヘッダーのお知らせスクロールを先に描画
-        if (typeof window.renderHeaderNews === 'function') {
-            await window.renderHeaderNews();
-        }
+        // ヘッダーのお知らせスクロールは上で既に描画済み
         if (typeof window.renderNewsBlock === 'function') {
             await window.renderNewsBlock();
         }

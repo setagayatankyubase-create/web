@@ -41,36 +41,79 @@ function getCategoryName(slug, items) {
 function getJsonPath(filename) {
     // 現在のページのパスから、webディレクトリのルートを特定
     const currentPath = window.location.pathname;
-    let basePath = '';
     
-    if (currentPath.includes('/news/') || currentPath.includes('/column/')) {
-        // news/ または column/ 配下の場合
+    // パスを分割（web/ ディレクトリ内のページから見た階層を計算）
+    // ファイル名（.htmlで終わるもの）は除外して、ディレクトリ階層のみを計算
+    const pathParts = currentPath.split('/').filter(p => {
+        if (!p) return false;
+        // index.html は除外
+        if (p === 'index.html') return false;
+        // .html で終わるファイル名は除外（ディレクトリ階層のみをカウント）
+        if (p.endsWith('.html')) return false;
+        return true;
+    });
+    
+    // web/ ディレクトリ内のページから見た場合、web/ 自体は階層に含めない
+    // /web/index.html -> pathParts: ['web'] -> web/ 直下 -> ''
+    // /web/about.html -> pathParts: ['web'] -> web/ 直下 -> ''
+    // /web/news/index.html -> pathParts: ['web', 'news'] -> news/ 配下 -> '../'
+    // /web/news/post.html -> pathParts: ['web', 'news'] -> news/ 配下 -> '../'
+    // /web/column/index.html -> pathParts: ['web', 'column'] -> column/ 配下 -> '../'
+    
+    let basePath = '';
+    // web/ 以外のディレクトリがある場合（news/, column/ など）は ../ を追加
+    if (pathParts.length > 1 && pathParts[0] === 'web') {
+        // web/ 配下で、さらにサブディレクトリがある場合
         basePath = '../';
-    } else {
-        // TOPページなどの場合
-        basePath = '';
     }
+    // pathParts.length <= 1 または web/ 直下の場合は basePath は空文字列
     
     const jsonPath = `${basePath}assets/data/${filename}`;
-    console.log("[getJsonPath] currentPath:", currentPath, "basePath:", basePath, "result:", jsonPath);
+    console.log("[getJsonPath] currentPath:", currentPath, "pathParts:", pathParts, "basePath:", basePath, "result:", jsonPath);
     return jsonPath;
 }
 
 // ニュースリンクURLを生成（ページ階層に応じて適切なパスを返す）
 function getNewsLinkUrl(itemUrl) {
     const currentPath = window.location.pathname;
-    const isNewsPage = currentPath.includes('/news/') && !currentPath.includes('/post.html');
     
-    if (isNewsPage) {
-        // NEWSページからは、news/プレフィックスを削除
-        if (itemUrl.startsWith('news/')) {
-            return itemUrl.replace('news/', '');
+    // パスを分割して階層の深さを計算（ファイル名は除外）
+    const pathParts = currentPath.split('/').filter(p => {
+        if (!p) return false;
+        if (p === 'index.html') return false;
+        if (p.endsWith('.html')) return false;
+        return true;
+    });
+    
+    // web/ ディレクトリ内のページから見た階層の深さ
+    // /web/index.html -> pathParts: ['web'] -> depth = 1 -> web/ 直下
+    // /web/about.html -> pathParts: ['web'] -> depth = 1 -> web/ 直下
+    // /web/news/index.html -> pathParts: ['web', 'news'] -> depth = 2 -> news/ 配下
+    // /web/news/post.html -> pathParts: ['web', 'news'] -> depth = 2 -> news/ 配下
+    const depth = pathParts.length;
+    
+    // news/post.html 形式のURLを現在のページの階層に応じて調整
+    if (itemUrl.startsWith('news/')) {
+        if (depth > 1) {
+            // news/ や column/ 配下など、深い階層の場合
+            // news/ ページ内の場合は news/ プレフィックスを削除
+            if (currentPath.includes('/news/')) {
+                return itemUrl.replace('news/', '');
+            }
+            // その他の深い階層（column/ など）の場合は ../ を追加
+            return '../' + itemUrl;
+        }
+        // depth <= 1 の場合はそのまま（web/ 直下のページ）
+        return itemUrl;
+    } else if (!itemUrl.startsWith('../') && !itemUrl.startsWith('http') && !itemUrl.startsWith('/')) {
+        // その他の相対パスの場合も同様に調整
+        if (depth > 1) {
+            return '../' + itemUrl;
         }
         return itemUrl;
-    } else {
-        // TOPページからはそのまま
-        return itemUrl;
     }
+    
+    return itemUrl;
 }
 
 // コラムリンクURLを生成
@@ -704,27 +747,37 @@ async function renderPostContent() {
 async function renderHeaderNews() {
     console.log("[renderHeaderNews] start");
     
-    const headerNewsTrack = document.querySelector('.header-news__track');
+    // ヘッダーが読み込まれるまで少し待つ
+    let headerNewsTrack = document.querySelector('.header-news__track');
+    let retries = 0;
+    while (!headerNewsTrack && retries < 10) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        headerNewsTrack = document.querySelector('.header-news__track');
+        retries++;
+    }
+    
     if (!headerNewsTrack) {
-        console.log("[renderHeaderNews] container not found");
+        console.error("[renderHeaderNews] container not found after retries");
         return;
     }
     
     const jsonPath = getJsonPath('news.json');
-    console.log("[FETCH] url:", jsonPath);
+    console.log("[renderHeaderNews] jsonPath:", jsonPath);
     
     try {
         const response = await fetch(jsonPath);
-        console.log("[FETCH] status:", response.status, response.url);
+        console.log("[renderHeaderNews] fetch status:", response.status, "url:", response.url);
         
         if (!response.ok) {
             throw new Error("Fetch failed: " + response.status + " " + response.url);
         }
         
         const newsData = await response.json();
+        console.log("[renderHeaderNews] newsData loaded:", newsData.length, "items");
+        
         // 最新5件を取得
         const displayData = newsData.slice(0, 5);
-        console.log("[renderHeaderNews] loaded", displayData.length, "items");
+        console.log("[renderHeaderNews] displayData:", displayData.length, "items");
         
         // カテゴリからタグタイプを取得する関数
         function getTagType(category) {
@@ -765,27 +818,8 @@ async function renderHeaderNews() {
                 
                 // URLパスの調整（現在のページの階層に応じて）
                 // ヘッダーは全ページで表示されるため、現在のページのパスに応じて適切な相対パスを生成
-                const currentPath = window.location.pathname;
-                let newsUrl = item.url;
-                
-                // 現在のページの階層の深さを計算
-                const pathParts = currentPath.split('/').filter(p => p && p !== 'index.html');
-                const depth = pathParts.length;
-                
-                // news/post.html 形式のURLを現在のページの階層に応じて調整
-                if (newsUrl.startsWith('news/')) {
-                    if (depth > 1) {
-                        // news/ や column/ 配下など、深い階層の場合
-                        newsUrl = '../' + newsUrl;
-                    }
-                    // depth <= 1 の場合はそのまま（ルートページなど）
-                } else if (!newsUrl.startsWith('../') && !newsUrl.startsWith('http') && !newsUrl.startsWith('/')) {
-                    // その他の相対パスの場合も同様に調整
-                    if (depth > 1) {
-                        newsUrl = '../' + newsUrl;
-                    }
-                }
-                
+                // getNewsLinkUrl 関数を使用して一貫性を保つ
+                const newsUrl = getNewsLinkUrl(item.url);
                 link.setAttribute('href', newsUrl);
                 
                 const tagType = getTagType(item.category);
@@ -803,6 +837,14 @@ async function renderHeaderNews() {
         console.log("[renderHeaderNews] completed");
     } catch (error) {
         console.error('[renderHeaderNews] Error loading news.json:', error);
+        console.error('[renderHeaderNews] Error details:', {
+            message: error.message,
+            jsonPath: jsonPath,
+            currentPath: window.location.pathname
+        });
+        
+        // エラーが発生した場合でも、空のメッセージを表示しないようにする
+        // （オプション：エラーメッセージを表示するか、何も表示しない）
     }
 }
 
