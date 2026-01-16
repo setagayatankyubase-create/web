@@ -497,7 +497,7 @@
     display: flex;
     align-items: center;
     padding: 10px 0;
-    padding-left: 48px;
+    padding-left: 0;
     text-decoration: none;
     color: inherit;
     transition: color 0.2s ease;
@@ -513,7 +513,7 @@
     transform: translateY(-50%);
     width: 3px;
     height: 12px;
-    background: rgba(47, 107, 255, 0.25);
+    background: rgba(47, 107, 255, 0.4);
     border-radius: 2px;
     transition: background 0.2s ease, height 0.2s ease;
 }
@@ -541,6 +541,8 @@
     word-wrap: break-word;
     min-width: 0;
     flex: 1;
+    /* 縦線（left: 20px + width: 3px = 23px）から25px離すため、margin-left: 48px */
+    margin-left: 48px;
 }
 
 .mega__link:hover .mega__link-title,
