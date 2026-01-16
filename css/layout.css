@@ -258,11 +258,9 @@
     display: none;
 }
 
-/* Serviceリンクのホバースタイルを無効化（メガメニュー展開時も固定） */
+/* Serviceリンクのスタイル（メガメニュー展開時も固定） */
 .gnav-item--has-mega > .gnav-link,
-.gnav-item--has-mega > .gnav-link:hover,
 .gnav-item--has-mega:hover > .gnav-link,
-.gnav-item--has-mega:focus-within > .gnav-link,
 .gnav-item--has-mega.is-open > .gnav-link {
     color: rgba(0, 0, 0, 0.85) !important;
     font-weight: 500 !important;
@@ -270,12 +268,6 @@
     position: relative;
 }
 
-.gnav-item--has-mega > .gnav-link::after,
-.gnav-item--has-mega:hover > .gnav-link::after,
-.gnav-item--has-mega:focus-within > .gnav-link::after,
-.gnav-item--has-mega.is-open > .gnav-link::after {
-    display: none !important;
-}
 
 /* Serviceリンクが active の場合（下線のみ表示） */
 .gnav-item--has-mega > .gnav-link.is-active {
@@ -333,8 +325,10 @@
     white-space: nowrap;
 }
 
-/* Serviceリンクの下線削除 */
-.gnav-link::after {
+/* Serviceリンクの下線削除（メガメニュー用） */
+.gnav-item--has-mega > .gnav-link::after,
+.gnav-item--has-mega:hover > .gnav-link::after,
+.gnav-item--has-mega.is-open > .gnav-link::after {
     display: none;
 }
 
@@ -352,7 +346,15 @@
     transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* SP: 従来のabsolute配置 */
+/* メガメニュー表示状態（共通） */
+.gnav-item--has-mega:hover .mega,
+.gnav-item--has-mega.is-open .mega {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* SP: absolute配置 */
 @media (max-width: 959.98px) {
     .mega {
         position: absolute;
@@ -364,9 +366,6 @@
     
     .gnav-item--has-mega:hover .mega,
     .gnav-item--has-mega.is-open .mega {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
         transform: translateX(-50%) translateY(0);
     }
 }
@@ -378,14 +377,10 @@
         top: 0;
         left: 0;
         transform: none;
-        /* left/top はJSで上書きされる */
     }
     
     .gnav-item--has-mega:hover .mega,
     .gnav-item--has-mega.is-open .mega {
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
         transform: none !important;
     }
 }
@@ -401,11 +396,6 @@
     padding: 0;
 }
 
-/* メガメニュー開時、トリガーリンクの下線削除 */
-.gnav-item--has-mega.is-open .gnav-link::after,
-.gnav-item--has-mega:hover .gnav-link::after {
-    display: none;
-}
 
 .mega__inner {
     padding: clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 32px);
@@ -492,6 +482,7 @@
     position: relative;
 }
 
+/* メガメニューリンク（共通クラス .link-indicator のスタイルを適用） */
 .mega__link {
     position: relative;
     display: flex;
@@ -499,10 +490,9 @@
     padding: 10px 0;
     padding-left: 0;
     text-decoration: none;
-    color: inherit;
-    transition: color 0.2s ease;
     overflow: visible;
     min-width: 0;
+    transition: color 0.2s ease;
 }
 
 .mega__link::before {
@@ -535,14 +525,13 @@
     font-weight: 400;
     line-height: 1.6;
     color: rgba(0, 0, 0, 0.75);
-    transition: color 0.2s ease;
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
     min-width: 0;
     flex: 1;
-    /* 縦線の右端（23px）から5pxの余白 */
     margin-left: 28px;
+    transition: color 0.2s ease;
 }
 
 .mega__link:hover .mega__link-title,
