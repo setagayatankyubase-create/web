@@ -526,7 +526,7 @@
 
 .mega__link:hover::before,
 .mega__link:focus-visible::before {
-    background: rgba(47, 107, 255, 0.4);
+    background: rgba(47, 107, 255, 0.6);
     height: 14px;
 }
 
@@ -541,8 +541,8 @@
     word-wrap: break-word;
     min-width: 0;
     flex: 1;
-    /* 縦線（left: 20px + width: 3px = 23px）から25px離すため、margin-left: 48px */
-    margin-left: 48px;
+    /* 縦線の右端（23px）から5pxの余白 */
+    margin-left: 28px;
 }
 
 .mega__link:hover .mega__link-title,
