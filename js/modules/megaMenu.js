@@ -3,7 +3,8 @@ window.initMegaMenu = function initMegaMenu() {
     // ヘッダーが読み込まれるまで待つ
     const init = () => {
         const megaItems = document.querySelectorAll('.gnav-item--has-mega');
-        const overlay = document.querySelector('.mega-overlay');
+        const backdrop = document.querySelector('.mega-backdrop');
+        const overlay = document.querySelector('.mega-overlay'); // 後方互換性
         
         if (megaItems.length === 0) {
             // ヘッダーがまだ読み込まれていない場合、少し待って再試行
@@ -19,8 +20,14 @@ window.initMegaMenu = function initMegaMenu() {
             closeTimer = setTimeout(() => {
                 megaItems.forEach((item) => {
                     item.classList.remove('is-open');
+                    const trigger = item.querySelector('.gnav-link[aria-haspopup="true"]');
+                    if (trigger) {
+                        trigger.setAttribute('aria-expanded', 'false');
+                    }
                 });
-                overlay?.classList.remove('is-open');
+                backdrop?.classList.remove('is-open');
+                overlay?.classList.remove('is-open'); // 後方互換性
+                document.body.classList.remove('is-mega-open');
             }, delay);
         };
 
@@ -31,10 +38,20 @@ window.initMegaMenu = function initMegaMenu() {
             megaItems.forEach((i) => {
                 if (i !== item) {
                     i.classList.remove('is-open');
+                    const trigger = i.querySelector('.gnav-link[aria-haspopup="true"]');
+                    if (trigger) {
+                        trigger.setAttribute('aria-expanded', 'false');
+                    }
                 }
             });
             item.classList.add('is-open');
-            overlay?.classList.add('is-open');
+            const trigger = item.querySelector('.gnav-link[aria-haspopup="true"]');
+            if (trigger) {
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+            backdrop?.classList.add('is-open');
+            overlay?.classList.add('is-open'); // 後方互換性
+            document.body.classList.add('is-mega-open');
         };
 
         megaItems.forEach((item) => {
@@ -74,7 +91,8 @@ window.initMegaMenu = function initMegaMenu() {
             }
         });
 
-        // overlayクリックで閉じる
+        // backdrop/overlayクリックで閉じる
+        backdrop?.addEventListener('click', () => closeAll(0));
         overlay?.addEventListener('click', () => closeAll(0));
 
         // Escキーで閉じる

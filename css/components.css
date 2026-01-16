@@ -13,15 +13,31 @@
 }
 
 /* ========================================
-   メガメニュー用overlay（Netyear風）
+   メガメニュー用背景オーバーレイ（Netyear風）
    ======================================== */
+.mega-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 900;
+}
+
+.mega-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 後方互換性：.mega-overlayもサポート */
 .mega-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.20);
+    background: rgba(0, 0, 0, 0.18);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.22s cubic-bezier(.2, .8, .2, 1);
+    transition: opacity 0.2s ease;
     z-index: 900;
 }
 

@@ -324,22 +324,20 @@
 /* メガメニュー本体（netyear風 - 位置固定、崩れ防止） */
 .mega {
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
     top: calc(100% + 14px);
-    width: min(980px, 92vw);
-    max-width: 1200px;
-    margin: 0 auto;
+    width: min(1040px, calc(100vw - 48px));
+    max-width: 1040px;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transition: 
-        opacity 0.22s cubic-bezier(.2, .8, .2, 1),
-        visibility 0.22s cubic-bezier(.2, .8, .2, 1),
-        transform 0.22s cubic-bezier(.2, .8, .2, 1);
+        opacity 0.2s ease,
+        visibility 0.2s ease,
+        transform 0.2s ease;
     z-index: 1100;
     padding-top: 0;
-    transform: translateY(-6px);
     will-change: opacity, visibility, transform;
     margin-top: 0;
 }
@@ -349,8 +347,9 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
+
 
 /* メガメニューが開いている時もServiceリンクの位置を維持（崩れ防止） */
 .gnav-item--has-mega:hover .gnav-link,
@@ -369,13 +368,13 @@
 }
 
 .mega__inner {
-    padding: 24px;
-    background: #ffffff; /* 完全に白に */
+    padding: clamp(24px, 3vw, 32px);
+    background: #ffffff;
     border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.06); /* 微細なボーダーを追加して品質感UP */
-    box-shadow: 0 8px 64px rgba(0, 0, 0, 0.05), 0 2px 24px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 240px 1fr;
     gap: 24px;
     position: relative;
 }
@@ -385,11 +384,14 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-right: 20px;
+    padding-right: 24px;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .mega__top-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     text-decoration: none;
     color: inherit;
     transition: opacity 0.2s ease;
@@ -401,15 +403,25 @@
     opacity: 0.8;
 }
 
+.mega__top-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2f6bff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .mega__top-title {
     font-size: 13px;
-    font-weight: 400; /* 300 → 400 に変更してコントラストUP */
+    font-weight: 400;
     letter-spacing: 0.24em;
-    color: rgba(0, 0, 0, 0.7); /* 0.5 → 0.7 に変更してコントラストUP */
+    color: #2f6bff;
     margin: 0;
     line-height: 1.4;
     text-transform: uppercase;
-    opacity: 1; /* 0.75 → 1 に変更 */
 }
 
 .mega__top-desc {
@@ -419,7 +431,7 @@
 /* 右カラム（列レイアウト） */
 .mega__cols {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0;
 }
 
@@ -430,8 +442,6 @@
     position: relative;
 }
 
-/* 各列の前にオレンジの縦線（不要なため削除） */
-
 /* メガメニュー内のリンク（Netyear風） */
 .mega__col li {
     position: relative;
@@ -439,37 +449,65 @@
 
 .mega__link {
     position: relative;
-    display: block;
-    padding: 8px 24px; /* 縦線削除に伴い、左右の padding を統一 */
-    margin: 0 -24px; /* ネガティブマージンで横いっぱいに */
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    padding-left: 20px;
     text-decoration: none;
     color: inherit;
     transition: color 0.2s ease;
 }
 
+.mega__link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 12px;
+    background: #ff6b35;
+    border-radius: 2px;
+    transition: background 0.2s ease, height 0.2s ease;
+}
+
 .mega__link:hover,
 .mega__link:focus-visible {
-    color: var(--site-accent);
+    color: rgba(0, 0, 0, 0.9);
     outline: none;
-    /* padding は変更しない（文字が動かないように） */
+}
+
+.mega__link:hover::before,
+.mega__link:focus-visible::before {
+    background: #ff5a20;
+    height: 14px;
 }
 
 .mega__link-title {
     font-size: 15px;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.8;
     color: rgba(0, 0, 0, 0.75);
     transition: color 0.2s ease;
 }
 
 .mega__link:hover .mega__link-title,
 .mega__link:focus-visible .mega__link-title {
-    color: var(--site-accent);
-    /* font-size の変更を削除（ホバー時に文字を大きくしない） */
+    color: rgba(0, 0, 0, 0.9);
 }
 
 /* レスポンシブ対応 */
+@media (max-width: 1200px) {
+    .mega__cols {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 960px) {
+    .mega {
+        display: none;
+    }
+    
     .mega__inner {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -477,7 +515,8 @@
     }
     
     .mega__left {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
         padding-right: 0;
         padding-bottom: 16px;
     }

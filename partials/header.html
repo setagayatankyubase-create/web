@@ -9,11 +9,12 @@
             <nav class="header__nav" role="navigation" aria-label="メインナビゲーション">
                 <a href="/web/index.html" class="is-active">Top</a>
                 <div class="gnav-item gnav-item--has-mega">
-                    <a href="/web/service.html" class="gnav-link">Service</a>
+                    <a href="/web/service.html" class="gnav-link" aria-haspopup="true" aria-expanded="false">Service</a>
                     <div class="mega" role="menu" aria-label="Service mega menu">
                         <div class="mega__inner">
                             <div class="mega__left">
                                 <a href="/web/service.html" class="mega__top-link">
+                                    <div class="mega__top-icon"></div>
                                     <h3 class="mega__top-title">SERVICE</h3>
                                 </a>
                             </div>
@@ -53,3 +54,5 @@
         </div>
     </div>
 </header>
+<!-- メガメニュー用背景オーバーレイ -->
+<div class="mega-backdrop" aria-hidden="true"></div>
