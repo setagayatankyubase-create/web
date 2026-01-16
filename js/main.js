@@ -414,3 +414,8 @@ document.addEventListener('click', function(e) {
 if (typeof window.initMegaMenu === 'function') {
     window.initMegaMenu();
 }
+
+// ===== モバイルメニュー（ハンバーガーメニュー）開閉処理 =====
+if (typeof window.initMobileMenu === 'function') {
+    window.initMobileMenu();
+}

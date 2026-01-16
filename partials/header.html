@@ -43,6 +43,11 @@
                     </svg>
                 </button>
                 <a href="/web/contact.html" class="header__cta">お問い合わせはこちら</a>
+                <button class="header__menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+                    <span class="header__menu-toggle-line"></span>
+                    <span class="header__menu-toggle-line"></span>
+                    <span class="header__menu-toggle-line"></span>
+                </button>
             </div>
         </div>
     </div>
@@ -54,5 +59,25 @@
         </div>
     </div>
 </header>
+<!-- モバイルメニューパネル -->
+<div class="mobile-menu" aria-hidden="true">
+    <nav class="mobile-menu__nav" role="navigation" aria-label="モバイルメニュー">
+        <a href="/web/index.html" class="mobile-menu__link">Top</a>
+        <div class="mobile-menu__item mobile-menu__item--has-mega">
+            <button class="mobile-menu__link mobile-menu__link--toggle" aria-expanded="false">Service</button>
+            <div class="mobile-menu__submenu">
+                <a href="/web/service.html" class="mobile-menu__submenu-link">Service Top</a>
+                <a href="/web/service-creative.html" class="mobile-menu__submenu-link">HP制作</a>
+            </div>
+        </div>
+        <a href="/web/flow.html" class="mobile-menu__link">Flow</a>
+        <a href="/web/about.html" class="mobile-menu__link">About</a>
+        <a href="/web/news/index.html" class="mobile-menu__link">News</a>
+        <a href="/web/column/index.html" class="mobile-menu__link">Column</a>
+        <a href="/web/contact.html" class="mobile-menu__link mobile-menu__link--cta">お問い合わせはこちら</a>
+    </nav>
+</div>
 <!-- メガメニュー用背景オーバーレイ -->
 <div class="mega-backdrop" aria-hidden="true"></div>
+<!-- モバイルメニュー用背景オーバーレイ -->
+<div class="mobile-menu-overlay" aria-hidden="true"></div>

@@ -186,6 +186,15 @@ body {
     width: 100%;
 }
 
+/* モバイルメニュー開いている時はbodyのスクロールを無効化 */
+@media (max-width: 959px) {
+    body.is-mobile-menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
+}
+
 /* フェードアウト（ページ遷移時） */
 body.page-transition-out {
     opacity: 0;

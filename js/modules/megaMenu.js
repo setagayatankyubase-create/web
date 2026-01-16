@@ -83,7 +83,7 @@ window.initMegaMenu = function initMegaMenu() {
         
         // PC: Serviceリンク基準でパネル位置を計算
         const mega = item.querySelector('.mega');
-        const isMobile = window.matchMedia('(max-width: 960px)').matches;
+        const isMobile = window.matchMedia('(max-width: 959px)').matches;
         if (mega && !isMobile && trigger) {
             // パネルの幅を計測（一時的に表示して計測）
             mega.style.position = 'fixed';
@@ -128,7 +128,7 @@ window.initMegaMenu = function initMegaMenu() {
     const updateMegaPosition = (item) => {
         const mega = item.querySelector('.mega');
         const trigger = item.querySelector('.gnav-link');
-        const isMobile = window.matchMedia('(max-width: 960px)').matches;
+        const isMobile = window.matchMedia('(max-width: 959px)').matches;
         
         if (!mega || !trigger || isMobile || !item.classList.contains('is-open')) {
             return;
@@ -167,7 +167,7 @@ window.initMegaMenu = function initMegaMenu() {
         if (isInitialized) return; // 既に登録済みならスキップ
         isInitialized = true;
         
-        const isMobile = window.matchMedia('(max-width: 960px)').matches;
+        const isMobile = window.matchMedia('(max-width: 959px)').matches;
         
         if (!isMobile) {
             // PC: mouseover/mouseoutでイベント委譲
@@ -315,7 +315,7 @@ window.initMegaMenu = function initMegaMenu() {
 
         // 外側クリックで閉じる（モバイル用）
         document.addEventListener('click', (e) => {
-            if (window.matchMedia('(max-width: 960px)').matches) {
+            if (window.matchMedia('(max-width: 959px)').matches) {
                 const wrap = e.target.closest('.gnav-item--has-mega');
                 if (!wrap) {
                     closeAll(0);
