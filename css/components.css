@@ -90,21 +90,7 @@
 }
 
 /* Ghostボタン（Secondaryと同じスタイル） */
-.btn--ghost {
-    background-color: transparent;
-    color: var(--cta-primary-bg);
-    border-color: var(--cta-primary-bg);
-    border-width: 1.5px;
-    font-size: 15px;
-    letter-spacing: 0.05em;
-    padding: 0 22px;
-    font-weight: 600;
-}
-
-.btn--ghost:hover {
-    background-color: rgba(30, 64, 175, 0.06);
-    transform: translateY(-1px);
-}
+/* .btn--ghost は下記で定義（重複を削除） */
 
 /* ========================================
    2. カード（影・角丸・hoverの統一）
@@ -365,113 +351,7 @@ a:hover .link-arrow-inline::after {
     }
 }
 
-/* ========================================
-   既存スタイル（後方互換性のため維持）
-   ======================================== */
-
-/* =========================
-   Service Card Hover BG Image (GIG寄せ)
-   ========================= */
-
-/* linkをレイヤーコンテナ化 */
-.service-overview .service-card__link {
-    position: relative !important;
-    overflow: hidden !important;
-    isolation: isolate;
-}
-
-/* 1) 背景画像レイヤー */
-.service-overview .service-card__link::before {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    z-index: 0 !important;
-
-    /* ★HTML側から渡す（--hover-bg） */
-    background-image: var(--hover-bg);
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-
-    opacity: 0;
-    transform: scale(1.00);
-    filter: blur(0px) saturate(1) contrast(1);
-
-    transition:
-        opacity 320ms ease,
-        transform 520ms ease,
-        filter 520ms ease;
-}
-
-/* 2) 白い可読性レイヤー（常時ON） */
-.service-overview .service-card__link::after {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    z-index: 1 !important;
-
-    /* ベースはしっかり白、ただし完全白にしない */
-    background: rgba(255, 255, 255, 0.90) !important;
-    opacity: 0.88 !important;
-
-    transition: opacity 320ms ease !important;
-
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-/* 3) 本文・画像は前面へ */
-.service-overview .service-card__media,
-.service-overview .service-card__body {
-    position: relative !important;
-    z-index: 2 !important;
-}
-
-/* 4) hover時：背景画像が"気配として"出る */
-.service-overview .service-card__link:hover::before,
-.service-overview .service-card__link:focus-visible::before {
-    opacity: 0.22;
-    transform: scale(1.06);
-    filter: blur(2px) saturate(0.92) contrast(1.04);
-}
-
-/* 5) hover時：白レイヤーを少し薄くして背景の存在を出す */
-.service-overview .service-card__link:hover::after,
-.service-overview .service-card__link:focus-visible::after {
-    opacity: 0.74 !important;
-}
-
-/* 6) "浮き感"を追加（GIGの肝） */
-.service-overview .service-card__body {
-    border: 1px solid rgba(0, 0, 0, 0.06) !important;
-    transition: transform 320ms ease, box-shadow 320ms ease !important;
-}
-
-.service-overview .service-card__link:hover .service-card__body,
-.service-overview .service-card__link:focus-visible .service-card__body {
-    transform: translateY(-6px) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10) !important;
-}
-
-/* 7) 画像もほんの少しだけズーム */
-.service-overview .service-card__media img {
-    transition: transform 520ms ease !important;
-    transform: scale(1.02);
-}
-.service-overview .service-card__link:hover .service-card__media img,
-.service-overview .service-card__link:focus-visible .service-card__media img {
-    transform: scale(1.07);
-}
-
-/* 8) 動きが苦手な人向け */
-@media (prefers-reduced-motion: reduce) {
-    .service-overview .service-card__link::before,
-    .service-overview .service-card__link::after,
-    .service-overview .service-card__body,
-    .service-overview .service-card__media img {
-        transition: none !important;
-    }
-}
+/* .service-overview は未使用のため削除 */
 
 /* ========== UI Tag (Pill) ========== */
 .ui-tag {
@@ -517,26 +397,7 @@ a:hover .link-arrow-inline::after {
     display: inline-block;
 }
 
-/* ボタン - ベーススタイルは上記で定義済み（重複を避けるため削除） */
-
-.btn--accent {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 10px 36px;
-    font-size: 13px;
-    border-radius: 0;
-    box-shadow: none;
-    transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.btn--accent:hover {
-    background: #005bb5;
-    opacity: 0.85;
-    transform: none;
-}
+/* .btn--accent は未使用のため削除 */
 
 /* ========================================
    CTA Button
@@ -839,8 +700,7 @@ a:hover .link-arrow-inline::after {
 
 .btn--primary:focus-visible,
 .btn--secondary:focus-visible,
-.btn--ghost:focus-visible,
-.btn--cta-common:focus-visible {
+.btn--ghost:focus-visible {
     outline: 2px solid var(--cta-primary-bg);
     outline-offset: 3px;
 }
@@ -1307,12 +1167,7 @@ a:hover .link-arrow-inline::after {
 }
 
 /* max-width: 1080px; margin: 0 auto; の共通パターン */
-.members-list,
-.access-content,
-.related-links-grid {
-    max-width: 1080px;
-    margin: 0 auto;
-}
+/* .members-list, .access-content, .related-links-grid は未使用のため削除 */
 
 /* max-width: 960px; margin: 0 auto; の共通パターン */
 .service-result-comparison,
@@ -1322,11 +1177,7 @@ a:hover .link-arrow-inline::after {
 }
 
 /* max-width: 600px; margin: 0 auto; の共通パターン */
-.certifications-grid,
-.clients-list {
-    max-width: 600px;
-    margin: 0 auto;
-}
+/* .certifications-grid, .clients-list は未使用のため削除 */
 
 /* ========================================
    Card Component (共通カードスタイル)
