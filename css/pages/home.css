@@ -1,0 +1,1286 @@
+/* =================================================
+   Home Page Styles（トップページ専用スタイル）
+   ================================================= */
+
+/* =================================================
+   Top Services（サービス概要）
+   ================================================= */
+
+/* ========================================
+   Top Services Section (サービス概要)
+   設計思想: netyear about風、カードUI撤去、透明テキストブロック
+   番号はabsoluteで外側に配置、gridは写真＋文章の2カラムのみ
+   ======================================== */
+
+.top-services--netyear {
+    position: relative;
+    overflow: hidden;
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
+    background: var(--bg-white);
+}
+
+/* 背景文字（SERVICE）の主張をコントロール */
+.top-services--netyear .section-bg-text {
+    opacity: 0.06;
+}
+
+.top-services--netyear .top-services__inner {
+    /* 余白設定は共通の .section-inner を使用（components.css） */
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   見出しブロック（section-head に統一）
+   役割: 「どういう価値観でサービスを提供しているか」を宣言
+   ======================================== */
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.top-services__head, .top-services__kicker, .top-services__title, .top-services__lead */
+
+/* ========================================
+   各サービス行（top-service-row）
+   行：写真＋文章の2カラムだけで管理（番号は別レイヤー）
+   デフォルト（奇数）：左=文章 / 右=写真
+   偶数：左=写真 / 右=文章
+   ======================================== */
+
+.top-service-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr; /* 左:文章 右:写真 */
+    gap: clamp(28px, 5vw, 72px);
+    align-items: start;
+    padding: clamp(44px, 7vw, 92px) 0;
+}
+
+.top-service-row__body {
+    order: 1;
+}
+
+.top-service-row__media {
+    order: 2;
+}
+
+/* 偶数行は反転：左=写真 / 右=文章 */
+.top-service-row.is-even {
+    grid-template-columns: 1.05fr 0.95fr; /* 左:写真 右:文章 */
+}
+
+.top-service-row.is-even .top-service-row__media {
+    order: 1;
+}
+
+.top-service-row.is-even .top-service-row__body {
+    order: 2;
+    text-align: left;
+}
+
+/* ========================================
+   巨大番号（top-service-row__big-num）
+   番号：absoluteで"外側"に逃がす（奇数は左、偶数は右）
+   gridの計算に混ぜない（01/03の破綻を防ぐ）
+   ======================================== */
+
+.top-service-row__big-num {
+    position: absolute;
+    top: clamp(8px, 2vw, 22px);
+    font-size: clamp(56px, 6.5vw, 100px); /* 少し小さく */
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #1f4aa8; /* ヘッダーCTAと同じ青色に統一 */
+    margin: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 奇数（デフォ）：左に出す（もっと外へ） */
+.top-service-row:not(.is-even) .top-service-row__big-num {
+    left: clamp(-6px, -1vw, 0px);
+}
+
+/* 偶数：右に出す */
+.top-service-row.is-even .top-service-row__big-num {
+    right: clamp(-6px, -1vw, 0px);
+}
+
+/* ========================================
+   写真（media）
+   角丸なし、影なし、余白は潔く
+   ======================================== */
+
+.top-service-row__media {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+}
+
+.top-service-row__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+}
+
+/* ========================================
+   テキストブロック（top-service-row__body）
+   カードUI完全撤去：背景・枠・影・blur無し
+   透明で直置き、読みやすさ補助の極薄グラデのみ
+   max-width: 56ch で中央寄りすぎを防ぐ
+   ======================================== */
+
+.top-service-row__body {
+    position: relative;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    display: block;
+    min-height: auto;
+    z-index: 1;
+    max-width: 56ch;
+    /* 数字と文章が重ならないよう、文章ブロックを下げる */
+    margin-top: clamp(32px, 4vw, 56px);
+}
+
+/* テキスト読みやすさ補助（カードにならない極薄グラデ） */
+.top-service-row__body::before {
+    content: "";
+    position: absolute;
+    inset: -12px -16px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* 偶数行のグラデーション方向を反転 */
+.top-service-row.is-even .top-service-row__body::before {
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+}
+
+/* ========================================
+   LABEL（英字）
+   意味カテゴリ、デザインは控えめ、装飾しない
+   ======================================== */
+
+.top-service-row__label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    opacity: 0.6;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+    font-weight: 400;
+}
+
+/* ========================================
+   HEADING（日本語タイトル）
+   一文で言い切る、抽象すぎないが、手段（How）は書かない
+   タイポの差を広げる：見出しを大きく、letter-spacing調整
+   ======================================== */
+
+.top-service-row__heading {
+    font-size: clamp(26px, 2.8vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--black);
+    /* body全体を下げているので、見出し側に余計なtop marginがあると二重で下がるのを防ぐ */
+}
+
+/* ========================================
+   TEXT（説明）
+   2〜3文まで、「何をするか」＋「なぜそれをやるか」
+   タイポの差を広げる：opacityを下げる、line-height維持
+   ======================================== */
+
+.top-service-row__text {
+    margin-top: 12px;
+    line-height: 1.9;
+    opacity: 0.72;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: clamp(14px, 1.6vw, 16px);
+}
+
+/* ========================================
+   CTA
+   ボタンにしない、テキストリンク＋矢印のみ
+   下に"置かれている感"を出す（margin-top: auto）
+   ======================================== */
+
+.top-service-row__cta {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.85;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.75);
+    transition: opacity 0.22s ease;
+}
+
+.top-service-row__cta span {
+    transition: transform 0.22s ease;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.top-service-row__cta:hover {
+    opacity: 1;
+}
+
+.top-service-row__cta:hover span {
+    transform: translateX(4px);
+}
+
+/* ========================================
+   背景ネット表現（top-services__net-bg）
+   あくまで空気、カードの上には絶対にかからない
+   opacityは 0.1〜0.15 まで、アニメーションは超低速
+   ======================================== */
+
+.top-services--netyear .top-services__net-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.15; /* 見えるように濃く */
+}
+
+.top-services--netyear .top-services__net-bg .net-lines__svg {
+    width: min(520px, 46vw);
+    height: auto;
+    position: absolute;
+    left: clamp(-40px, -2vw, 0px);
+    top: 20%;
+    animation: netFloat 32s ease-in-out infinite alternate;
+}
+
+/* @keyframes netFloat はcomponents.cssで定義済み */
+
+/* ========================================
+   レスポンシブ時の思想
+   SPでは縦積み、並び順は自然順（番号→写真→文字）
+   角丸・余白はそのまま、「小さくする」のではなく「重ねない」
+   ======================================== */
+
+@media (max-width: 900px) {
+    .top-service-row,
+    .top-service-row.is-even {
+        grid-template-columns: 1fr;
+        gap: clamp(24px, 4vw, 40px);
+        padding: clamp(24px, 4vw, 48px) 0;
+    }
+    
+    .top-service-row__big-num {
+        font-size: clamp(44px, 9vw, 72px); /* 少し小さく */
+        position: relative;
+        top: 0;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+    
+    .top-service-row:not(.is-even) .top-service-row__big-num {
+        left: 0;
+    }
+    
+    .top-service-row.is-even .top-service-row__big-num {
+        right: 0;
+        text-align: left;
+    }
+    
+    .top-service-row.is-even .top-service-row__media,
+    .top-service-row.is-even .top-service-row__body {
+        order: initial;
+    }
+    
+    .top-service-row__body {
+        min-height: auto;
+        max-width: 100%;
+    }
+    
+    .top-services--netyear .top-services__net-bg {
+        opacity: 0.12; /* 見えるように濃く */
+    }
+}
+
+/* =================================================
+   Problem（問題提起セクション）
+   ================================================= */
+
+/* ========================================
+   Problem Section (問題提起セクション)
+   ======================================== */
+
+.problem {
+    background: var(--bg-white);
+    color: var(--black);
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 背景装飾の疑似要素 - 右側のグラデーション */
+.problem::before {
+    content: "";
+    position: absolute;
+    top: -15%;
+    right: -8%;
+    width: 50%;
+    height: 75%;
+    background: rgba(255, 243, 200, 0.10);
+    transform: skewY(-5deg) rotate(-3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+}
+
+.problem::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 48%;
+    height: 70%;
+    background: rgba(200, 235, 255, 0.08);
+    transform: skewY(5deg) rotate(3deg);
+    z-index: 0;
+    filter: blur(0.5px);
+}
+
+.problem__inner {
+    position: relative;
+    z-index: 1;
+    /* 余白設定は共通の .section-inner を使用（components.css） */
+}
+
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.problem__header, .problem__kicker, .problem__title-main, .problem__lead */
+/* .problem__message は削除（leadに統合） */
+
+/* カードグリッド */
+.problem__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 3.5vw, 32px);
+    position: relative;
+    z-index: 2; /* ネット線より上に表示 */
+}
+
+/* カードコンポーネント・再利用UI */
+.problem-card {
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    z-index: 2; /* ネット線より上に表示 */
+    /* 共通カードスタイルはcomponents.cssで定義 */
+}
+
+.problem-card:hover {
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+    border-color: var(--border-strong);
+}
+
+/* 番号ラベル・上部に配置 */
+.problem-card__num {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #2f6bff;
+    margin: 0 0 18px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(47, 107, 255, 0.2);
+    width: fit-content;
+    display: block;
+}
+
+/* 見出し */
+.problem-card__title {
+    font-size: clamp(17px, 1.8vw, 20px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--black);
+    margin: 0 0 clamp(10px, 1.2vw, 14px) 0;
+    letter-spacing: -0.01em;
+}
+
+/* 説明文 */
+.problem-card__desc {
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.65);
+    margin: 0;
+}
+
+/* ========================================
+   Responsive (レスポンシブ)
+   ======================================== */
+
+@media (max-width: 900px) {
+    .problem__cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(20px, 3vw, 28px);
+    }
+}
+
+@media (max-width: 600px) {
+    .problem__cards {
+        grid-template-columns: 1fr;
+        gap: clamp(20px, 3vw, 24px);
+    }
+}
+
+/* =================================================
+   Service Area（サービス領域）
+   ================================================= */
+
+/* ========================================
+   Service Area (サービス領域)
+   ======================================== */
+
+.service-area {
+    position: relative;
+}
+
+/* ヘッダースタイルは common.css で共通化 */
+
+.service-area__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 2.5vw, 28px);
+}
+
+/* カードスタイル（共通パターン: components.cssの.cardを使用） */
+.service-card-item {
+    padding: clamp(28px, 3vw, 36px);
+    text-decoration: none;
+    color: inherit;
+    min-height: 240px;
+    /* 共通カードスタイルはcomponents.cssで定義 */
+}
+
+.service-card-item.is-coming-soon {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* アイコン */
+.service-card-item__icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: clamp(16px, 2vw, 20px);
+    color: rgba(0, 0, 0, 0.7);
+    flex-shrink: 0;
+}
+
+.service-card-item__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* タイトル */
+.service-card-item__title {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--black);
+    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    letter-spacing: -0.01em;
+    flex-grow: 0;
+}
+
+/* 説明文 */
+.service-card-item__desc {
+    font-size: clamp(14px, 1.5vw, 15px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 auto 0;
+    flex-grow: 1;
+}
+
+/* バッジ（COMING SOON用） */
+.service-card-item__badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: clamp(12px, 1.5vw, 16px);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* 矢印アイコン */
+.service-card-item__arrow {
+    position: absolute;
+    right: clamp(20px, 2.5vw, 28px);
+    bottom: clamp(20px, 2.5vw, 28px);
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    line-height: 1;
+}
+
+.service-card-item:hover .service-card-item__arrow {
+    transform: translateX(4px);
+    opacity: 0.9;
+}
+
+/* レスポンシブ */
+@media (max-width: 1024px) {
+    .service-area__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(18px, 2vw, 24px);
+    }
+}
+
+@media (max-width: 768px) {
+    .service-area__grid {
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 2vw, 20px);
+    }
+    
+    .service-card-item {
+        min-height: auto;
+    }
+}
+
+/* ===== Service Flow Section (制作の流れ) ===== */
+.service-flow {
+    position: relative;
+}
+
+.service-flow__steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 2.5vw, 28px);
+}
+
+/* ステップカード（共通パターン: components.cssの.cardを使用） */
+.service-flow__step {
+    /* 共通カードスタイルはcomponents.cssで定義 */
+}
+
+/* ステップ番号 */
+.service-flow__step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(47, 107, 255, 0.1);
+    border-radius: 12px;
+    font-size: clamp(16px, 1.8vw, 18px);
+    font-weight: 700;
+    color: #2f6bff;
+    margin-bottom: clamp(16px, 2vw, 20px);
+    flex-shrink: 0;
+}
+
+/* タイトル */
+.service-flow__step-title {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--black);
+    margin: 0 0 clamp(12px, 1.5vw, 16px) 0;
+    letter-spacing: -0.01em;
+}
+
+/* 説明文 */
+.service-flow__step-desc {
+    font-size: clamp(14px, 1.5vw, 15px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    flex: 1;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .service-flow__steps {
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 2vw, 20px);
+    }
+}
+
+/* =================================================
+   Value Block（提供価値セクション）
+   ================================================= */
+
+/* ========================================
+   Value Block Section (提供価値セクション)
+   ======================================== */
+
+.value-block {
+    position: relative;
+    overflow: hidden;
+    background: #f7f8fa;
+    /* paddingは共通の.sectionクラスで統一（layout.css） */
+}
+
+/* VALUEセクション専用の背景テキスト */
+.value-block .section-bg-text {
+    font-size: clamp(180px, 25vw, 420px);
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.04);
+    left: 6%;
+    top: 40%;
+    transform: translateY(-50%);
+    opacity: 1;
+}
+
+.value-block__net-lines {
+    position: absolute;
+    left: clamp(-40px, -2vw, 0px);
+    top: 15%;
+    width: min(520px, 46vw);
+    height: auto;
+    opacity: 0.20; /* 見えるように濃く */
+    z-index: 1;
+    pointer-events: none;
+}
+
+.value-block__net-lines .net-lines__svg {
+    width: 100%;
+    height: auto;
+    animation: netFloat 24s ease-in-out infinite alternate;
+}
+
+.value-block__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+}
+
+/* 余白設定は共通の .section-inner を使用（components.css） */
+
+.value-block__copy {
+    position: relative;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+}
+
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.value-block__kicker, .value-block__title, .value-block__lead */
+
+.value-block__text {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 2.0;
+    color: rgba(0, 0, 0, 0.75);
+    margin: 0 0 clamp(16px, 2vw, 20px) 0;
+    max-width: 60ch;
+}
+
+.value-block__bullets {
+    list-style: none;
+    padding: 0;
+    margin: clamp(24px, 3vw, 32px) 0 0 0;
+}
+
+.value-block__bullets li {
+    position: relative;
+    padding-left: clamp(20px, 2.5vw, 28px);
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.75);
+    margin-bottom: clamp(12px, 1.5vw, 16px);
+}
+
+.value-block__bullets li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: #5BA3FF; /* 明るめの水色に変更 */
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.value-block__visual {
+    justify-self: end;
+    position: relative;
+    z-index: 1;
+}
+
+.value-figure {
+    width: min(640px, 52vw);
+    max-width: 100%;
+    margin: 0;
+}
+
+.value-figure svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+    .value-block {
+        padding: clamp(40px, 7vw, 80px) 0;
+    }
+    
+    .value-block__inner {
+        grid-template-columns: 1fr;
+        gap: clamp(32px, 5vw, 48px);
+    }
+    
+    .value-block__visual {
+        justify-self: center;
+        order: 2;
+    }
+    
+    .value-block__copy {
+        order: 1;
+    }
+    
+    .value-figure {
+        width: min(540px, 85vw);
+    }
+    
+    .value-block__net-lines {
+        opacity: 0.1;
+    }
+}
+
+/* =================================================
+   Works / Case（制作実績）
+   ================================================= */
+
+/* ========================================
+   Works Section (制作実績)
+   縦積みレイアウト：画像 → テキスト
+   ======================================== */
+
+.works {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0;
+}
+
+/* 他のセクションと同じ余白設定（.section-innerのデフォルトパディングを使用） */
+
+/* 背景装飾の疑似要素 - グラデーション背景（セクション間と自然に調和） */
+.works::before {
+    background: linear-gradient(
+        to bottom,
+        rgba(240, 230, 255, 0.20) 0%,
+        rgba(240, 230, 255, 0.12) 30%,
+        rgba(240, 230, 255, 0.06) 60%,
+        rgba(240, 230, 255, 0.02) 85%,
+        rgba(240, 230, 255, 0) 100%
+    );
+}
+
+.works::after {
+    background: linear-gradient(
+        to top,
+        rgba(255, 248, 200, 0.12) 0%,
+        rgba(255, 248, 200, 0.06) 20%,
+        rgba(255, 248, 200, 0.03) 40%,
+        rgba(255, 248, 200, 0.01) 65%,
+        rgba(255, 248, 200, 0) 90%,
+        transparent 100%
+    );
+}
+
+/* 見出しは共通の.section-headを使用（components.css） */
+
+/* ========================================
+   実績グリッド（横3件並列・左右いっぱい）
+   ======================================== */
+
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 24px);
+    margin-top: clamp(40px, 6vw, 64px);
+    width: 100%;
+}
+
+/* ========================================
+   実績アイテム（縦積み：画像 → テキスト）
+   カードなし・シンプルレイアウト
+   ======================================== */
+
+.works-item {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* 画像エリア */
+.works-item__media {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.works-item__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* テキストエリア */
+.works-item__body {
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.works-item__name {
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--black);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.01em;
+}
+
+.works-item__summary {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: clamp(12px, 1.2vw, 13px);
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+}
+
+.works-item__desc {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: clamp(12px, 1.2vw, 13px);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.7);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.works-item__tags {
+    margin-top: auto;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.works-item__tags li {
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .works-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .works {
+        padding: 72px 0;
+    }
+
+    .works__header {
+        margin-bottom: 32px;
+    }
+
+    .works-item__desc {
+        -webkit-line-clamp: 3;
+    }
+}
+
+/* =================================================
+   Top Column（コラム）
+   ================================================= */
+
+/* ========================================
+   Top Column Section (コラム)
+   設計思想: netyear風、カード撤去、直置きリスト
+   余白と線で整理、背景のネット柄とも喧嘩しない
+   ======================================== */
+
+.top-column {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 既存カードCSSの無効化（重要） */
+.top-column .card,
+.top-column .column-card {
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.top-column img {
+    border-radius: 0 !important;
+}
+
+/* ========================================
+   見出しブロック（section-head に統一）
+   ======================================== */
+/* 見出しスタイルは共通の .section-head を使用（components.css） */
+/* 以下は削除：.top-column__head, .top-column__kicker, .top-column__title, .top-column__lead */
+
+/* ========================================
+   グリッド（top-column__grid）
+   3カラム（PC）、1カラム（SP）
+   ======================================== */
+
+.top-column__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(22px, 3vw, 40px);
+    margin-top: clamp(22px, 3vw, 34px);
+}
+
+@media (max-width: 900px) {
+    .top-column__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   記事（top-post）
+   カード撤去：背景・角丸・影を無効化
+   ======================================== */
+
+.top-post {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-post__link {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========================================
+   画像（top-post__media）
+   角丸なし＋比率統一（16:9）
+   ======================================== */
+
+.top-post__media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #f2f2f2;
+    margin: 0;
+}
+
+.top-post__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+    transform: scale(1);
+    transition: transform 0.25s ease;
+}
+
+/* ========================================
+   テキストブロック（top-post__body）
+   余白と線だけで整理（netyearっぽい）
+   ======================================== */
+
+.top-post__body {
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin-top: 14px;
+}
+
+.top-post__meta {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0 0 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.top-post__cat {
+    font-weight: 500;
+}
+
+.top-post__sep {
+    opacity: 0.4;
+}
+
+.top-post__date {
+    font-variant-numeric: tabular-nums;
+}
+
+.top-post__heading {
+    font-size: clamp(18px, 1.6vw, 22px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    color: var(--black);
+}
+
+.top-post__excerpt {
+    margin: 0 0 16px;
+    color: rgba(0, 0, 0, 0.72);
+    line-height: 1.85;
+    font-size: clamp(14px, 1.4vw, 15px);
+}
+
+.top-post__more {
+    margin: 0;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.78);
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.top-post__more span {
+    transition: transform 0.22s ease;
+    display: inline-block;
+}
+
+/* ========================================
+   ホバー：影じゃなく"ズーム＋下線"
+   ======================================== */
+
+.top-post__link:hover .top-post__media img {
+    transform: scale(1.03);
+}
+
+.top-post__link:hover .top-post__more {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.top-post__link:hover .top-post__more span {
+    transform: translateX(4px);
+}
+
+/* =================================================
+   CTA Prefooter（お問い合わせCTA）
+   ================================================= */
+
+/* ========================================
+   CTA Prefooter (お問い合わせCTA)
+   設計思想: netyear風、中央寄せ、見出し→補足→ボタンの縦積み
+   ======================================== */
+
+.cta-prefooter {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(40px, 5vw, 72px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 背景画像（ぼかし付き） */
+.cta-prefooter::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../../assets/img/24837530_m.jpg");
+    background-color: rgba(255, 255, 255, 0.08); /* フォールバック */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(6px);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+/* 背景画像の上に暗いオーバーレイ */
+.cta-prefooter::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+}
+
+/* 背景装飾（ネット柄など）は維持 */
+
+/* ========================================
+   CTA 全体の中央寄せ
+   ======================================== */
+
+.cta-prefooter__inner {
+    max-width: 980px;
+    margin: 0 auto;
+    /* 中身の余白も詰める */
+    padding: 0 clamp(16px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    position: relative;
+    z-index: 2; /* 背景画像とオーバーレイの上に表示 */
+}
+
+/* ========================================
+   ラベル行（CONTACT / INQUIRY）
+   同じ行・小さめ・薄めにする
+   ======================================== */
+
+.cta-prefooter__kicker {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: 6px;
+}
+
+.cta-prefooter__tag {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(234, 179, 8, 0.15); /* 黄色に変更 */
+    border: 1px solid rgba(234, 179, 8, 0.30); /* 黄色に変更 */
+    color: #EAB308; /* 黄色に変更 */
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ========================================
+   見出し・本文の幅を制御（中央寄せの品格）
+   ======================================== */
+
+.cta-prefooter__title {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: #fff;
+    margin: 0;
+}
+
+.cta-prefooter__lead {
+    max-width: 52ch;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.85;
+    margin: 0;
+    font-size: clamp(15px, 1.6vw, 16px);
+}
+
+/* ========================================
+   ボタン：デカすぎ問題を止める（netyear寄せ）
+   幅を絞って、影を消す
+   ======================================== */
+
+.cta-prefooter__button {
+    /* ボタンの下の余白（最短即日返信）が遠いなら */
+    margin-top: 14px;
+    width: min(520px, 100%);
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.96);
+    color: rgba(0, 0, 0, 0.88);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: none;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.cta-prefooter__button:hover {
+    transform: translateY(-1px);
+    background: #fff;
+}
+
+.cta-prefooter__button span {
+    font-size: 18px;
+    transition: transform 0.18s ease;
+}
+
+.cta-prefooter__button:hover span {
+    transform: translateX(4px);
+}
+
+/* ========================================
+   サブ文（最短即日返信）はボタン下で控えめに
+   ======================================== */
+
+.cta-prefooter__note {
+    /* ボタンの下の余白（最短即日返信）が遠いなら */
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.62);
+    margin-bottom: 0;
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+
+@media (max-width: 900px) {
+    .cta-prefooter__inner {
+        padding: clamp(48px, 6vw, 72px) clamp(16px, 4vw, 32px);
+    }
+    
+    .cta-prefooter__button {
+        width: 100%;
+    }
+}

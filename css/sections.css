@@ -1,37 +1,33 @@
 @charset "UTF-8";
 
-/* ========================================
-   Sections Index (セクションインデックス)
-   ======================================== */
+/* =================================================
+   Sections Index（セクションインデックス）
+   このファイルは @import とコメント専用です
+   セレクタ定義は禁止（共通はcomponents.css、ページ固有はpages/*.css）
+   ================================================= */
 
-/* 共通スタイル（最優先） */
-@import "./sections/common.css";
-
-/* ページ共通（hero--netyear と page-hero-common--netyear を含む） */
-@import "./sections/page-hero-common.css";
-
-/* トップページセクション */
-@import "./sections/top-services.css";
-@import "./sections/value-block.css";
+/* =================================================
+   Global shared sections（グローバル共有セクション）
+   ================================================= */
 @import "./sections/notice.css";
-@import "./sections/problem.css";
-@import "./sections/top-column.css";
-@import "./sections/column.css";
-@import "./sections/cta-prefooter.css";
 
-/* サービス関連 */
-@import "./sections/service-area.css";
-@import "./sections/service-creative.css";
+/* =================================================
+   Home only（TOP専用）
+   ================================================= */
+@import "./pages/home.css";
 
-/* フロー・その他 */
+/* =================================================
+   Blog system（ブログ・ニュースシステム）
+   ================================================= */
+@import "./pages/blog.css";
+
+/* =================================================
+   Page specific（ページ固有）
+   ================================================= */
 @import "./sections/flow.css";
-@import "./sections/about-links.css";
 @import "./sections/about.css";
-@import "./sections/company-data.css";
 @import "./sections/about-cta.css";
-@import "./sections/post-page.css";
-@import "./sections/case.css";
-
-/* リストページ */
-@import "./sections/news-list-page.css";
-@import "./sections/column-list-page.css";
+@import "./sections/about-links.css";
+@import "./sections/company-data.css";
+@import "./sections/service-creative.css";
+@import "./sections/column.css";
