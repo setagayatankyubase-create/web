@@ -93,6 +93,9 @@ Utils.onReady(async function() {
     await window.loadPartial("#site-header", "partials/header.html");
     await window.loadPartial("#site-footer", "partials/footer.html");
     
+    // ヘッダー注入完了イベントを投げる（megaMenu.js用）
+    document.dispatchEvent(new Event('site:header-ready'));
+    
     // ヘッダー読み込み後、お知らせスクロールを描画
     if (typeof window.renderHeaderNews === 'function') {
         await window.renderHeaderNews();

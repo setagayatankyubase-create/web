@@ -47,6 +47,8 @@
     --content-pad-x: clamp(16px, 4vw, 56px);
     --ui-line: rgba(0, 0, 0, 0.08);
     --ui-line-dark: rgba(255, 255, 255, 0.12);
+    /* メガメニューのギャップ（ヘッダー下端からの余白） */
+    --mega-gap: 14px;
     /* アクセントカラー */
     --accent-light: #E6F3F1;
     --accent-main: #6FBDB3;
