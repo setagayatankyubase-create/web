@@ -114,6 +114,11 @@ Utils.onReady(async function() {
         await window.renderHeaderNews();
     }
     
+    // TOPページの重要なお知らせを描画
+    if (typeof window.renderNoticeList === 'function') {
+        await window.renderNoticeList();
+    }
+    
     // CTAを読み込む（存在する場合のみ）
     const ctaContainer = document.querySelector("#site-cta");
     if (ctaContainer) {

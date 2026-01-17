@@ -90,7 +90,7 @@
                         <span class="section-head__badge">FEATURE</span>
                     </div>
                     <h2 class="section-head__title">現場の理解から、<br>伝わる設計へ。<br>成果につながる<br>HPを制作します。</h2>
-                    <p class="section-head__lead">テンプレートに当てはめるのではなく、事業の強みが正しく伝わる形を設計します。ヒアリングから制作、公開、運用・改善まで。HP制作を一貫してサポートします。</p>
+                    <p class="section-head__lead">テンプレートを活用しながら、事業の強みが正しく伝わる形を設計します。ヒアリングから制作、公開、運用・改善まで。HP制作を一貫してサポートします。</p>
                 </header>
             </div>
             <div class="value-block__visual">
@@ -158,22 +158,8 @@
                 </header>
             </div>
             <div class="notice__list-wrapper">
-                <ul class="notice-list">
-                    <li class="notice-item">
-                        <time class="notice-item__date" datetime="2024-12-01">2024.12.01</time>
-                        <span class="notice-item__tag">受付状況</span>
-                        <a href="#" class="notice-item__title" role="button" aria-disabled="true" tabindex="-1">現在、2025年1月以降の制作枠を承っております。</a>
-                    </li>
-                    <li class="notice-item">
-                        <time class="notice-item__date" datetime="2024-11-15">2024.11.15</time>
-                        <span class="notice-item__tag">対応エリア</span>
-                        <a href="#" class="notice-item__title" role="button" aria-disabled="true" tabindex="-1">関東圏を中心に現地訪問対応しております。</a>
-                    </li>
-                    <li class="notice-item">
-                        <time class="notice-item__date" datetime="2024-10-01">2024.10.01</time>
-                        <span class="notice-item__tag">サービス</span>
-                        <a href="#" class="notice-item__title" role="button" aria-disabled="true" tabindex="-1">月額サポートプランの提供を開始いたしました。</a>
-                    </li>
+                <ul class="notice-list" id="notice-list">
+                    <!-- JSで動的に生成 -->
                 </ul>
             </div>
         </div>
@@ -208,12 +194,12 @@
             <article class="top-service-row is-even">
                 <p class="top-service-row__big-num">02</p>
                 <figure class="top-service-row__media">
-                    <img src="assets/img/33590457_m.jpg" alt="写真撮影・文章作成" loading="lazy" width="600" height="400" decoding="async">
+                    <img src="assets/img/33590457_m.jpg" alt="HP制作" loading="lazy" width="600" height="400" decoding="async">
                 </figure>
                 <div class="top-service-row__body">
                     <p class="top-service-row__label">CONTENT CREATION</p>
-                    <h3 class="top-service-row__heading">写真撮影・文章作成</h3>
-                    <p class="top-service-row__text">必要な写真と文章はこちらで用意します。「何を載せるべきか分からない」状態でも、目的から逆算して情報を整えられます。見せたい印象に合わせて、写真のトーンと文章の温度感を揃え、ページ全体の統一感をつくります。</p>
+                    <h3 class="top-service-row__heading">HP制作</h3>
+                    <p class="top-service-row__text">必要な写真と文章はお客様にご用意いただきます。「何を載せるべきか分からない」状態でも、目的から逆算して必要な情報をご案内します。見せたい印象に合わせて、写真のトーンと文章の温度感を揃え、ページ全体の統一感をつくります。</p>
                     <a class="top-service-row__cta" href="service.html#content">詳しく見る<span aria-hidden="true">→</span></a>
                 </div>
             </article>
@@ -244,125 +230,6 @@
                 <circle class="net-lines__node" cx="250" cy="120" r="6" />
                 <circle class="net-lines__node" cx="360" cy="80" r="6" />
             </svg>
-        </div>
-    </section>
-
-    <!-- 制作実績 -->
-    <section class="works section section--muted" aria-labelledby="works-title" data-anim="reveal">
-        <div class="section-bg-text" aria-hidden="true">WORKS</div>
-        <div class="section-inner">
-            <header class="section-head">
-                <div class="section-head__level">
-                    <p class="section-head__eyebrow">WORKS</p>
-                    <span class="section-head__badge">CASES</span>
-                </div>
-                <h2 id="works-title" class="section-head__title">制作実績</h2>
-                <p class="section-head__lead">実際の制作事例をご紹介します。</p>
-            </header>
-
-            <div class="works-grid">
-                <article class="works-item">
-                    <div class="works-item__media">
-                        <img
-                            src="assets/img/weee.png"
-                            alt="Webサイト制作実績（PC・スマートフォン表示）"
-                            loading="lazy"
-                        >
-                    </div>
-
-                    <div class="works-item__body">
-                        <h3 class="works-item__name">
-                            株式会社○○
-                        </h3>
-
-                        <p class="works-item__summary">
-                            コーポレートサイト制作
-                        </p>
-
-                        <p class="works-item__desc">
-                            新規事業展開に伴い、ブランドイメージを刷新するため、コーポレートサイトを全面リニューアルしました。
-                            企業理念を視覚的に表現したデザインと、直感的なナビゲーションを実現。
-                            その結果、採用応募数が前年比で40%増加し、新規取引先からの問い合わせも大幅に増加しました。
-                            また、CMSを導入することで、更新作業の効率化を実現し、運用コストを削減できました。
-                        </p>
-
-                        <ul class="works-item__tags">
-                            <li>#WEB制作</li>
-                            <li>#ブランディング</li>
-                            <li>#CMS</li>
-                            <li>#採用支援</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <article class="works-item">
-                    <div class="works-item__media">
-                        <img
-                            src="assets/img/weee.png"
-                            alt="Webサイト制作実績（PC・スマートフォン表示）"
-                            loading="lazy"
-                        >
-                    </div>
-
-                    <div class="works-item__body">
-                        <h3 class="works-item__name">
-                            株式会社○○
-                        </h3>
-
-                        <p class="works-item__summary">
-                            多言語対応ECサイト構築
-                        </p>
-
-                        <p class="works-item__desc">
-                            海外展開を強化するため、多言語対応のECサイトを新規構築しました。
-                            日本語・英語・中国語の3言語に対応し、各国の文化や商習慣を考慮したUI/UXデザインを実現。
-                            その結果、海外からの注文数が前年比で3倍に増加し、売上も大幅に向上しました。
-                            また、決済システムの多様化により、コンバージョン率が業界平均を上回る成果を達成しました。
-                        </p>
-
-                        <ul class="works-item__tags">
-                            <li>#EC構築</li>
-                            <li>#多言語対応</li>
-                            <li>#国際化</li>
-                            <li>#CVR改善</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <article class="works-item">
-                    <div class="works-item__media">
-                        <img
-                            src="assets/img/weee.png"
-                            alt="Webサイト制作実績（PC・スマートフォン表示）"
-                            loading="lazy"
-                        >
-                    </div>
-
-                    <div class="works-item__body">
-                        <h3 class="works-item__name">
-                            株式会社○○
-                        </h3>
-
-                        <p class="works-item__summary">
-                            ポートフォリオサイト制作
-                        </p>
-
-                        <p class="works-item__desc">
-                            デザイン事務所のブランディング強化のため、ポートフォリオサイトを制作しました。
-                            作品を効果的に見せるためのギャラリーレイアウトと、直感的な操作性を両立したデザインを実現。
-                            その結果、新規クライアントからの問い合わせが前年比で50%増加し、受注率も向上しました。
-                            また、SNSとの連携機能を追加することで、ソーシャルメディアからの流入も大幅に増加しました。
-                        </p>
-
-                        <ul class="works-item__tags">
-                            <li>#WEB制作</li>
-                            <li>#ポートフォリオ</li>
-                            <li>#ブランディング</li>
-                            <li>#SNS連携</li>
-                        </ul>
-                    </div>
-                </article>
-            </div>
         </div>
     </section>
 

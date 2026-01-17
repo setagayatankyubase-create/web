@@ -129,16 +129,28 @@ function getNewsLinkUrl(itemUrl) {
 // コラムリンクURLを生成
 function getColumnLinkUrl(itemUrl) {
     const currentPath = window.location.pathname;
-    const isColumnPage = currentPath.includes('/column/') && !currentPath.includes('/post.html');
+    const isColumnPostPage = currentPath.includes('/column/post.html');
+    const isColumnListPage = currentPath.includes('/column/') && !currentPath.includes('/post.html');
     
-    if (isColumnPage) {
-        // COLUMNページからは、column/プレフィックスを削除
+    if (isColumnPostPage) {
+        // コラムのpost.htmlからは、同じディレクトリ内のpost.htmlを参照
+        // column/post.html?id=xxx 形式のURLから post.html?id=xxx に変換
+        if (itemUrl.startsWith('column/post.html')) {
+            return itemUrl.replace('column/post.html', 'post.html');
+        }
+        // 既に post.html?id=xxx 形式の場合はそのまま
+        if (itemUrl.startsWith('post.html')) {
+            return itemUrl;
+        }
+        return itemUrl;
+    } else if (isColumnListPage) {
+        // COLUMN一覧ページからは、column/プレフィックスを削除
         if (itemUrl.startsWith('column/')) {
             return itemUrl.replace('column/', '');
         }
         return itemUrl;
     } else {
-        // TOPページからはそのまま
+        // TOPページなどからはそのまま
         return itemUrl;
     }
 }
@@ -818,70 +830,111 @@ async function renderPostContent() {
             }
         }
         
-        // サイドバー：カテゴリを表示（3つすべて常に表示）
+        // サイドバー：カテゴリを表示
         const categoriesList = document.getElementById('post-categories');
         if (categoriesList) {
-            // 定義されている3つのカテゴリ（お知らせ、トピックス、セミナー）
-            const allCategories = [
-                { name: 'お知らせ', slug: 'notice' },
-                { name: 'トピックス', slug: 'topics' },
-                { name: 'セミナー', slug: 'seminar' }
-            ];
-            
-            // データから各カテゴリの記事数をカウント
-            const categoryMap = new Map(); // key: slug, value: {name, count}
-            
-            // まず、すべてのカテゴリを初期化
-            allCategories.forEach(cat => {
-                categoryMap.set(cat.slug, { name: cat.name, count: 0 });
-            });
-            
-            // データから記事数をカウント（各記事は必ずどれかのカテゴリに属している）
-            data.forEach(item => {
-                const slug = getCategorySlug(item);
-                if (categoryMap.has(slug)) {
+            if (isColumn) {
+                // コラムの場合：columns.jsonのデータからカテゴリを集計
+                const categoryMap = new Map(); // key: slug, value: {name, count}
+                
+                // データからカテゴリを集計
+                data.forEach(item => {
+                    const slug = getCategorySlug(item);
+                    const categoryName = item.category || slug;
+                    
+                    if (!categoryMap.has(slug)) {
+                        categoryMap.set(slug, { name: categoryName, count: 0 });
+                    }
                     categoryMap.get(slug).count++;
-                }
-            });
-            
-            // 3つすべてのカテゴリを表示（記事数が0でも表示）
-            categoriesList.innerHTML = '';
-            allCategories.forEach(cat => {
-                const info = categoryMap.get(cat.slug);
-                const count = info ? info.count : 0;
+                });
                 
-                const li = document.createElement('li');
-                li.className = 'post-sidebar__category';
+                // カテゴリを表示（コラムデータから取得したもののみ）
+                categoriesList.innerHTML = '';
+                const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => {
+                    // カウントが多い順、同じなら名前順
+                    if (b[1].count !== a[1].count) {
+                        return b[1].count - a[1].count;
+                    }
+                    return a[1].name.localeCompare(b[1].name, 'ja');
+                });
                 
-                // カテゴリページへのリンク（各カテゴリの個別ページ）
-                // カテゴリスラッグとページ名のマッピング
-                const categoryPageMap = {
-                    'notice': 'press.html',   // お知らせ → press.html
-                    'topics': 'topics.html',  // トピックス → topics.html
-                    'seminar': 'seminar.html' // セミナー → seminar.html
-                };
+                sortedCategories.forEach(([slug, info]) => {
+                    const li = document.createElement('li');
+                    li.className = 'post-sidebar__category';
+                    
+                    const categoryUrl = `index.html?category=${encodeURIComponent(slug)}`;
+                    const currentCategorySlug = getCategorySlug(postData);
+                    const isActive = slug === currentCategorySlug;
+                    
+                    li.innerHTML = `
+                        <a href="${categoryUrl}" class="post-sidebar__category-link ${isActive ? 'is-active' : ''}">
+                            ${info.name}
+                            <span class="post-sidebar__category-count">(${info.count})</span>
+                        </a>
+                    `;
+                    categoriesList.appendChild(li);
+                });
+            } else {
+                // ニュースの場合：定義されている3つのカテゴリ（お知らせ、トピックス、セミナー）
+                const allCategories = [
+                    { name: 'お知らせ', slug: 'notice' },
+                    { name: 'トピックス', slug: 'topics' },
+                    { name: 'セミナー', slug: 'seminar' }
+                ];
                 
-                const categoryUrl = isColumn 
-                    ? `index.html?category=${encodeURIComponent(cat.slug)}` // コラムの場合は一覧ページ
-                    : (categoryPageMap[cat.slug] || `index.html?category=${encodeURIComponent(cat.slug)}`); // ニュースの場合は各カテゴリページ
+                // データから各カテゴリの記事数をカウント
+                const categoryMap = new Map(); // key: slug, value: {name, count}
                 
-                const currentCategorySlug = getCategorySlug(postData);
-                const isActive = cat.slug === currentCategorySlug;
+                // まず、すべてのカテゴリを初期化
+                allCategories.forEach(cat => {
+                    categoryMap.set(cat.slug, { name: cat.name, count: 0 });
+                });
                 
-                li.innerHTML = `
-                    <a href="${categoryUrl}" class="post-sidebar__category-link ${isActive ? 'is-active' : ''}">
-                        ${cat.name}
-                        <span class="post-sidebar__category-count">(${count})</span>
-                    </a>
-                `;
-                categoriesList.appendChild(li);
-            });
+                // データから記事数をカウント（各記事は必ずどれかのカテゴリに属している）
+                data.forEach(item => {
+                    const slug = getCategorySlug(item);
+                    if (categoryMap.has(slug)) {
+                        categoryMap.get(slug).count++;
+                    }
+                });
+                
+                // 3つすべてのカテゴリを表示（記事数が0でも表示）
+                categoriesList.innerHTML = '';
+                allCategories.forEach(cat => {
+                    const info = categoryMap.get(cat.slug);
+                    const count = info ? info.count : 0;
+                    
+                    const li = document.createElement('li');
+                    li.className = 'post-sidebar__category';
+                    
+                    // カテゴリページへのリンク（各カテゴリの個別ページ）
+                    // カテゴリスラッグとページ名のマッピング
+                    const categoryPageMap = {
+                        'notice': 'press.html',   // お知らせ → press.html
+                        'topics': 'topics.html',  // トピックス → topics.html
+                        'seminar': 'seminar.html' // セミナー → seminar.html
+                    };
+                    
+                    const categoryUrl = categoryPageMap[cat.slug] || `index.html?category=${encodeURIComponent(cat.slug)}`;
+                    const currentCategorySlug = getCategorySlug(postData);
+                    const isActive = cat.slug === currentCategorySlug;
+                    
+                    li.innerHTML = `
+                        <a href="${categoryUrl}" class="post-sidebar__category-link ${isActive ? 'is-active' : ''}">
+                            ${cat.name}
+                            <span class="post-sidebar__category-count">(${count})</span>
+                        </a>
+                    `;
+                    categoriesList.appendChild(li);
+                });
+            }
         }
         
-        // サイドバー：タグを表示（全データから集計）
+        // サイドバー：タグを表示（現在のデータソースから集計）
         const tagsList = document.getElementById('post-tags');
         if (tagsList) {
-            // 全データからタグを集計
+            // 現在読み込んでいるデータ（ニュースまたはコラム）からタグを集計
+            // コラムの場合はcolumns.jsonのみ、ニュースの場合はnews.jsonのみから集計
             const tagSet = new Set();
             data.forEach(item => {
                 if (item.tags && Array.isArray(item.tags)) {
@@ -906,13 +959,9 @@ async function renderPostContent() {
                     const tagLink = document.createElement('a');
                     tagLink.className = 'post-sidebar__tag-link';
                     
-                    // 現在のページがニュースかコラムかを判定
-                    const currentPath = window.location.pathname;
-                    const isColumn = currentPath.includes('/column/');
-                    
-                    // タグフィルター用のURLを生成
+                    // タグフィルター用のURLを生成（コラム/ニュースで分岐）
                     if (isColumn) {
-                        tagLink.href = `../column/index.html?tag=${encodeURIComponent(tag)}`;
+                        tagLink.href = `index.html?tag=${encodeURIComponent(tag)}`;
                     } else {
                         tagLink.href = `../news/index.html?tag=${encodeURIComponent(tag)}`;
                     }
@@ -933,6 +982,78 @@ async function renderPostContent() {
         console.log("[renderPostContent] completed");
     } catch (error) {
         console.error('[renderPostContent] Error loading post content:', error);
+    }
+}
+
+/**
+ * TOPページの重要なお知らせを描画
+ */
+async function renderNoticeList() {
+    console.log("[renderNoticeList] start");
+    
+    const noticeList = document.getElementById('notice-list');
+    if (!noticeList) {
+        console.log("[renderNoticeList] notice-list not found");
+        return;
+    }
+    
+    const jsonPath = getJsonPath('news.json');
+    console.log("[renderNoticeList] jsonPath:", jsonPath);
+    
+    try {
+        const response = await fetch(jsonPath);
+        if (!response.ok) {
+            throw new Error("Fetch failed: " + response.status);
+        }
+        
+        const newsData = await response.json();
+        console.log("[renderNoticeList] newsData loaded:", newsData.length, "items");
+        
+        // important: true の記事のみを取得（厳密にチェック）
+        const importantNews = newsData.filter(item => {
+            const isImportant = item.important === true;
+            if (isImportant) {
+                console.log("[renderNoticeList] Found important item:", item.title, "important:", item.important);
+            }
+            return isImportant;
+        });
+        console.log("[renderNoticeList] importantNews:", importantNews.length, "items (filtered from", newsData.length, "total)");
+        
+        if (importantNews.length === 0) {
+            console.log("[renderNoticeList] No important news found");
+            return;
+        }
+        
+        // 日付でソート（新しい順）
+        importantNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // リストをクリア
+        noticeList.innerHTML = '';
+        
+        // 各記事を表示
+        importantNews.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'notice-item';
+            
+            // 日付をフォーマット（YYYY.MM.DD）
+            const dateObj = new Date(item.date);
+            const formattedDate = `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+            
+            // カテゴリ名を取得（タグの最初の要素を使用、またはカテゴリ名）
+            const categoryName = item.tags && item.tags.length > 0 ? item.tags[0] : item.category;
+            
+            li.innerHTML = `
+                <time class="notice-item__date" datetime="${item.date}">${formattedDate}</time>
+                <span class="notice-item__tag">${categoryName}</span>
+                <a href="${item.url}" class="notice-item__title">${item.title}</a>
+            `;
+            
+            noticeList.appendChild(li);
+        });
+        
+        console.log("[renderNoticeList] completed");
+    } catch (error) {
+        console.error('[renderNoticeList] Error loading news.json:', error);
     }
 }
 
@@ -1049,3 +1170,4 @@ window.renderTopColumns = renderTopColumns;
 window.renderColumnListPage = renderColumnListPage;
 window.renderPostContent = renderPostContent;
 window.renderHeaderNews = renderHeaderNews;
+window.renderNoticeList = renderNoticeList;
