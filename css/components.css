@@ -285,7 +285,10 @@ a:hover .link-arrow-inline::after {
 /* news-blockはVALUEセクションと同じ余白（TOPページ・NEWSページ共通） */
 .news-block .section-inner {
     max-width: 1200px;
-    padding-inline: var(--content-pad-x);
+    padding-left: var(--content-pad-x);
+    padding-right: var(--content-pad-x);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .news-list {
@@ -931,7 +934,10 @@ a:hover .link-arrow-inline::after {
 .section-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding-inline: var(--content-pad-x);
+    padding-left: var(--content-pad-x);
+    padding-right: var(--content-pad-x);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* ========================================
@@ -1445,10 +1451,11 @@ body > .net-lines {
     min-height: calc(100svh - var(--header-total-h));
     height: calc(100svh - var(--header-total-h));
     margin-top: 0;
-    padding-top: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     display: flex;
     align-items: center;
-    padding-bottom: 0;
+    /* .sectionクラスのデフォルトpaddingを上書き */
 }
 
 /* ヒーローセクション専用の背景テキスト */
@@ -1485,20 +1492,26 @@ body > .net-lines {
 .hero--netyear .hero__inner {
     position: relative;
     z-index: 2;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: var(--content-pad-x);
+    padding-right: var(--content-pad-x);
     display: grid;
     grid-template-columns: 1.6fr 1fr;
     gap: clamp(16px, 4vw, 64px);
     align-items: center;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
     background-image: none !important;
+    /* .section-innerのスタイルを継承しつつ、上下パディングを0に */
 }
 
 /* TOPページ専用のパディング調整 */
 body.home .hero--netyear .hero__inner {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 body.home .hero--netyear .hero__copy {
@@ -1682,11 +1695,16 @@ body.home {
     z-index: 2;
     padding-top: clamp(16px, 2vw, 32px);
     padding-left: var(--content-pad-x);
+    padding-right: var(--content-pad-x);
     display: grid;
     grid-template-columns: 1fr;
     align-content: center;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
     background-image: none !important;
+    /* 統一された余白システムを使用 */
 }
 
 /* 既存の疑似要素を無効化 */
@@ -1746,7 +1764,7 @@ body.home {
 /* パンくずリストを右下に配置 */
 .page-hero-common--netyear .page-hero-common__breadcrumbs {
     position: absolute;
-    right: clamp(24px, 4vw, 72px);
+    right: var(--content-pad-x);
     bottom: clamp(32px, 5.5vw, 80px);
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -1765,6 +1783,9 @@ body.home {
     border-radius: var(--radius-pill);
     box-shadow: none;
     transform: none;
+    /* 統一された余白システムを使用 */
+    max-width: calc(100% - (var(--content-pad-x) * 2));
+    box-sizing: border-box;
 }
 
 .page-hero-common--netyear .page-hero-common__breadcrumbs a {
@@ -1824,12 +1845,13 @@ section.page-hero-common--netyear .section-bg-text,
     .hero--netyear {
         min-height: auto;
         height: auto;
-        padding-top: clamp(32px, 5vw, 48px);
-        padding-bottom: clamp(32px, 5vw, 48px);
+        padding-top: clamp(32px, 5vw, 48px) !important;
+        padding-bottom: clamp(32px, 5vw, 48px) !important;
     }
 
-
     .hero--netyear .hero__inner {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
         grid-template-columns: 1fr;
         align-items: start;
         gap: clamp(32px, 6vw, 48px);
@@ -1870,6 +1892,9 @@ section.page-hero-common--netyear .section-bg-text,
     .page-hero-common--netyear .page-hero-common__content {
         padding-top: clamp(24px, 4vw, 48px);
         padding-bottom: clamp(24px, 4vw, 48px);
+        padding-left: var(--content-pad-x);
+        padding-right: var(--content-pad-x);
+        /* モバイル版でも統一された余白システムを使用 */
     }
 
     .page-hero-common--netyear::before,
@@ -1883,8 +1908,12 @@ section.page-hero-common--netyear .section-bg-text,
         right: auto;
         bottom: auto;
         margin-top: clamp(32px, 6vw, 48px);
+        margin-left: 0;
+        margin-right: 0;
         align-self: flex-start;
         background: rgba(255, 255, 255, 0.95);
+        max-width: 100%;
+        /* モバイル版では親要素のpaddingで管理 */
     }
 }
 

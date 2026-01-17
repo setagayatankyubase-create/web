@@ -44,7 +44,7 @@
     /* ========================================
        共通の内側余白変数（見出し開始位置統一用）
        ======================================== */
-    --content-pad-x: clamp(16px, 4vw, 56px);
+    --content-pad-x: clamp(20px, 4vw, 56px);
     --ui-line: rgba(0, 0, 0, 0.08);
     --ui-line-dark: rgba(255, 255, 255, 0.12);
     /* メガメニューのギャップ（ヘッダー下端からの余白） */
@@ -168,6 +168,7 @@ body.home {
 
 html {
     overflow-x: hidden;
+    width: 100%;
 }
 
 body {
@@ -184,6 +185,7 @@ body {
     transition: opacity var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
     overflow-x: hidden;
     width: 100%;
+    max-width: 100vw;
 }
 
 /* モバイルメニュー開いている時はbodyのスクロールを無効化 */
