@@ -320,11 +320,6 @@ Utils.onReady(async function() {
         })();
     }
     
-    // ===== フローティングCTA =====
-    if (typeof window.initFloatingCta === 'function') {
-        window.initFloatingCta();
-    }
-    
     // ===== ニュース・コラムデータの描画 =====
     try {
         // ヘッダーのお知らせスクロールは上で既に描画済み
