@@ -4,31 +4,39 @@ console.log("[BOOT]", location.pathname, "baseURI:", document.baseURI);
 
 // カテゴリスラッグと表示名のマッピング（フォールバック用）
 const categorySlugMap = {
-    'production-slot': '制作枠',
-    'article': '記事公開',
-    'price': '価格',
-    'service': 'サービス',
-    'philosophy': '考え方',
-    'production': '制作',
-    'update': '更新'
+    'notice': 'お知らせ',
+    'topics': 'トピックス',
+    'seminar': 'セミナー'
 };
 
 // カテゴリ名からスラッグを取得（categorySlugがない場合のフォールバック）
 function getCategorySlug(item) {
-    if (item.categorySlug) {
+    // カテゴリ名から確実にスラッグを取得（優先）
+    const categoryToSlugMap = {
+        'お知らせ': 'notice',
+        'トピックス': 'topics',
+        'セミナー': 'seminar'
+    };
+    
+    // デバッグ用：データの確認
+    if (!item.category) {
+        console.warn("[getCategorySlug] item.category is missing:", item);
+    }
+    
+    // カテゴリ名からスラッグを取得（確実に正しいスラッグを返す）
+    if (item.category && categoryToSlugMap[item.category]) {
+        const slug = categoryToSlugMap[item.category];
+        return slug;
+    }
+    
+    // categorySlugが存在し、かつ正しい値の場合のみ使用
+    if (item.categorySlug && (item.categorySlug === 'notice' || item.categorySlug === 'topics' || item.categorySlug === 'seminar')) {
         return item.categorySlug;
     }
-    // フォールバック：カテゴリ名からスラッグを生成
-    const slugMap = {
-        '制作枠': 'production-slot',
-        '記事公開': 'article',
-        '価格': 'price',
-        'サービス': 'service',
-        '考え方': 'philosophy',
-        '制作': 'production',
-        '更新': 'update'
-    };
-    return slugMap[item.category] || item.category.toLowerCase().replace(/\s+/g, '-');
+    
+    // フォールバック
+    console.warn("[getCategorySlug] fallback used for item:", item.title, "category:", item.category, "categorySlug:", item.categorySlug);
+    return item.category ? categoryToSlugMap[item.category] || item.category.toLowerCase().replace(/\s+/g, '-') : 'notice';
 }
 
 // スラッグからカテゴリ名を取得
@@ -68,7 +76,9 @@ function getJsonPath(filename) {
     }
     // pathParts.length <= 1 または web/ 直下の場合は basePath は空文字列
     
-    const jsonPath = `${basePath}assets/data/${filename}`;
+    // キャッシュバスティング用のタイムスタンプを追加（開発時のみ）
+    const timestamp = Date.now();
+    const jsonPath = `${basePath}assets/data/${filename}?v=${timestamp}`;
     console.log("[getJsonPath] currentPath:", currentPath, "pathParts:", pathParts, "basePath:", basePath, "result:", jsonPath);
     return jsonPath;
 }
@@ -160,15 +170,25 @@ async function renderNewsBlock() {
         const newsData = await response.json();
         console.log("[renderNewsBlock] loaded", newsData.length, "items");
         
-        // URLパラメータからカテゴリフィルタを取得（英語スラッグ）
+        // URLパラメータからカテゴリフィルタとタグフィルタを取得
         const urlParams = new URLSearchParams(window.location.search);
         const filterCategorySlug = urlParams.get('category');
+        const filterTag = urlParams.get('tag');
         
         // カテゴリスラッグでフィルタリング
         let filteredData = newsData;
         if (filterCategorySlug) {
-            filteredData = newsData.filter(item => getCategorySlug(item) === filterCategorySlug);
+            filteredData = filteredData.filter(item => getCategorySlug(item) === filterCategorySlug);
             console.log("[renderNewsBlock] filtered by category slug:", filterCategorySlug, "items:", filteredData.length);
+        }
+        
+        // タグでフィルタリング
+        if (filterTag) {
+            filteredData = filteredData.filter(item => {
+                if (!item.tags || !Array.isArray(item.tags)) return false;
+                return item.tags.some(tag => tag === filterTag);
+            });
+            console.log("[renderNewsBlock] filtered by tag:", filterTag, "items:", filteredData.length);
         }
         
         // 各ニュースリストに対して処理
@@ -190,24 +210,10 @@ async function renderNewsBlock() {
             // テンプレートを非表示にする（または削除）
             template.style.display = 'none';
             
-            // セクションタイプを判定（親セクションのbadgeテキストから）
-            const section = listContainer.closest('.news-block');
+            // セクションタイプを判定
             let sectionType = 'all'; // デフォルトはすべて
-            if (section) {
-                const badge = section.querySelector('.section-head__badge');
-                if (badge) {
-                    const badgeText = badge.textContent.trim().toUpperCase();
-                    if (badgeText === 'RELEASES') {
-                        sectionType = 'releases';
-                    } else if (badgeText === 'TOPICS') {
-                        sectionType = 'topics';
-                    } else if (badgeText === 'SEMINAR') {
-                        sectionType = 'seminar';
-                    }
-                }
-            }
             
-            // 現在のページパスからも判定
+            // まず、現在のページパスから判定（優先）
             const currentPath = window.location.pathname;
             if (currentPath.includes('/press.html')) {
                 sectionType = 'releases';
@@ -215,14 +221,58 @@ async function renderNewsBlock() {
                 sectionType = 'topics';
             } else if (currentPath.includes('/seminar.html')) {
                 sectionType = 'seminar';
+            } else {
+                // ページパスで判定できない場合、親セクションのbadgeテキストから判定
+                const section = listContainer.closest('.news-block');
+                if (section) {
+                    const badge = section.querySelector('.section-head__badge');
+                    if (badge) {
+                        const badgeText = badge.textContent.trim().toUpperCase();
+                        if (badgeText === 'RELEASES') {
+                            sectionType = 'releases';
+                        } else if (badgeText === 'TOPICS') {
+                            sectionType = 'topics';
+                        } else if (badgeText === 'SEMINAR') {
+                            sectionType = 'seminar';
+                        }
+                    }
+                }
             }
             
             // セクションタイプとカテゴリでフィルタリング
-            let sectionFilteredData = newsData;
+            // タグフィルターが適用されたfilteredDataを使用
+            let sectionFilteredData = filteredData;
             
-            // カテゴリスラッグフィルタが指定されている場合は適用
+            // セクションタイプをカテゴリスラッグにマッピング
+            const sectionTypeToCategorySlug = {
+                'releases': 'notice',  // RELEASES → お知らせ
+                'topics': 'topics',    // TOPICS → トピックス
+                'seminar': 'seminar'   // SEMINAR → セミナー
+            };
+            
+            console.log("[renderNewsBlock] sectionType:", sectionType, "filterCategorySlug:", filterCategorySlug, "filterTag:", filterTag);
+            
+            // URLパラメータのカテゴリフィルタを優先
             if (filterCategorySlug) {
+                // URLパラメータで指定されたカテゴリでフィルタリング（タグフィルターは既に適用済み）
                 sectionFilteredData = sectionFilteredData.filter(item => getCategorySlug(item) === filterCategorySlug);
+                console.log("[renderNewsBlock] filtered by URL param category:", filterCategorySlug, "items:", sectionFilteredData.length);
+            } else if (sectionType !== 'all') {
+                // セクションタイプに基づいてカテゴリでフィルタリング
+                const categorySlugForSection = sectionTypeToCategorySlug[sectionType];
+                if (categorySlugForSection) {
+                    console.log("[renderNewsBlock] filtering by section type:", sectionType, "category:", categorySlugForSection);
+                    console.log("[renderNewsBlock] before filter - items:", sectionFilteredData.length);
+                    sectionFilteredData = sectionFilteredData.filter(item => {
+                        const itemCategorySlug = getCategorySlug(item);
+                        const matches = itemCategorySlug === categorySlugForSection;
+                        if (!matches) {
+                            console.log("[renderNewsBlock] filtered out:", item.title, "item.category:", item.category, "item.categorySlug:", item.categorySlug, "resolved slug:", itemCategorySlug, "expected:", categorySlugForSection);
+                        }
+                        return matches;
+                    });
+                    console.log("[renderNewsBlock] after filter - items:", sectionFilteredData.length);
+                }
             }
             
             // JSONデータから要素を生成（フィルタリング済みデータを使用）
@@ -404,15 +454,25 @@ async function renderColumnListPage() {
         const columnsData = await response.json();
         console.log("[renderColumnListPage] loaded", columnsData.length, "items");
         
-        // URLパラメータからカテゴリフィルタを取得（英語スラッグ）
+        // URLパラメータからカテゴリフィルタとタグフィルタを取得
         const urlParams = new URLSearchParams(window.location.search);
         const filterCategorySlug = urlParams.get('category');
+        const filterTag = urlParams.get('tag');
         
         // カテゴリスラッグでフィルタリング
         let filteredData = columnsData;
         if (filterCategorySlug) {
-            filteredData = columnsData.filter(item => getCategorySlug(item) === filterCategorySlug);
+            filteredData = filteredData.filter(item => getCategorySlug(item) === filterCategorySlug);
             console.log("[renderColumnListPage] filtered by category slug:", filterCategorySlug, "items:", filteredData.length);
+        }
+        
+        // タグでフィルタリング
+        if (filterTag) {
+            filteredData = filteredData.filter(item => {
+                if (!item.tags || !Array.isArray(item.tags)) return false;
+                return item.tags.some(tag => tag === filterTag);
+            });
+            console.log("[renderColumnListPage] filtered by tag:", filterTag, "items:", filteredData.length);
         }
         
         // テンプレート要素を取得
@@ -607,6 +667,44 @@ async function renderPostContent() {
         // 日付のフォーマット（YYYY-MM-DD -> YYYY.MM.DD）
         const formattedDate = postData.date.replace(/-/g, '.');
         
+        // パンくずを生成
+        const breadcrumbEl = document.getElementById('breadcrumb');
+        if (breadcrumbEl) {
+            const breadcrumbList = document.createElement('ul');
+            breadcrumbList.className = 'breadcrumb__list';
+            
+            // ホームへのリンク
+            const homeItem = document.createElement('li');
+            homeItem.className = 'breadcrumb__item';
+            const homeLink = document.createElement('a');
+            homeLink.className = 'breadcrumb__link';
+            homeLink.href = isColumn ? '../../index.html' : '../../index.html';
+            homeLink.textContent = 'ホーム';
+            homeItem.appendChild(homeLink);
+            breadcrumbList.appendChild(homeItem);
+            
+            // 一覧ページへのリンク
+            const listItem = document.createElement('li');
+            listItem.className = 'breadcrumb__item';
+            const listLink = document.createElement('a');
+            listLink.className = 'breadcrumb__link';
+            listLink.href = 'index.html';
+            listLink.textContent = isColumn ? 'コラム' : 'ニュース';
+            listItem.appendChild(listLink);
+            breadcrumbList.appendChild(listItem);
+            
+            // 現在の記事（リンクなし）
+            const currentItem = document.createElement('li');
+            currentItem.className = 'breadcrumb__item';
+            const currentLink = document.createElement('span');
+            currentLink.className = 'breadcrumb__link';
+            currentLink.textContent = postData.title;
+            currentItem.appendChild(currentLink);
+            breadcrumbList.appendChild(currentItem);
+            
+            breadcrumbEl.appendChild(breadcrumbList);
+        }
+        
         // データを挿入
         const dateEl = postArticle.querySelector('.post__date');
         if (dateEl) {
@@ -622,11 +720,6 @@ async function renderPostContent() {
         const titleEl = postArticle.querySelector('.post__title');
         if (titleEl) {
             titleEl.textContent = postData.title;
-        }
-        
-        const leadEl = postArticle.querySelector('.post__lead');
-        if (leadEl) {
-            leadEl.textContent = postData.excerpt || '';
         }
         
         const heroImgEl = postArticle.querySelector('.post__hero img');
@@ -646,10 +739,28 @@ async function renderPostContent() {
         const bodyEl = postArticle.querySelector('.post__body');
         if (bodyEl && postData.content && Array.isArray(postData.content)) {
             bodyEl.innerHTML = '';
-            postData.content.forEach(paragraph => {
-                const p = document.createElement('p');
-                p.textContent = paragraph;
-                bodyEl.appendChild(p);
+            postData.content.forEach(item => {
+                // オブジェクトの場合（見出し + 段落の構造）
+                if (typeof item === 'object' && item !== null) {
+                    // 見出しがある場合
+                    if (item.heading) {
+                        const h2 = document.createElement('h2');
+                        h2.className = 'post__heading';
+                        h2.textContent = item.heading;
+                        bodyEl.appendChild(h2);
+                    }
+                    // 段落がある場合
+                    if (item.paragraph) {
+                        const p = document.createElement('p');
+                        p.textContent = item.paragraph;
+                        bodyEl.appendChild(p);
+                    }
+                } else if (typeof item === 'string') {
+                    // 文字列の場合はそのまま段落として表示
+                    const p = document.createElement('p');
+                    p.textContent = item;
+                    bodyEl.appendChild(p);
+                }
             });
         }
         
@@ -695,44 +806,116 @@ async function renderPostContent() {
             }
         }
         
-        // サイドバー：カテゴリを表示
+        // サイドバー：カテゴリを表示（3つすべて常に表示）
         const categoriesList = document.getElementById('post-categories');
         if (categoriesList) {
-            // すべてのユニークなカテゴリを取得し、記事数をカウント（スラッグベース）
+            // 定義されている3つのカテゴリ（お知らせ、トピックス、セミナー）
+            const allCategories = [
+                { name: 'お知らせ', slug: 'notice' },
+                { name: 'トピックス', slug: 'topics' },
+                { name: 'セミナー', slug: 'seminar' }
+            ];
+            
+            // データから各カテゴリの記事数をカウント
             const categoryMap = new Map(); // key: slug, value: {name, count}
-            data.forEach(item => {
-                const slug = getCategorySlug(item);
-                if (!categoryMap.has(slug)) {
-                    categoryMap.set(slug, { name: item.category, count: 0 });
-                }
-                categoryMap.get(slug).count++;
+            
+            // まず、すべてのカテゴリを初期化
+            allCategories.forEach(cat => {
+                categoryMap.set(cat.slug, { name: cat.name, count: 0 });
             });
             
-            // カテゴリを記事数の多い順にソート
-            const sortedCategories = Array.from(categoryMap.entries())
-                .sort((a, b) => b[1].count - a[1].count);
+            // データから記事数をカウント（各記事は必ずどれかのカテゴリに属している）
+            data.forEach(item => {
+                const slug = getCategorySlug(item);
+                if (categoryMap.has(slug)) {
+                    categoryMap.get(slug).count++;
+                }
+            });
             
+            // 3つすべてのカテゴリを表示（記事数が0でも表示）
             categoriesList.innerHTML = '';
-            sortedCategories.forEach(([categorySlug, { name: categoryName, count }]) => {
+            allCategories.forEach(cat => {
+                const info = categoryMap.get(cat.slug);
+                const count = info ? info.count : 0;
+                
                 const li = document.createElement('li');
                 li.className = 'post-sidebar__category';
                 
-                // カテゴリページへのリンク（一覧ページにカテゴリスラッグパラメータ付き）
+                // カテゴリページへのリンク（各カテゴリの個別ページ）
+                // カテゴリスラッグとページ名のマッピング
+                const categoryPageMap = {
+                    'notice': 'press.html',   // お知らせ → press.html
+                    'topics': 'topics.html',  // トピックス → topics.html
+                    'seminar': 'seminar.html' // セミナー → seminar.html
+                };
+                
                 const categoryUrl = isColumn 
-                    ? `index.html?category=${encodeURIComponent(categorySlug)}`
-                    : `index.html?category=${encodeURIComponent(categorySlug)}`;
+                    ? `index.html?category=${encodeURIComponent(cat.slug)}` // コラムの場合は一覧ページ
+                    : (categoryPageMap[cat.slug] || `index.html?category=${encodeURIComponent(cat.slug)}`); // ニュースの場合は各カテゴリページ
                 
                 const currentCategorySlug = getCategorySlug(postData);
-                const isActive = categorySlug === currentCategorySlug;
+                const isActive = cat.slug === currentCategorySlug;
                 
                 li.innerHTML = `
                     <a href="${categoryUrl}" class="post-sidebar__category-link ${isActive ? 'is-active' : ''}">
-                        ${categoryName}
+                        ${cat.name}
                         <span class="post-sidebar__category-count">(${count})</span>
                     </a>
                 `;
                 categoriesList.appendChild(li);
             });
+        }
+        
+        // サイドバー：タグを表示（全データから集計）
+        const tagsList = document.getElementById('post-tags');
+        if (tagsList) {
+            // 全データからタグを集計
+            const tagSet = new Set();
+            data.forEach(item => {
+                if (item.tags && Array.isArray(item.tags)) {
+                    item.tags.forEach(tag => {
+                        if (tag && tag.trim()) {
+                            tagSet.add(tag.trim());
+                        }
+                    });
+                }
+            });
+            
+            // タグをソート（アルファベット順）
+            const sortedTags = Array.from(tagSet).sort();
+            
+            tagsList.innerHTML = '';
+            
+            if (sortedTags.length > 0) {
+                // 集計したタグを表示
+                sortedTags.forEach(tag => {
+                    const li = document.createElement('li');
+                    li.className = 'post-sidebar__tag';
+                    const tagLink = document.createElement('a');
+                    tagLink.className = 'post-sidebar__tag-link';
+                    
+                    // 現在のページがニュースかコラムかを判定
+                    const currentPath = window.location.pathname;
+                    const isColumn = currentPath.includes('/column/');
+                    
+                    // タグフィルター用のURLを生成
+                    if (isColumn) {
+                        tagLink.href = `../column/index.html?tag=${encodeURIComponent(tag)}`;
+                    } else {
+                        tagLink.href = `../news/index.html?tag=${encodeURIComponent(tag)}`;
+                    }
+                    
+                    tagLink.textContent = tag;
+                    li.appendChild(tagLink);
+                    tagsList.appendChild(li);
+                });
+            } else {
+                // タグがない場合の表示
+                const emptyLi = document.createElement('li');
+                emptyLi.className = 'post-sidebar__tag';
+                emptyLi.innerHTML = '<span style="color: var(--text-secondary); font-size: 13px;">タグはありません</span>';
+                tagsList.appendChild(emptyLi);
+            }
         }
         
         console.log("[renderPostContent] completed");

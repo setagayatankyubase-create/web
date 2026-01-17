@@ -341,6 +341,88 @@ Utils.onReady(async function() {
     
     // ===== コラムページ：カテゴリフィルター（renderColumnListPage内で処理されるため、ここでは削除） =====
     // カテゴリフィルターは renderColumnListPage() 内で動的に生成・設定される
+    
+    // ===== サイドバーStickyデバッグ =====
+    if (document.querySelector('.post-sidebar')) {
+        const sidebar = document.querySelector('.post-sidebar');
+        const computedStyle = window.getComputedStyle(sidebar);
+        const rect = sidebar.getBoundingClientRect();
+        
+        console.group('[SIDEBAR DEBUG]');
+        console.log('=== サイドバー要素 ===');
+        console.log('クラス:', sidebar.className);
+        console.log('位置情報:', `top: ${rect.top}px, left: ${rect.left}px, width: ${rect.width}px, height: ${rect.height}px`);
+        console.log('現在のスクロール位置:', `${window.scrollY}px`);
+        
+        console.log('\n=== 適用スタイル ===');
+        console.log(`position: ${computedStyle.position}`);
+        console.log(`top: ${computedStyle.top}`);
+        console.log(`z-index: ${computedStyle.zIndex}`);
+        console.log(`overflow: ${computedStyle.overflow}`);
+        console.log(`overflow-x: ${computedStyle.overflowX}`);
+        console.log(`overflow-y: ${computedStyle.overflowY}`);
+        console.log(`height: ${computedStyle.height}`);
+        console.log(`isolation: ${computedStyle.isolation}`);
+        
+        // 親要素のスタイル確認
+        console.log('\n=== 親要素のスタイル（階層順） ===');
+        let parent = sidebar.parentElement;
+        let depth = 0;
+        while (parent && depth < 5) {
+            const parentStyle = window.getComputedStyle(parent);
+            const parentClass = parent.className || parent.tagName.toLowerCase();
+            console.log(`\n[${depth}] ${parentClass}:`);
+            console.log(`  position: ${parentStyle.position}`);
+            console.log(`  overflow: ${parentStyle.overflow}`);
+            console.log(`  overflow-x: ${parentStyle.overflowX}`);
+            console.log(`  overflow-y: ${parentStyle.overflowY}`);
+            console.log(`  isolation: ${parentStyle.isolation}`);
+            console.log(`  height: ${parentStyle.height}`);
+            console.log(`  max-height: ${parentStyle.maxHeight}`);
+            parent = parent.parentElement;
+            depth++;
+        }
+        
+        // 親要素の高さとスクロールコンテキストを確認
+        console.log('\n=== 親要素の高さとスクロールコンテキスト ===');
+        const postPageInner = sidebar.parentElement;
+        const sectionInner = postPageInner?.parentElement;
+        const postPage = sectionInner?.parentElement;
+        
+        if (postPageInner) {
+            const innerRect = postPageInner.getBoundingClientRect();
+            console.log(`post-page__inner: height=${postPageInner.scrollHeight}px, clientHeight=${postPageInner.clientHeight}px`);
+        }
+        if (postPage) {
+            const pageRect = postPage.getBoundingClientRect();
+            console.log(`post-page: height=${postPage.scrollHeight}px, clientHeight=${postPage.clientHeight}px, offsetTop=${postPage.offsetTop}px`);
+            console.log(`サイドバーの相対位置: sidebar.offsetTop=${sidebar.offsetTop}px (親要素内での位置)`);
+        }
+        
+        // スクロール時の位置確認
+        let scrollCheckCount = 0;
+        let scrollTestDone = false;
+        const checkScroll = () => {
+            if (scrollCheckCount < 5 && !scrollTestDone) {
+                const newRect = sidebar.getBoundingClientRect();
+                const newStyle = window.getComputedStyle(sidebar);
+                const expectedTop = parseFloat(newStyle.top) || 140;
+                const isStuck = Math.abs(newRect.top - expectedTop) < 5; // 5pxの誤差を許容
+                console.log(`\n[スクロール時 ${scrollCheckCount + 1}] scrollY: ${window.scrollY.toFixed(1)}px, top: ${newRect.top.toFixed(1)}px (期待値: ${expectedTop}px), position: ${newStyle.position}, 固定中: ${isStuck}`);
+                scrollCheckCount++;
+                if (scrollCheckCount >= 5) {
+                    scrollTestDone = true;
+                    console.log('\n=== スクロールテスト完了 ===');
+                    console.log('サイドバーが期待通りに固定されない場合は、親要素の高さが不足している可能性があります。');
+                    window.removeEventListener('scroll', checkScroll);
+                }
+            }
+        };
+        window.addEventListener('scroll', checkScroll, { once: false, passive: true });
+        
+        console.groupEnd();
+    }
+    
     } catch (error) {
         console.error("[INIT ERROR]", error);
     }

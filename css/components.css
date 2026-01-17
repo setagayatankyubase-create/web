@@ -1934,7 +1934,7 @@ section.page-hero-common--netyear .section-bg-text,
     /* 完全に同じスタイルを統合（他のnet-lines用） */
     .net-lines:not(.hero__net-lines),
     .page-hero-common--netyear .net-lines {
-        opacity: 0.32;
+        opacity: 0.52;
     }
 
     .net-lines__svg,
@@ -1947,7 +1947,7 @@ section.page-hero-common--netyear .section-bg-text,
     body > .net-lines--right {
         position: fixed !important;
         z-index: 0 !important;
-        opacity: 0.38 !important;
+        opacity: 0.58 !important;
         display: block !important;
         visibility: visible !important;
         /* 位置指定（left/right/top）は保持 */
