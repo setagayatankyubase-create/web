@@ -34,41 +34,62 @@
             // ページロード時に即座に非表示にして点滅を防ぐ
             document.body.style.opacity = '0';
             document.body.style.willChange = 'opacity';
+            // 拡大を完全に防ぐ
+            document.body.style.transform = 'none';
+            document.documentElement.style.transform = 'none';
         }
         
         const fadeIn = () => {
             if (!document.body) return;
             
-            // ロゴを表示（背景が白い間だけ表示）
-            if (transitionLogo) {
-                transitionLogo.classList.remove('is-hiding');
-                transitionLogo.style.opacity = '1';
-                transitionLogo.style.transform = 'translate(-50%, -50%) scale(1)';
-                transitionLogo.style.visibility = 'visible';
-                transitionLogo.style.display = 'block';
-                transitionLogo.classList.add('is-visible');
-            }
-            
             // requestAnimationFrameでブラウザの描画タイミングに合わせる
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
+                    // 背景を白に設定（page-transition-inクラスでCSSが適用される）
                     document.body.classList.add('page-transition-in');
                     
-                    // ロゴを非表示にするタイミング（フェードイン開始と同時、背景が白から変わる直前）
+                    // ロゴを表示（背景が白い間だけ表示、scaleは完全に使わない）
+                    if (transitionLogo) {
+                        transitionLogo.classList.remove('is-hiding');
+                        transitionLogo.style.opacity = '1';
+                        transitionLogo.style.transform = 'translate(-50%, -50%)'; /* scaleは完全に使わない */
+                        transitionLogo.style.visibility = 'visible';
+                        transitionLogo.style.display = 'block';
+                        transitionLogo.classList.add('is-visible');
+                    }
+                    
+                    // タイムライン詳細:
+                    // 0ms: 背景: 白、body opacity: 0、ロゴ表示
+                    // 900ms: ロゴ非表示開始（背景が白から変わる直前）
+                    // 900ms: フェードイン開始（loadedクラス追加、opacity: 0 → 1、background: 白 → 透明）
+                    // 1900ms: フェードイン完了（CSS transition 1.0s）
+                    // 1900ms: クリーンアップ
+                    
+                    // ロゴを非表示にするタイミング（背景が白から変わる直前、フェードイン開始直前）
+                    // 背景が白い間だけロゴを表示するため、フェードイン開始と同時に非表示
                     setTimeout(() => {
+                        // ロゴを非表示（背景が白から変わる直前）
                         if (transitionLogo) {
                             transitionLogo.classList.add('is-hiding');
                             transitionLogo.classList.remove('is-visible');
+                            transitionLogo.style.opacity = '0';
+                            transitionLogo.style.transform = 'translate(-50%, -50%)'; /* scaleは完全に使わない */
                         }
                         
                         // フェードイン開始（背景が白から通常の背景に変わる）
+                        // この時点でopacityが0から1に変わり、backgroundが白から透明に変わる
                         document.body.classList.add('loaded');
-                    }, 100); // ロゴを少し表示してからフェードイン開始
+                    }, 900); // ロゴを900ms表示してからフェードイン開始（背景が白い間だけ表示）
                     
+                    // フェードイン完了後のクリーンアップ
                     setTimeout(() => {
                         document.body.classList.remove('page-transition-in', 'loaded');
                         document.body.style.opacity = '';
                         document.body.style.willChange = '';
+                        document.body.style.background = '';
+                        // 拡大を完全に防ぐ（transformをリセット）
+                        document.body.style.transform = '';
+                        document.documentElement.style.transform = '';
                         // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
                         const pt = document.querySelector('.page-transition-in');
                         if (pt) {
@@ -91,7 +112,7 @@
                         
                         // 初回ロード完了を記録
                         storage.set('page-transition-shown', '1');
-                    }, 600); // フェードイン完了まで待つ
+                    }, 1900); // フェードイン完了まで待つ（900ms + 1000ms transition）
                 });
             });
         };
