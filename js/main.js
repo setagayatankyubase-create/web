@@ -15,40 +15,84 @@
     
     // 初回ロード時のフェードインアニメーション
     if (isFirstLoad) {
+        // ローディングロゴ要素を作成
+        const createTransitionLogo = () => {
+            const logo = document.createElement('div');
+            logo.className = 'page-transition-logo';
+            logo.innerHTML = '<img src="/web/assets/img/heder.png" alt="SOCIAL BASE">';
+            // bodyの外（htmlの直接の子要素）に配置して、bodyのopacityの影響を受けないようにする
+            document.documentElement.appendChild(logo);
+            return logo;
+        };
+        
+        let transitionLogo = document.querySelector('.page-transition-logo');
+        if (!transitionLogo) {
+            transitionLogo = createTransitionLogo();
+        }
+        
         if (document.body) {
             // ページロード時に即座に非表示にして点滅を防ぐ
             document.body.style.opacity = '0';
-            document.body.style.willChange = 'opacity, transform';
+            document.body.style.willChange = 'opacity';
         }
         
         const fadeIn = () => {
             if (!document.body) return;
             
+            // ロゴを表示
+            if (transitionLogo) {
+                transitionLogo.classList.remove('is-hiding');
+                transitionLogo.style.opacity = '1';
+                transitionLogo.style.transform = 'translate(-50%, -50%) scale(1)';
+                transitionLogo.style.visibility = 'visible';
+                transitionLogo.style.display = 'block';
+                transitionLogo.classList.add('is-visible');
+            }
+            
             // requestAnimationFrameでブラウザの描画タイミングに合わせる
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     document.body.classList.add('page-transition-in');
+                    // 少し遅延してからフェードイン開始（ロゴを確実に表示）
                     setTimeout(() => {
-                        document.body.classList.remove('page-transition-in');
-                        document.body.style.opacity = '';
-                        document.body.style.willChange = '';
-                        // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
-                        const pt = document.querySelector('.page-transition-in');
-                        if (pt) {
-                            pt.style.overflow = '';
-                            pt.style.overflowX = '';
-                            pt.style.overflowY = '';
-                        }
-                        document.body.style.overflow = '';
-                        document.body.style.overflowX = '';
-                        document.body.style.overflowY = '';
-                        document.documentElement.style.overflow = '';
-                        document.documentElement.style.overflowX = '';
-                        document.documentElement.style.overflowY = '';
+                        document.body.classList.add('loaded');
                         
-                        // 初回ロード完了を記録
-                        storage.set('page-transition-shown', '1');
-                    }, 400);
+                        // ロゴを非表示にするタイミング（フェードイン開始後少し遅延）
+                        setTimeout(() => {
+                            if (transitionLogo) {
+                                transitionLogo.classList.add('is-hiding');
+                                transitionLogo.classList.remove('is-visible');
+                            }
+                        }, 300);
+                        
+                        setTimeout(() => {
+                            document.body.classList.remove('page-transition-in', 'loaded');
+                            document.body.style.opacity = '';
+                            document.body.style.willChange = '';
+                            // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
+                            const pt = document.querySelector('.page-transition-in');
+                            if (pt) {
+                                pt.style.overflow = '';
+                                pt.style.overflowX = '';
+                                pt.style.overflowY = '';
+                            }
+                            document.body.style.overflow = '';
+                            document.body.style.overflowX = '';
+                            document.body.style.overflowY = '';
+                            document.documentElement.style.overflow = '';
+                            document.documentElement.style.overflowX = '';
+                            document.documentElement.style.overflowY = '';
+                            
+                            // ロゴを完全に非表示
+                            if (transitionLogo) {
+                                transitionLogo.style.visibility = 'hidden';
+                                transitionLogo.style.display = 'none';
+                            }
+                            
+                            // 初回ロード完了を記録
+                            storage.set('page-transition-shown', '1');
+                        }, 500);
+                    }, 50);
                 });
             });
         };

@@ -256,7 +256,7 @@ body.page-transition-out {
 /* フェードイン（ページロード時） - 初回用 */
 body.page-transition-in {
     opacity: 0 !important; /* インラインスタイルより優先 */
-    animation: page-transition-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     /* stickyを機能させるためにoverflowをvisibleに（scrollコンテナにならないように） */
     overflow: visible !important;
     overflow-x: hidden !important;
@@ -265,6 +265,11 @@ body.page-transition-in {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     visibility: visible; /* レイアウトは表示するがopacityで制御 */
+    transform: translateZ(0); /* GPU加速、scaleは使わない */
+}
+
+body.page-transition-in.loaded {
+    opacity: 1 !important;
 }
 
 /* フェードイン（ページロード時） - 2回目以降用（シンプル版） */
@@ -286,14 +291,6 @@ body.page-transition-in-simple.loaded {
     opacity: 1 !important;
 }
 
-@keyframes page-transition-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
 
 /* リンクの基礎リセット */
 a {
