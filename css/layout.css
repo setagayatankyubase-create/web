@@ -810,6 +810,14 @@
     pointer-events: none !important;
 }
 
+/* ===== フローティングCTA（floating-cta）完全非表示 ===== */
+.floating-cta {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 /* ===== フッター構造 ===== */
 /* フッター共通レイアウト */
 
