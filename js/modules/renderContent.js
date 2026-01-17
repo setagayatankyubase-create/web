@@ -276,6 +276,18 @@ async function renderNewsBlock() {
             }
             
             // JSONデータから要素を生成（フィルタリング済みデータを使用）
+            // 記事がない場合のメッセージを表示
+            if (sectionFilteredData.length === 0) {
+                const emptyMessage = document.createElement('li');
+                emptyMessage.className = 'news-item news-item--empty';
+                emptyMessage.innerHTML = `
+                    <p style="color: var(--text-secondary); font-size: 14px; padding: 24px 0; text-align: center;">
+                        現在準備中です
+                    </p>
+                `;
+                parent.appendChild(emptyMessage);
+            }
+            
             sectionFilteredData.forEach((item) => {
                 const clone = template.cloneNode(true);
                 clone.removeAttribute('data-template');

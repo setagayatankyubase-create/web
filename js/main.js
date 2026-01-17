@@ -21,6 +21,19 @@
                 setTimeout(() => {
                     document.body.classList.remove('page-transition-in');
                     document.body.style.opacity = '';
+                    // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
+                    const pt = document.querySelector('.page-transition-in');
+                    if (pt) {
+                        pt.style.overflow = '';
+                        pt.style.overflowX = '';
+                        pt.style.overflowY = '';
+                    }
+                    document.body.style.overflow = '';
+                    document.body.style.overflowX = '';
+                    document.body.style.overflowY = '';
+                    document.documentElement.style.overflow = '';
+                    document.documentElement.style.overflowX = '';
+                    document.documentElement.style.overflowY = '';
                 }, 450);
             });
         });
@@ -345,6 +358,84 @@ Utils.onReady(async function() {
     // ===== サイドバーStickyデバッグ =====
     if (document.querySelector('.post-sidebar')) {
         const sidebar = document.querySelector('.post-sidebar');
+        
+        // サイドバー要素の同一性を検証
+        console.log('sidebar exists:', !!sidebar);
+        console.log('sidebar identity:', sidebar);
+        console.log('sidebar path:', sidebar && sidebar.closest('.post-page__inner')?.className);
+        
+        // html/bodyのcomputedスタイルをログに出す（stickyが死ぬ原因になりやすい）
+        console.log('\n=== [ROOT STYLES] html/body ===');
+        const hs = window.getComputedStyle(document.documentElement);
+        const bs = window.getComputedStyle(document.body);
+        console.log('html overflow:', hs.overflow, hs.overflowX, hs.overflowY);
+        console.log('html position:', hs.position, 'display:', hs.display);
+        console.log('html height:', hs.height, 'minHeight:', hs.minHeight);
+        console.log('html transform:', hs.transform, 'contain:', hs.contain);
+        console.log('body overflow:', bs.overflow, bs.overflowX, bs.overflowY);
+        console.log('body position:', bs.position, 'display:', bs.display);
+        console.log('body height:', bs.height, 'minHeight:', bs.minHeight);
+        console.log('body transform:', bs.transform, 'contain:', bs.contain);
+        console.log('body has overflow-anchor:', bs.overflowAnchor);
+        
+        // どれが実際にスクロールしてるかをログで確定
+        function logScrollOwners() {
+            const pt = document.querySelector('.page-transition-in');
+            console.log('[SCROLL OWNERS]',
+                'window.scrollY=', window.scrollY,
+                'html.scrollTop=', document.documentElement.scrollTop,
+                'body.scrollTop=', document.body.scrollTop,
+                'pt.scrollTop=', pt ? pt.scrollTop : '(no pt)'
+            );
+        }
+        
+        // スクロールイベントでスクロールオーナーを確認
+        window.addEventListener('scroll', () => logScrollOwners(), { passive: true });
+        const pt = document.querySelector('.page-transition-in');
+        if (pt) {
+            pt.addEventListener('scroll', () => {
+                console.log('[SCROLL OWNERS] pt element scrolled!');
+                logScrollOwners();
+            }, { passive: true });
+        }
+        
+        // sticky破壊プロパティを祖先チェーンで全探索
+        function debugStickyKillers(stickyEl) {
+            console.log('=== [STICKY KILLERS] ancestors check ===');
+            let el = stickyEl;
+            let i = 0;
+            while (el && el !== document.documentElement) {
+                const cs = window.getComputedStyle(el);
+                const killers = [];
+
+                // overflow系
+                if (['auto','scroll','hidden','clip'].includes(cs.overflow) ||
+                    ['auto','scroll','hidden','clip'].includes(cs.overflowY) ||
+                    ['auto','scroll','hidden','clip'].includes(cs.overflowX)) {
+                    killers.push(`overflow=${cs.overflow}/${cs.overflowX}/${cs.overflowY}`);
+                }
+
+                // transform系（stickyの参照座標を壊しやすい）
+                if (cs.transform && cs.transform !== 'none') killers.push(`transform=${cs.transform}`);
+                if (cs.filter && cs.filter !== 'none') killers.push(`filter=${cs.filter}`);
+                if (cs.perspective && cs.perspective !== 'none') killers.push(`perspective=${cs.perspective}`);
+
+                // contain / will-change（ブラウザによってstickyに悪影響）
+                if (cs.contain && cs.contain !== 'none') killers.push(`contain=${cs.contain}`);
+                if (cs.willChange && cs.willChange !== 'auto') killers.push(`will-change=${cs.willChange}`);
+
+                // position系（親が特殊なコンテキスト作ると厄介）
+                if (cs.position !== 'static') killers.push(`position=${cs.position}`);
+
+                if (killers.length) {
+                    const elInfo = el.className ? `${el.tagName.toLowerCase()}.${el.className.split(' ').join('.')}` : el.tagName.toLowerCase();
+                    console.log(`[${i}]`, elInfo, killers.join(' | '));
+                }
+                el = el.parentElement;
+                i++;
+            }
+            console.log('=== [/STICKY KILLERS] ===');
+        }
         const computedStyle = window.getComputedStyle(sidebar);
         const rect = sidebar.getBoundingClientRect();
         
@@ -366,6 +457,7 @@ Utils.onReady(async function() {
         
         // 親要素のスタイル確認
         console.log('\n=== 親要素のスタイル（階層順） ===');
+        console.log('scrollingElement:', document.scrollingElement && document.scrollingElement.tagName);
         let parent = sidebar.parentElement;
         let depth = 0;
         while (parent && depth < 5) {
@@ -373,15 +465,26 @@ Utils.onReady(async function() {
             const parentClass = parent.className || parent.tagName.toLowerCase();
             console.log(`\n[${depth}] ${parentClass}:`);
             console.log(`  position: ${parentStyle.position}`);
+            console.log(`  display: ${parentStyle.display}`);
             console.log(`  overflow: ${parentStyle.overflow}`);
             console.log(`  overflow-x: ${parentStyle.overflowX}`);
             console.log(`  overflow-y: ${parentStyle.overflowY}`);
+            console.log(`  transform: ${parentStyle.transform}`);
+            console.log(`  contain: ${parentStyle.contain}`);
+            console.log(`  filter: ${parentStyle.filter}`);
+            console.log(`  will-change: ${parentStyle.willChange}`);
             console.log(`  isolation: ${parentStyle.isolation}`);
             console.log(`  height: ${parentStyle.height}`);
             console.log(`  max-height: ${parentStyle.maxHeight}`);
             parent = parent.parentElement;
             depth++;
         }
+        
+        // offsetParentとpositioned ancestorを確認
+        console.log('\n=== offsetParent / containing block ===');
+        console.log('offsetParent:', sidebar.offsetParent);
+        console.log('offsetParent tag:', sidebar.offsetParent && sidebar.offsetParent.tagName);
+        console.log('offsetParent class:', sidebar.offsetParent && sidebar.offsetParent.className);
         
         // 親要素の高さとスクロールコンテキストを確認
         console.log('\n=== 親要素の高さとスクロールコンテキスト ===');
@@ -391,24 +494,82 @@ Utils.onReady(async function() {
         
         if (postPageInner) {
             const innerRect = postPageInner.getBoundingClientRect();
+            const sidebarRect = sidebar.getBoundingClientRect();
+            const sidebarTop = parseFloat(computedStyle.top) || 140;
+            const sidebarOffsetTop = sidebar.offsetTop;
+            const sidebarHeight = sidebar.scrollHeight;
+            
             console.log(`post-page__inner: height=${postPageInner.scrollHeight}px, clientHeight=${postPageInner.clientHeight}px`);
+            console.log(`サイドバー: offsetTop=${sidebarOffsetTop}px, height=${sidebarHeight}px, top=${sidebarTop}px`);
+            
+            // stickyが機能するために必要な親要素の高さ
+            const requiredHeight = sidebarOffsetTop + sidebarHeight + sidebarTop;
+            console.log(`必要な親要素の高さ: ${requiredHeight}px (offsetTop + sidebarHeight + top)`);
+            console.log(`実際の親要素の高さ: ${postPageInner.scrollHeight}px`);
+            console.log(`高さの差: ${postPageInner.scrollHeight - requiredHeight}px ${postPageInner.scrollHeight >= requiredHeight ? '(✓ 十分)' : '(✗ 不足)'}`);
+            
+            // 親要素の下端までの距離
+            const parentBottom = postPageInner.offsetTop + postPageInner.scrollHeight;
+            const sidebarBottom = sidebarOffsetTop + sidebarHeight;
+            console.log(`親要素の下端: ${parentBottom}px, サイドバーの下端（相対位置）: ${sidebarBottom}px`);
         }
         if (postPage) {
             const pageRect = postPage.getBoundingClientRect();
             console.log(`post-page: height=${postPage.scrollHeight}px, clientHeight=${postPage.clientHeight}px, offsetTop=${postPage.offsetTop}px`);
-            console.log(`サイドバーの相対位置: sidebar.offsetTop=${sidebar.offsetTop}px (親要素内での位置)`);
         }
         
-        // スクロール時の位置確認
+        // 強制的にスクロールテスト（300pxまで動かす）
+        console.log('\n=== 強制スクロールテスト開始 ===');
+        const targets = [0, 50, 120, 200, 300, 500];
+        let testIndex = 0;
+        const scrollTestTimer = setInterval(() => {
+            if (testIndex >= targets.length) {
+                clearInterval(scrollTestTimer);
+                console.log('=== 強制スクロールテスト完了 ===');
+                return;
+            }
+            const targetY = targets[testIndex];
+            window.scrollTo({ top: targetY, behavior: 'auto' });
+            
+            // requestAnimationFrameで計測（スクロール反映後に確実に測定）
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const sb = document.querySelector('.post-sidebar');
+                    if (sb) {
+                        const r = sb.getBoundingClientRect();
+                        const cs = window.getComputedStyle(sb);
+                        const expectedTop = parseFloat(cs.top) || 140;
+                        const isStuck = Math.abs(r.top - expectedTop) < 5;
+                        console.log(`[TEST ${testIndex + 1}] y=${targetY} rectTop=${r.top.toFixed(1)} computedTop=${cs.top} pos=${cs.position} 固定中=${isStuck}`);
+                    }
+                    testIndex++;
+                });
+            });
+        }, 300);
+        
+        // スクロール時の位置確認（サイドバー要素の同一性も検証）
         let scrollCheckCount = 0;
         let scrollTestDone = false;
+        let sidebarRef = sidebar; // 初期参照を保持
+        
         const checkScroll = () => {
             if (scrollCheckCount < 5 && !scrollTestDone) {
-                const newRect = sidebar.getBoundingClientRect();
-                const newStyle = window.getComputedStyle(sidebar);
+                // 毎回サイドバーを取り直して同一性を確認
+                const current = document.querySelector('.post-sidebar');
+                const same = current === sidebarRef;
+                if (!same) {
+                    console.warn('[SIDEBAR] element replaced!', { before: sidebarRef, after: current });
+                    sidebarRef = current;
+                }
+                
+                const newRect = current.getBoundingClientRect();
+                const newStyle = window.getComputedStyle(current);
                 const expectedTop = parseFloat(newStyle.top) || 140;
                 const isStuck = Math.abs(newRect.top - expectedTop) < 5; // 5pxの誤差を許容
-                console.log(`\n[スクロール時 ${scrollCheckCount + 1}] scrollY: ${window.scrollY.toFixed(1)}px, top: ${newRect.top.toFixed(1)}px (期待値: ${expectedTop}px), position: ${newStyle.position}, 固定中: ${isStuck}`);
+                
+                console.log(`\n[スクロール時 ${scrollCheckCount + 1}] sameEl=${same} scrollY: ${window.scrollY.toFixed(1)}px, top: ${newRect.top.toFixed(1)}px (期待値: ${expectedTop}px), position: ${newStyle.position}, 固定中: ${isStuck}`);
+                console.log(`  computed top: ${newStyle.top}, position: ${newStyle.position}`);
+                
                 scrollCheckCount++;
                 if (scrollCheckCount >= 5) {
                     scrollTestDone = true;
@@ -419,6 +580,9 @@ Utils.onReady(async function() {
             }
         };
         window.addEventListener('scroll', checkScroll, { once: false, passive: true });
+        
+        // sticky破壊プロパティを祖先チェーンで全探索
+        debugStickyKillers(sidebar);
         
         console.groupEnd();
     }
