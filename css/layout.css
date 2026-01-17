@@ -739,12 +739,8 @@
     left: 0;
     right: 0;
     z-index: 10000;
-    padding: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+    padding: clamp(16px, 4vw, 24px);
+    background: transparent;
     display: none;
     visibility: hidden;
     opacity: 0;
@@ -760,13 +756,13 @@
 
 .mobile-fixed-cta__button {
     width: 100%;
-    height: 56px;
+    height: 48px;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.01em;
     padding: 0 24px;
-    border-radius: 0;
-    background-color: var(--cta-primary-bg);
+    border-radius: var(--radius-pill);
+    background-color: rgba(30, 64, 175, 0.92);
     color: var(--cta-primary-text);
     text-decoration: none;
     display: flex !important;
@@ -777,11 +773,11 @@
 }
 
 .mobile-fixed-cta__button:hover {
-    background-color: var(--cta-primary-bg-hover);
+    background-color: rgba(30, 58, 138, 0.92);
 }
 
 .mobile-fixed-cta__button:active {
-    background-color: var(--cta-primary-bg-hover);
+    background-color: rgba(30, 58, 138, 0.92);
     transform: scale(0.98);
 }
 
