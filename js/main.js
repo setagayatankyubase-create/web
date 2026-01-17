@@ -16,6 +16,7 @@
     // 初回ロード時のフェードインアニメーション
     if (isFirstLoad) {
         if (document.body) {
+            // ページロード時に即座に非表示にして点滅を防ぐ
             document.body.style.opacity = '0';
             document.body.style.willChange = 'opacity, transform';
         }
@@ -23,47 +24,60 @@
         const fadeIn = () => {
             if (!document.body) return;
             
-            // より滑らかなアニメーションのために即座に開始
+            // requestAnimationFrameでブラウザの描画タイミングに合わせる
             requestAnimationFrame(() => {
-                document.body.classList.add('page-transition-in');
-                setTimeout(() => {
-                    document.body.classList.remove('page-transition-in');
-                    document.body.style.opacity = '';
-                    document.body.style.willChange = '';
-                    // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
-                    const pt = document.querySelector('.page-transition-in');
-                    if (pt) {
-                        pt.style.overflow = '';
-                        pt.style.overflowX = '';
-                        pt.style.overflowY = '';
-                    }
-                    document.body.style.overflow = '';
-                    document.body.style.overflowX = '';
-                    document.body.style.overflowY = '';
-                    document.documentElement.style.overflow = '';
-                    document.documentElement.style.overflowX = '';
-                    document.documentElement.style.overflowY = '';
-                    
-                    // 初回ロード完了を記録
-                    storage.set('page-transition-shown', '1');
-                }, 400);
+                requestAnimationFrame(() => {
+                    document.body.classList.add('page-transition-in');
+                    setTimeout(() => {
+                        document.body.classList.remove('page-transition-in');
+                        document.body.style.opacity = '';
+                        document.body.style.willChange = '';
+                        // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
+                        const pt = document.querySelector('.page-transition-in');
+                        if (pt) {
+                            pt.style.overflow = '';
+                            pt.style.overflowX = '';
+                            pt.style.overflowY = '';
+                        }
+                        document.body.style.overflow = '';
+                        document.body.style.overflowX = '';
+                        document.body.style.overflowY = '';
+                        document.documentElement.style.overflow = '';
+                        document.documentElement.style.overflowX = '';
+                        document.documentElement.style.overflowY = '';
+                        
+                        // 初回ロード完了を記録
+                        storage.set('page-transition-shown', '1');
+                    }, 400);
+                });
             });
         };
         
-        Utils.onReady(fadeIn);
+        // DOMが準備でき次第即座に実行
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', fadeIn, { once: true });
+        } else {
+            fadeIn();
+        }
     } else {
         // 2回目以降のロード時：シンプルなフェードイン
         if (document.body) {
+            // ページロード時に即座に非表示にして点滅を防ぐ
             document.body.style.opacity = '0';
+            document.body.style.willChange = 'opacity';
             document.body.classList.add('page-transition-in-simple');
             
-            Utils.onReady(() => {
+            // DOMContentLoadedを待たずに即座にフェードイン開始
+            const startFadeIn = () => {
+                // requestAnimationFrameでブラウザの描画タイミングに合わせる
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
                         document.body.classList.add('loaded');
+                        // アニメーション完了後にクリーンアップ
                         setTimeout(() => {
                             document.body.classList.remove('page-transition-in-simple', 'loaded');
                             document.body.style.opacity = '';
+                            document.body.style.willChange = '';
                             // stickyを機能させるためにoverflowを確実にリセット
                             document.body.style.overflow = '';
                             document.body.style.overflowX = '';
@@ -74,7 +88,14 @@
                         }, 300);
                     });
                 });
-            });
+            };
+            
+            // DOMが準備でき次第即座に実行
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', startFadeIn, { once: true });
+            } else {
+                startFadeIn();
+            }
         }
     }
     
@@ -127,12 +148,12 @@
             
             e.preventDefault();
             
-            // シンプルなフェードアウト
+            // シンプルなフェードアウト（即座に開始）
             document.body.style.willChange = 'opacity';
             document.body.classList.add('page-transition-out');
             setTimeout(() => {
                 window.location.href = link.href;
-            }, 300);
+            }, 300); // フェードアウト完了を待つ
         });
     } else {
         // 初回はアンカーリンクのスムーススクロールのみ
@@ -457,12 +478,15 @@ Utils.onReady(async function() {
                             const animType = entry.target.getAttribute('data-anim') || 'reveal';
                             const delay = entry.target.getAttribute('data-anim-delay') || '0';
                             
-                            // requestAnimationFrameを使用してより滑らかに
-                            requestAnimationFrame(() => {
+                            // 遅延がある場合のみsetTimeoutを使用、なければ即座に実行
+                            if (parseInt(delay) > 0) {
                                 setTimeout(() => {
                                     entry.target.classList.add(`reveal--${animType}--in`);
                                 }, parseInt(delay));
-                            });
+                            } else {
+                                // 遅延なしの場合は即座に実行
+                                entry.target.classList.add(`reveal--${animType}--in`);
+                            }
                             
                             observer.unobserve(entry.target);
                         }

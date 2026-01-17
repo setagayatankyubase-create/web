@@ -92,12 +92,15 @@ window.initScrollReveal = function initScrollReveal() {
                 const animType = entry.target.getAttribute('data-anim') || 'reveal';
                 const delay = entry.target.getAttribute('data-anim-delay') || '0';
                 
-                // requestAnimationFrameを使用してより滑らかに
-                requestAnimationFrame(() => {
+                // 遅延がある場合のみsetTimeoutを使用、なければ即座に実行
+                if (parseInt(delay) > 0) {
                     setTimeout(() => {
                         entry.target.classList.add(`reveal--${animType}--in`);
                     }, parseInt(delay));
-                });
+                } else {
+                    // 遅延なしの場合は即座に実行
+                    entry.target.classList.add(`reveal--${animType}--in`);
+                }
                 
                 observer.unobserve(entry.target);
             }

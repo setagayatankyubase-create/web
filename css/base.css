@@ -244,17 +244,18 @@ body {
 
 /* フェードアウト（ページ遷移時） - シンプル版 */
 body.page-transition-out {
-    opacity: 0;
+    opacity: 0 !important;
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     will-change: opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    transform: translateZ(0); /* GPU加速 */
 }
 
 /* フェードイン（ページロード時） - 初回用 */
 body.page-transition-in {
-    opacity: 0;
+    opacity: 0 !important; /* インラインスタイルより優先 */
     animation: page-transition-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     /* stickyを機能させるためにoverflowをvisibleに（scrollコンテナにならないように） */
     overflow: visible !important;
@@ -263,11 +264,12 @@ body.page-transition-in {
     will-change: opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    visibility: visible; /* レイアウトは表示するがopacityで制御 */
 }
 
 /* フェードイン（ページロード時） - 2回目以降用（シンプル版） */
 body.page-transition-in-simple {
-    opacity: 0;
+    opacity: 0 !important; /* インラインスタイルより優先 */
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     /* stickyを機能させるためにoverflowをvisibleに（scrollコンテナにならないように） */
     overflow: visible !important;
@@ -276,10 +278,12 @@ body.page-transition-in-simple {
     will-change: opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    transform: translateZ(0); /* GPU加速 */
+    visibility: visible; /* レイアウトは表示するがopacityで制御 */
 }
 
 body.page-transition-in-simple.loaded {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 @keyframes page-transition-in {
