@@ -11,20 +11,32 @@ window.initMobileMenu = function initMobileMenu() {
         const overlay = document.querySelector('.mobile-menu-overlay');
 
         if (!toggle || !mobileMenu) {
-            console.warn('[MobileMenu] Required elements not found');
+            console.warn('[MobileMenu] Required elements not found', {
+                toggle: !!toggle,
+                mobileMenu: !!mobileMenu
+            });
             return;
         }
 
-        if (isInitialized) return;
+        if (isInitialized) {
+            console.log('[MobileMenu] Already initialized, skipping');
+            return;
+        }
         isInitialized = true;
+        console.log('[MobileMenu] Initializing menu system');
 
         // モバイル判定（959px以下）
         const isMobile = () => window.matchMedia('(max-width: 959px)').matches;
 
         // メニューを開く
         const openMenu = () => {
-            if (!isMobile()) return;
+            console.log('[MobileMenu] openMenu called, isMobile:', isMobile());
+            if (!isMobile()) {
+                console.warn('[MobileMenu] Not mobile, skipping open');
+                return;
+            }
             
+            console.log('[MobileMenu] Opening menu...');
             toggle.setAttribute('aria-expanded', 'true');
             mobileMenu.classList.add('is-open');
             mobileMenu.setAttribute('aria-hidden', 'false');
@@ -33,6 +45,12 @@ window.initMobileMenu = function initMobileMenu() {
                 overlay.setAttribute('aria-hidden', 'false');
             }
             document.body.classList.add('is-mobile-menu-open');
+            
+            console.log('[MobileMenu] Menu opened, classes:', {
+                'mobileMenu.is-open': mobileMenu.classList.contains('is-open'),
+                'overlay.is-open': overlay ? overlay.classList.contains('is-open') : 'no overlay',
+                'body.is-mobile-menu-open': document.body.classList.contains('is-mobile-menu-open')
+            });
         };
 
         // メニューを閉じる
@@ -59,15 +77,25 @@ window.initMobileMenu = function initMobileMenu() {
 
         // ハンバーガーボタンクリック
         toggle.addEventListener('click', (e) => {
+            console.log('[MobileMenu] Toggle clicked');
             e.preventDefault();
             e.stopPropagation();
+            e.stopImmediatePropagation();
             
-            if (mobileMenu.classList.contains('is-open')) {
+            const isCurrentlyOpen = mobileMenu.classList.contains('is-open');
+            console.log('[MobileMenu] Current state:', isCurrentlyOpen ? 'open' : 'closed');
+            
+            if (isCurrentlyOpen) {
+                console.log('[MobileMenu] Closing menu');
                 closeMenu();
             } else {
+                console.log('[MobileMenu] Opening menu');
                 openMenu();
             }
-        });
+            
+            // 状態を再確認
+            console.log('[MobileMenu] After toggle - is-open:', mobileMenu.classList.contains('is-open'));
+        }, true); // capture phaseで実行して他のハンドラーより先に処理
 
         // オーバーレイクリックで閉じる
         if (overlay) {
@@ -85,39 +113,61 @@ window.initMobileMenu = function initMobileMenu() {
         });
 
         // サブメニューの開閉（Service等）
-        const submenuToggles = mobileMenu.querySelectorAll('.mobile-menu__link--toggle');
-        submenuToggles.forEach(toggleBtn => {
-            toggleBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+        const setupSubmenuToggles = () => {
+            const submenuToggles = mobileMenu.querySelectorAll('.mobile-menu__link--toggle');
+            console.log('[MobileMenu] Found submenu toggles:', submenuToggles.length);
+            
+            submenuToggles.forEach((toggleBtn, index) => {
+                // 既存のイベントリスナーを削除（重複防止）
+                const newToggleBtn = toggleBtn.cloneNode(true);
+                toggleBtn.parentNode.replaceChild(newToggleBtn, toggleBtn);
                 
-                const item = toggleBtn.closest('.mobile-menu__item');
-                if (!item) return;
-
-                const isOpen = item.classList.contains('is-open');
-                
-                // 他のサブメニューを閉じる
-                const allItems = mobileMenu.querySelectorAll('.mobile-menu__item.is-open');
-                allItems.forEach(i => {
-                    if (i !== item) {
-                        i.classList.remove('is-open');
-                        const btn = i.querySelector('.mobile-menu__link--toggle');
-                        if (btn) {
-                            btn.setAttribute('aria-expanded', 'false');
-                        }
+                newToggleBtn.addEventListener('click', (e) => {
+                    console.log('[MobileMenu] Submenu toggle clicked:', index);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    
+                    const item = newToggleBtn.closest('.mobile-menu__item');
+                    if (!item) {
+                        console.warn('[MobileMenu] Parent item not found');
+                        return;
                     }
-                });
 
-                // クリックしたアイテムを開閉
-                if (isOpen) {
-                    item.classList.remove('is-open');
-                    toggleBtn.setAttribute('aria-expanded', 'false');
-                } else {
-                    item.classList.add('is-open');
-                    toggleBtn.setAttribute('aria-expanded', 'true');
-                }
+                    const isOpen = item.classList.contains('is-open');
+                    console.log('[MobileMenu] Submenu current state:', isOpen ? 'open' : 'closed');
+                    
+                    // 他のサブメニューを閉じる
+                    const allItems = mobileMenu.querySelectorAll('.mobile-menu__item.is-open');
+                    allItems.forEach(i => {
+                        if (i !== item) {
+                            i.classList.remove('is-open');
+                            const btn = i.querySelector('.mobile-menu__link--toggle');
+                            if (btn) {
+                                btn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    });
+
+                    // クリックしたアイテムを開閉
+                    if (isOpen) {
+                        console.log('[MobileMenu] Closing submenu');
+                        item.classList.remove('is-open');
+                        newToggleBtn.setAttribute('aria-expanded', 'false');
+                    } else {
+                        console.log('[MobileMenu] Opening submenu');
+                        item.classList.add('is-open');
+                        newToggleBtn.setAttribute('aria-expanded', 'true');
+                    }
+                    
+                    // 状態を再確認
+                    console.log('[MobileMenu] Submenu after toggle - is-open:', item.classList.contains('is-open'));
+                }, true); // capture phaseで実行
             });
-        });
+        };
+        
+        // 初期化時にサブメニュートグルを設定
+        setupSubmenuToggles();
 
         // メニューリンククリック時（通常リンクの場合）は閉じる
         const menuLinks = mobileMenu.querySelectorAll('.mobile-menu__link:not(.mobile-menu__link--toggle)');
