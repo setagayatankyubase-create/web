@@ -1174,6 +1174,13 @@ a:hover .link-arrow-inline::after {
     overflow: hidden;
 }
 
+/* ヒーロー専用のnet-linesはposition: absoluteでヒーロー内に固定 */
+.hero--netyear .hero__net-lines.net-lines {
+    position: absolute !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
 /* 左側のネット線 */
 .net-lines--left {
     left: clamp(-40px, -2vw, 0px);
@@ -1334,10 +1341,30 @@ a:hover .link-arrow-inline::after {
 
 /* 共通アニメーション・グラデーション背景・ネットワーク線は上記で定義済み */
 
-/* トップページ専用のネット線スタイル */
-.hero--netyear .net-lines__svg {
-    width: min(480px, 40vw);
-    height: auto;
+/* ========================================
+   トップページ専用のネット線スタイル
+   .net-lines の基本スタイルを上書き
+   ======================================== */
+/* ヒーロー専用のネット線（.net-lines の基本スタイルを確実に上書き） */
+.hero--netyear .hero__net-lines.net-lines {
+    position: absolute !important;
+    display: block !important;
+    visibility: visible !important;
+    top: 15% !important;
+    right: 5% !important;
+    width: min(480px, 40vw) !important;
+    height: auto !important;
+    z-index: 1 !important;
+    opacity: 0.12 !important;
+    pointer-events: none !important;
+    overflow: visible !important;
+}
+
+.hero--netyear .hero__net-lines.net-lines .net-lines__svg {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    visibility: visible !important;
 }
 
 .hero--netyear .net-lines__path {
@@ -1377,6 +1404,26 @@ a:hover .link-arrow-inline::after {
     display: flex;
     align-items: center;
     padding-bottom: 0;
+}
+
+/* ヒーローセクション専用の背景テキスト */
+.hero--netyear .section-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(200px, 28vw, 480px);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.02);
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .hero--netyear .hero__bg {
@@ -1729,6 +1776,14 @@ section.page-hero-common--netyear .section-bg-text,
    ======================================== */
 
 @media (max-width: 900px) {
+    .hero--netyear {
+        min-height: auto;
+        height: auto;
+        padding-top: clamp(32px, 5vw, 48px);
+        padding-bottom: clamp(32px, 5vw, 48px);
+    }
+
+
     .hero--netyear .hero__inner {
         grid-template-columns: 1fr;
         align-items: start;
@@ -1802,23 +1857,51 @@ section.page-hero-common--netyear .section-bg-text,
         filter: blur(60px);
     }
     
-    .hero--netyear .net-lines {
-        opacity: 0.08;
-    }
-    
-    .hero--netyear .net-lines__svg {
-        width: min(300px, 50vw);
-    }
-
-    /* 完全に同じスタイルを統合 */
-    .net-lines,
+    /* 完全に同じスタイルを統合（他のnet-lines用） */
+    .net-lines:not(.hero__net-lines),
     .page-hero-common--netyear .net-lines {
-        opacity: 0.12;
+        opacity: 0.32;
     }
 
     .net-lines__svg,
     .page-hero-common--netyear .net-lines__svg {
         width: min(400px, 50vw);
+    }
+
+    /* JavaScriptで追加される他のnet-lines（body直下のleft/rightのみ）を非表示 */
+    body > .net-lines--left,
+    body > .net-lines--right {
+        display: none !important;
+    }
+
+    /* ヒーロー専用のネット線（両方のクラスを明示的に指定して優先度を上げる） */
+    .hero--netyear .hero__net-lines.net-lines {
+        display: block !important;
+        visibility: visible !important;
+        position: absolute !important;
+        top: 8% !important;
+        right: -10% !important;
+        width: 320px !important;
+        height: auto !important;
+        z-index: 1 !important;
+        opacity: 0.62 !important;
+        pointer-events: none !important;
+        overflow: visible !important;
+        bottom: auto !important;
+        left: auto !important;
+    }
+
+    .hero--netyear .hero__net-lines.net-lines .net-lines__svg {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* モバイル時の背景テキストサイズ調整 */
+    .hero--netyear .section-bg-text {
+        font-size: clamp(120px, 30vw, 300px);
+        opacity: 0.015;
     }
 }
 
