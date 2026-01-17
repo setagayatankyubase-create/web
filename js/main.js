@@ -116,6 +116,55 @@ Utils.onReady(async function() {
         window.resolveRelativeLinks(ctaContainer);
     }
     
+    // スマホ版固定CTAをbody直下に追加
+    if (!document.querySelector('.mobile-fixed-cta')) {
+        const mobileFixedCta = document.createElement('div');
+        mobileFixedCta.className = 'mobile-fixed-cta';
+        mobileFixedCta.setAttribute('aria-label', 'お問い合わせ');
+        
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/')) || '';
+        const contactUrl = basePath ? `${basePath}/contact.html` : '/web/contact.html';
+        
+        mobileFixedCta.innerHTML = `<a href="${contactUrl}" class="mobile-fixed-cta__button">お問い合わせはこちら</a>`;
+        document.body.appendChild(mobileFixedCta);
+        
+        // リンクを解決
+        window.resolveRelativeLinks(mobileFixedCta);
+        
+        // スクロールで表示/非表示を制御
+        if (window.matchMedia('(max-width: 959px)').matches) {
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+            
+            const handleScroll = () => {
+                const currentScrollY = window.scrollY;
+                
+                // 下にスクロールしたら出現（100px以上スクロール）
+                if (currentScrollY > 100 && currentScrollY > lastScrollY) {
+                    mobileFixedCta.classList.add('is-visible');
+                }
+                // 上にスクロールしたら消える、またはトップに近づいたら消える
+                else if (currentScrollY < lastScrollY || currentScrollY <= 100) {
+                    mobileFixedCta.classList.remove('is-visible');
+                }
+                
+                lastScrollY = currentScrollY;
+                ticking = false;
+            };
+            
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(handleScroll);
+                    ticking = true;
+                }
+            });
+            
+            // 初期状態をチェック
+            handleScroll();
+        }
+    }
+    
     window.setActiveNav();
     // ヘッダーのスクロール検知
     const header = document.querySelector('.header');

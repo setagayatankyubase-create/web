@@ -732,6 +732,80 @@
 /* ===== Header News Ticker ===== */
 /* ヘッダーお知らせバーのスタイルは components.css に移動しました */
 
+/* ===== スマホ版固定CTA（画面下部） ===== */
+.mobile-fixed-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-fixed-cta.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.mobile-fixed-cta__button {
+    width: 100%;
+    height: 56px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    padding: 0 24px;
+    border-radius: 0;
+    background-color: var(--cta-primary-bg);
+    color: var(--cta-primary-text);
+    text-decoration: none;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.mobile-fixed-cta__button:hover {
+    background-color: var(--cta-primary-bg-hover);
+}
+
+.mobile-fixed-cta__button:active {
+    background-color: var(--cta-primary-bg-hover);
+    transform: scale(0.98);
+}
+
+/* スマホ時のみ表示 */
+@media (max-width: 959px) {
+    .mobile-fixed-cta {
+        display: block !important;
+        pointer-events: auto !important;
+    }
+
+    .mobile-fixed-cta__button {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* PC時は非表示 */
+@media (min-width: 960px) {
+    .mobile-fixed-cta {
+        display: none !important;
+    }
+}
+
 /* ===== フッター構造 ===== */
 /* フッター共通レイアウト */
 
@@ -741,6 +815,13 @@
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
     z-index: 10;
+}
+
+/* スマホ時、フッターの下に余白を追加（固定CTAの分） */
+@media (max-width: 959px) {
+    .footer {
+        padding-bottom: 80px;
+    }
 }
 
 /* 繝輔ャ繧ｿ繝ｼ繝ｪ繝ｳ繧ｯ繧ｻ繧ｯ繧ｷ繝ｧ繝ｳ */
