@@ -39,7 +39,7 @@
         const fadeIn = () => {
             if (!document.body) return;
             
-            // ロゴを表示
+            // ロゴを表示（背景が白い間だけ表示）
             if (transitionLogo) {
                 transitionLogo.classList.remove('is-hiding');
                 transitionLogo.style.opacity = '1';
@@ -53,46 +53,45 @@
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     document.body.classList.add('page-transition-in');
-                    // 少し遅延してからフェードイン開始（ロゴを確実に表示）
+                    
+                    // ロゴを非表示にするタイミング（フェードイン開始と同時、背景が白から変わる直前）
                     setTimeout(() => {
+                        if (transitionLogo) {
+                            transitionLogo.classList.add('is-hiding');
+                            transitionLogo.classList.remove('is-visible');
+                        }
+                        
+                        // フェードイン開始（背景が白から通常の背景に変わる）
                         document.body.classList.add('loaded');
+                    }, 100); // ロゴを少し表示してからフェードイン開始
+                    
+                    setTimeout(() => {
+                        document.body.classList.remove('page-transition-in', 'loaded');
+                        document.body.style.opacity = '';
+                        document.body.style.willChange = '';
+                        // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
+                        const pt = document.querySelector('.page-transition-in');
+                        if (pt) {
+                            pt.style.overflow = '';
+                            pt.style.overflowX = '';
+                            pt.style.overflowY = '';
+                        }
+                        document.body.style.overflow = '';
+                        document.body.style.overflowX = '';
+                        document.body.style.overflowY = '';
+                        document.documentElement.style.overflow = '';
+                        document.documentElement.style.overflowX = '';
+                        document.documentElement.style.overflowY = '';
                         
-                        // ロゴを非表示にするタイミング（フェードイン開始後少し遅延）
-                        setTimeout(() => {
-                            if (transitionLogo) {
-                                transitionLogo.classList.add('is-hiding');
-                                transitionLogo.classList.remove('is-visible');
-                            }
-                        }, 300);
+                        // ロゴを完全に非表示
+                        if (transitionLogo) {
+                            transitionLogo.style.visibility = 'hidden';
+                            transitionLogo.style.display = 'none';
+                        }
                         
-                        setTimeout(() => {
-                            document.body.classList.remove('page-transition-in', 'loaded');
-                            document.body.style.opacity = '';
-                            document.body.style.willChange = '';
-                            // stickyを機能させるためにoverflowを確実にリセット（body、ラッパー、htmlすべて）
-                            const pt = document.querySelector('.page-transition-in');
-                            if (pt) {
-                                pt.style.overflow = '';
-                                pt.style.overflowX = '';
-                                pt.style.overflowY = '';
-                            }
-                            document.body.style.overflow = '';
-                            document.body.style.overflowX = '';
-                            document.body.style.overflowY = '';
-                            document.documentElement.style.overflow = '';
-                            document.documentElement.style.overflowX = '';
-                            document.documentElement.style.overflowY = '';
-                            
-                            // ロゴを完全に非表示
-                            if (transitionLogo) {
-                                transitionLogo.style.visibility = 'hidden';
-                                transitionLogo.style.display = 'none';
-                            }
-                            
-                            // 初回ロード完了を記録
-                            storage.set('page-transition-shown', '1');
-                        }, 500);
-                    }, 50);
+                        // 初回ロード完了を記録
+                        storage.set('page-transition-shown', '1');
+                    }, 600); // フェードイン完了まで待つ
                 });
             });
         };

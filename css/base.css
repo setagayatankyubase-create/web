@@ -255,13 +255,15 @@ body.page-transition-out {
 
 /* フェードイン（ページロード時） - 初回用 */
 body.page-transition-in {
-    opacity: 0 !important; /* インラインスタイルより優先 */
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0 !important; /* インラインスタイルより優先、背景が白い状態 */
+    background: #fff !important; /* 背景を白に設定 */
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     /* stickyを機能させるためにoverflowをvisibleに（scrollコンテナにならないように） */
     overflow: visible !important;
     overflow-x: hidden !important;
     overflow-y: visible !important;
-    will-change: opacity;
+    will-change: opacity, background;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     visibility: visible; /* レイアウトは表示するがopacityで制御 */
@@ -270,6 +272,7 @@ body.page-transition-in {
 
 body.page-transition-in.loaded {
     opacity: 1 !important;
+    background: transparent !important; /* 背景を透明に戻す（通常の背景色に戻る） */
 }
 
 /* フェードイン（ページロード時） - 2回目以降用（シンプル版） */
