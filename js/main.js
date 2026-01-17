@@ -486,3 +486,4 @@ if (typeof window.initMegaMenu === 'function') {
 if (typeof window.initMobileMenu === 'function') {
     window.initMobileMenu();
 }
+
