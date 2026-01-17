@@ -389,8 +389,11 @@ Utils.onReady(async function() {
     }
     
     function initNetLines() {
-        document.querySelector('.net-lines:not(.net-lines--right)')?.remove();
-        document.querySelectorAll('.net-lines--right').forEach(el => el.remove());
+        // body直下に追加された動的なnet-linesのみ削除（ページ内の既存net-linesは残す）
+        document.querySelectorAll('body > .net-lines:not(.hero__net-lines)').forEach(el => el.remove());
+        
+        // 既存の動的net-linesを削除（left/rightクラスを持つもの）
+        document.querySelectorAll('body > .net-lines--left, body > .net-lines--right').forEach(el => el.remove());
         
         document.body.appendChild(createNetLines('net-lines--left'));
         document.body.appendChild(createNetLines('net-lines--right net-lines--right-1'));

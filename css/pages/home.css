@@ -252,18 +252,17 @@
 
 .top-services--netyear .top-services__net-bg {
     position: absolute;
-    inset: 0;
-    z-index: 1;
+    bottom: -20%;
+    right: -12%;
+    width: min(520px, 46vw);
+    opacity: 0.10;
+    z-index: 0;
     pointer-events: none;
-    opacity: 0.15; /* 見えるように濃く */
 }
 
 .top-services--netyear .top-services__net-bg .net-lines__svg {
-    width: min(520px, 46vw);
+    width: 100%;
     height: auto;
-    position: absolute;
-    left: clamp(-40px, -2vw, 0px);
-    top: 20%;
     animation: netFloat 32s ease-in-out infinite alternate;
 }
 
@@ -311,7 +310,8 @@
     }
     
     .top-services--netyear .top-services__net-bg {
-        opacity: 0.12; /* 見えるように濃く */
+        opacity: 0.16;
+        width: 320px;
     }
 }
 
@@ -757,7 +757,7 @@
     }
     
     .value-figure {
-        width: min(540px, 85vw);
+        width: min(650px, 95vw);
     }
     
     .value-block__net-lines {

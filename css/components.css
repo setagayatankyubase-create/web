@@ -1166,22 +1166,26 @@ a:hover .link-arrow-inline::after {
    ネットワーク線（共通スタイル）
    ======================================== */
 
+/* ========================================
+   ネットワーク線（共通スタイル）
+   ======================================== */
+
+/* 基本スタイル：セクション内の静的net-linesはabsolute */
 .net-lines {
-    position: fixed;
+    position: absolute;
     pointer-events: none;
     opacity: 0.15;
     z-index: 0;
     overflow: hidden;
 }
 
-/* ヒーロー専用のnet-linesはposition: absoluteでヒーロー内に固定 */
-.hero--netyear .hero__net-lines.net-lines {
-    position: absolute !important;
-    display: block !important;
-    visibility: visible !important;
+/* body直下に追加される動的背景（fixedでスクロール追従） */
+body > .net-lines {
+    position: fixed;
+    z-index: 0;
 }
 
-/* 左側のネット線 */
+/* 動的背景の位置指定（left/rightクラス） */
 .net-lines--left {
     left: clamp(-40px, -2vw, 0px);
     top: 10%;
@@ -1189,7 +1193,6 @@ a:hover .link-arrow-inline::after {
     height: auto;
 }
 
-/* 右側のネット線 */
 .net-lines--right {
     right: clamp(-40px, -2vw, 0px);
     width: min(520px, 46vw);
@@ -1204,10 +1207,18 @@ a:hover .link-arrow-inline::after {
     top: 60%;
 }
 
-/* 左側と右側のネット線 */
+/* 動的背景の不透明度 */
 .net-lines--left,
 .net-lines--right {
     opacity: 0.18;
+}
+
+/* セクション内の静的net-linesはabsoluteで維持 */
+.hero--netyear .hero__net-lines.net-lines,
+.value-block__net-lines.net-lines,
+.notice__net-lines.net-lines,
+.top-services__net-bg.net-lines {
+    position: absolute;
 }
 
 .net-lines__svg {
@@ -1388,6 +1399,40 @@ a:hover .link-arrow-inline::after {
 .hero--netyear .net-lines__node:nth-child(13) { animation-delay: 1.8s; }
 .hero--netyear .net-lines__node:nth-child(14) { animation-delay: 2s; }
 .hero--netyear .net-lines__node:nth-child(15) { animation-delay: 2.2s; }
+
+/* ========================================
+   各セクション専用のネット線スタイル
+   ======================================== */
+
+/* value-block */
+.value-block__net-lines.net-lines {
+    position: absolute;
+    top: -10%;
+    right: -8%;
+    width: min(420px, 42vw);
+    opacity: 0.12;
+    z-index: 0;
+}
+
+/* notice */
+.notice__net-lines.net-lines {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: min(360px, 38vw);
+    opacity: 0.10;
+    z-index: 0;
+}
+
+/* top-services */
+.top-services__net-bg.net-lines {
+    position: absolute;
+    bottom: -20%;
+    right: -12%;
+    width: min(520px, 46vw);
+    opacity: 0.10;
+    z-index: 0;
+}
 
 /* ========================================
    Hero Section (トップページヒーロー)
@@ -1868,13 +1913,18 @@ section.page-hero-common--netyear .section-bg-text,
         width: min(400px, 50vw);
     }
 
-    /* JavaScriptで追加される他のnet-lines（body直下のleft/rightのみ）を非表示 */
+    /* JavaScriptで追加される動的背景（body直下のleft/right）はfixedでスクロール追従 */
     body > .net-lines--left,
     body > .net-lines--right {
-        display: none !important;
+        position: fixed !important;
+        z-index: 0 !important;
+        opacity: 0.38 !important;
+        display: block !important;
+        visibility: visible !important;
+        /* 位置指定（left/right/top）は保持 */
     }
 
-    /* ヒーロー専用のネット線（両方のクラスを明示的に指定して優先度を上げる） */
+    /* ヒーロー専用のネット線（静的net-linesのみ表示、動的背景と重複しない） */
     .hero--netyear .hero__net-lines.net-lines {
         display: block !important;
         visibility: visible !important;
@@ -1891,11 +1941,62 @@ section.page-hero-common--netyear .section-bg-text,
         left: auto !important;
     }
 
+    /* ヒーローセクション内の動的背景を非表示（静的net-linesのみ表示） */
+    /* topが10%の動的背景（.net-lines--left）を非表示 */
+    body > .net-lines--left {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* topが20%の動的背景（.net-lines--right-1）を非表示 */
+    body > .net-lines--right.net-lines--right-1 {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* topが60%の動的背景（.net-lines--right-2）のみ表示（ヒーローエリア外） */
+    body > .net-lines--right.net-lines--right-2 {
+        opacity: 0.32 !important;
+        visibility: visible !important;
+    }
+
     .hero--netyear .hero__net-lines.net-lines .net-lines__svg {
         width: 100% !important;
         height: auto !important;
         display: block !important;
         visibility: visible !important;
+    }
+
+    /* ヒーローセクション内で動的背景を非表示（静的net-linesのみ表示、重複を避ける） */
+    /* topが10%の動的背景（.net-lines--left）を非表示 */
+    body > .net-lines--left {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* topが20%の動的背景（.net-lines--right-1）を非表示 */
+    body > .net-lines--right.net-lines--right-1 {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* topが60%の動的背景（.net-lines--right-2）のみ表示（ヒーローエリア外） */
+    body > .net-lines--right.net-lines--right-2 {
+        opacity: 0.18 !important;
+        visibility: visible !important;
+    }
+
+    /* セクション内の静的net-lines（スマホ時の見え方調整） */
+    .value-block__net-lines.net-lines,
+    .notice__net-lines.net-lines,
+    .top-services__net-bg.net-lines {
+        opacity: 0.16;
+        width: 320px;
+        position: absolute;
     }
 
     /* モバイル時の背景テキストサイズ調整 */
