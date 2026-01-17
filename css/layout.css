@@ -847,6 +847,73 @@
     flex-shrink: 0;
 }
 
+/* スマホ版フッター：縦積みレイアウト */
+@media (max-width: 959px) {
+    /* セクション全体を縦積み */
+    .footer-service,
+    .footer-corporate {
+        flex-direction: column !important;
+        gap: clamp(20px, 3vw, 24px) !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+    }
+
+    /* 左側セクション（タイトル部分） */
+    .footer-service-left,
+    .footer-corporate-left {
+        min-width: auto !important;
+        width: 100% !important;
+        flex-shrink: 1 !important;
+    }
+
+    /* ナビゲーション：3列グリッドに変更（PC用のflexスタイルを完全リセット） */
+    .footer-service-nav,
+    .footer-corporate-nav {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: clamp(8px, 2vw, 12px) clamp(12px, 2vw, 16px) !important;
+        align-items: start !important;
+        align-content: start !important;
+        justify-content: flex-start !important;
+        justify-items: flex-start !important;
+        flex: none !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+    }
+
+    /* ナビゲーションリンクのスタイル調整 */
+    .footer-service-nav a,
+    .footer-corporate-nav a {
+        white-space: normal !important;
+        word-break: break-word !important;
+        text-align: left !important;
+    }
+
+    /* セパレーターを非表示 */
+    .footer-nav-separator {
+        display: none !important;
+    }
+
+    /* SNSアイコンを最下層に配置（.footer-links-section直下の場合） */
+    .footer-links-section > .footer-social {
+        display: flex !important;
+        flex-direction: row !important;
+        margin-top: clamp(32px, 5vw, 40px) !important;
+        padding-top: clamp(24px, 4vw, 32px) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+        order: 999 !important;
+        gap: 16px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+
+    /* SNSアイコンが.footer-corporate-left内にある場合は非表示 */
+    .footer-corporate-left .footer-social {
+        display: none !important;
+    }
+}
+
 .footer-section-title {
     font-size: 12px;
     font-weight: 600;
