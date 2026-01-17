@@ -202,28 +202,91 @@ body {
     }
 }
 
-/* フェードアウト（ページ遷移時） */
+/* ページ遷移ローディングロゴ */
+.page-transition-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0;
+    z-index: 99999;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+    visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.page-transition-logo img {
+    width: 140px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+    will-change: transform;
+}
+
+.page-transition-logo.is-visible {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+.page-transition-logo.is-hiding {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* フェードアウト（ページ遷移時） - シンプル版 */
 body.page-transition-out {
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
+    will-change: opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
-/* フェードイン（ページロード時） */
+/* フェードイン（ページロード時） - 初回用 */
 body.page-transition-in {
     opacity: 0;
-    animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: page-transition-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     /* stickyを機能させるためにoverflowをvisibleに（scrollコンテナにならないように） */
     overflow: visible !important;
     overflow-x: hidden !important;
     overflow-y: visible !important;
+    will-change: opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
-@keyframes page-fade-in {
-    from {
+/* フェードイン（ページロード時） - 2回目以降用（シンプル版） */
+body.page-transition-in-simple {
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* stickyを機能させるためにoverflowをvisibleに（scrollコンテナにならないように） */
+    overflow: visible !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    will-change: opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+body.page-transition-in-simple.loaded {
+    opacity: 1;
+}
+
+@keyframes page-transition-in {
+    0% {
         opacity: 0;
     }
-    to {
+    100% {
         opacity: 1;
     }
 }
@@ -252,6 +315,126 @@ body.page-transition-in,
     overflow-x: visible !important;
     overflow-y: visible !important;
 }
+
+/* ========================================
+   スクロール出現アニメーション
+   ======================================== */
+[data-anim] {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform, filter;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* フェードイン */
+[data-anim="reveal"],
+[data-anim="fade"] {
+    opacity: 0;
+}
+
+[data-anim="reveal"].reveal--reveal--in,
+[data-anim="fade"].reveal--fade--in {
+    opacity: 1;
+}
+
+/* スライドアップ */
+[data-anim="slide-up"] {
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+[data-anim="slide-up"].reveal--slide-up--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* スライドダウン */
+[data-anim="slide-down"] {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+[data-anim="slide-down"].reveal--slide-down--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* スライド左 */
+[data-anim="slide-left"] {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+[data-anim="slide-left"].reveal--slide-left--in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* スライド右 */
+[data-anim="slide-right"] {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+[data-anim="slide-right"].reveal--slide-right--in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* スケール */
+[data-anim="scale"] {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+[data-anim="scale"].reveal--scale--in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* スケール + フェード */
+[data-anim="scale-fade"] {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+[data-anim="scale-fade"].reveal--scale-fade--in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ブラー */
+[data-anim="blur"] {
+    opacity: 0;
+    filter: blur(10px);
+}
+
+[data-anim="blur"].reveal--blur--in {
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* 回転 */
+[data-anim="rotate"] {
+    opacity: 0;
+    transform: rotate(-5deg) scale(0.95);
+}
+
+[data-anim="rotate"].reveal--rotate--in {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+/* 遅延付きアニメーション */
+[data-anim-delay="100"] { transition-delay: 0.1s; }
+[data-anim-delay="200"] { transition-delay: 0.2s; }
+[data-anim-delay="300"] { transition-delay: 0.3s; }
+[data-anim-delay="400"] { transition-delay: 0.4s; }
+[data-anim-delay="500"] { transition-delay: 0.5s; }
+[data-anim-delay="600"] { transition-delay: 0.6s; }
 
 /* ========================================
    htmlのoverflowを確実にvisibleに（stickyを安定させる）
